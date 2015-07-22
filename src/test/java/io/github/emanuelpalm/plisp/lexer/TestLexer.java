@@ -90,4 +90,26 @@ public class TestLexer {
                 new Token(null, TokenClass.SYM, "åäö")
         );
     }
+
+    @Test
+    public void shouldTokenizeExpression() throws Throwable {
+        test("(+ 10 (int (foldl * 1. [-72.2 -5.1])))",
+                new Token(null, TokenClass.PAL, "("),
+                new Token(null, TokenClass.SYM, "+"),
+                new Token(null, TokenClass.INT, "10"),
+                new Token(null, TokenClass.PAL, "("),
+                new Token(null, TokenClass.SYM, "int"),
+                new Token(null, TokenClass.PAL, "("),
+                new Token(null, TokenClass.SYM, "foldl"),
+                new Token(null, TokenClass.SYM, "*"),
+                new Token(null, TokenClass.NUM, "1."),
+                new Token(null, TokenClass.BRL, "["),
+                new Token(null, TokenClass.NUM, "-72.2"),
+                new Token(null, TokenClass.NUM, "-5.1"),
+                new Token(null, TokenClass.BRR, "]"),
+                new Token(null, TokenClass.PAR, ")"),
+                new Token(null, TokenClass.PAR, ")"),
+                new Token(null, TokenClass.PAR, ")")
+        );
+    }
 }
