@@ -25,7 +25,7 @@ public class Lexer {
         final byte b = tokenReader.read();
         switch (b) {
             case '\0':
-                return tokenReader.consume(TokenClass.END);
+                return Token.END;
 
             case ' ':
             case '\n':

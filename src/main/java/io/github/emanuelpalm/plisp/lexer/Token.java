@@ -4,6 +4,9 @@ package io.github.emanuelpalm.plisp.lexer;
  * Identifies a lexeme, its class and its origin.
  */
 public class Token {
+    /** Default end token. Signals the end of some stream of tokens. */
+    public static final Token END = new Token(new TokenOrigin("", 0, 0), TokenClass.END, "");
+
     private final TokenOrigin origin;
     private final TokenClass type;
     private final String lexeme;
