@@ -13,6 +13,7 @@ public enum TokenClass {
     BRL, // [
     BRR, // ]
 
+    INT, // Integer.
     NUM, // Number.
     SYM  // Symbol.
 }

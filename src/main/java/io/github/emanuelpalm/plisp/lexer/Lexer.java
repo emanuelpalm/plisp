@@ -57,8 +57,9 @@ public class Lexer {
                 tokenReader.readWhile(IS_DIGIT);
                 if (tokenReader.readIf((b0) -> b0 == '.')) {
                     tokenReader.readWhile(IS_DIGIT);
+                    return tokenReader.consume(TokenClass.NUM);
                 }
-                return tokenReader.consume(TokenClass.NUM);
+                return tokenReader.consume(TokenClass.INT);
 
             case ':':
                 return tokenReader.consume(TokenClass.COL);

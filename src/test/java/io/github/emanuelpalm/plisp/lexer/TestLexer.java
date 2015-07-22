@@ -45,7 +45,7 @@ public class TestLexer {
     @Test
     public void shouldTokenizeInteger() throws Throwable {
         test("1234",
-                new Token(null, TokenClass.NUM, "1234"),
+                new Token(null, TokenClass.INT, "1234"),
                 new Token(null, TokenClass.END, "")
         );
     }
@@ -53,14 +53,14 @@ public class TestLexer {
     @Test
     public void shouldTokenizeIntegersWithInfixOperators() throws Throwable {
         test("+123 -456",
-                new Token(null, TokenClass.NUM, "+123"),
-                new Token(null, TokenClass.NUM, "-456"),
+                new Token(null, TokenClass.INT, "+123"),
+                new Token(null, TokenClass.INT, "-456"),
                 new Token(null, TokenClass.END, "")
         );
     }
 
     @Test
-    public void shouldTokenizeDecimalNumber() throws Throwable {
+    public void shouldTokenizeNumber() throws Throwable {
         test("123.456",
                 new Token(null, TokenClass.NUM, "123.456"),
                 new Token(null, TokenClass.END, "")
@@ -68,7 +68,7 @@ public class TestLexer {
     }
 
     @Test
-    public void shouldTokenizeDecimalNumbersWithInfixOperators() throws Throwable {
+    public void shouldTokenizeNumbersWithInfixOperators() throws Throwable {
         test("+12.3 -4.56",
                 new Token(null, TokenClass.NUM, "+12.3"),
                 new Token(null, TokenClass.NUM, "-4.56"),
