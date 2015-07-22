@@ -7,13 +7,13 @@ import java.util.function.Predicate;
  * <p>
  * The token reader facilitates two significant categories of operations: read and consume. The former advances an
  * internal read pointer through a stream of characters, while the latter advances an internal consume pointer to the
- * current position of the internal read pointer.
+ * current position of an internal read pointer.
  */
 public interface TokenReader {
-    /** Yields a name identifying the reader. */
+    /** Yields name identifying token reader. */
     String name();
 
-    /** Reads one 8-bit unsigned character. Returns '\0' if the end of the stream has been reached. */
+    /** Reads one byte. Returns '\0' if the end of the stream has been reached. */
     byte read();
 
     /** Forwards the read pointer if given predicate is true. Returns result of predicate test. */
@@ -28,7 +28,7 @@ public interface TokenReader {
     /**
      * Consumes all characters read up until this call, producing a token of given type out of the characters.
      * <p>
-     * The token lexeme may not include the character '\n'.
+     * The consumed token lexeme <b>must not</b> include the character '\n'.
      */
     Token consume(final TokenClass tc);
 
