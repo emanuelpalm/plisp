@@ -1,6 +1,6 @@
 package io.github.emanuelpalm.plisp.lexer;
 
-import io.github.emanuelpalm.plisp.testing.FileUtils;
+import io.github.emanuelpalm.util.testing.FileUtils;
 import org.testng.annotations.*;
 
 import java.nio.charset.StandardCharsets;

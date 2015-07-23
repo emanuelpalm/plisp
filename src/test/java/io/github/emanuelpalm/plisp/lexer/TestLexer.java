@@ -1,6 +1,6 @@
 package io.github.emanuelpalm.plisp.lexer;
 
-import io.github.emanuelpalm.plisp.testing.FileUtils;
+import io.github.emanuelpalm.util.testing.FileUtils;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
