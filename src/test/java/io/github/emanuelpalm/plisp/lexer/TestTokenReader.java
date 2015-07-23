@@ -4,7 +4,6 @@ import io.github.emanuelpalm.util.testing.FileUtils;
 import org.testng.annotations.*;
 
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.Callable;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
