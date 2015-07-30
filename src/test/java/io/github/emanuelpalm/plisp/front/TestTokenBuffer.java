@@ -16,16 +16,16 @@ public class TestTokenBuffer {
                 new Token(null, TokenClass.PAR, ")")
         )));
 
-        assertEquals(tb.read().type(), TokenClass.PAL);
+        assertEquals(tb.next().type(), TokenClass.PAL);
 
         final int s = tb.state();
-        assertEquals(tb.read().type(), TokenClass.INT);
-        assertEquals(tb.read().type(), TokenClass.PAR);
+        assertEquals(tb.next().type(), TokenClass.INT);
+        assertEquals(tb.next().type(), TokenClass.PAR);
 
         tb.restore(s);
-        assertEquals(tb.read().type(), TokenClass.INT);
-        assertEquals(tb.read().type(), TokenClass.PAR);
-        assertEquals(tb.read().type(), TokenClass.END);
-        assertEquals(tb.read().type(), TokenClass.END);
+        assertEquals(tb.next().type(), TokenClass.INT);
+        assertEquals(tb.next().type(), TokenClass.PAR);
+        assertEquals(tb.next().type(), TokenClass.END);
+        assertEquals(tb.next().type(), TokenClass.END);
     }
 }

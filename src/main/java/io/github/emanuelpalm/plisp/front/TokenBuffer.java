@@ -36,8 +36,8 @@ public class TokenBuffer {
         offset = state;
     }
 
-    /** Reads another token and forwards read pointer. */
-    public Token read() {
+    /** Produces another token. Returns tokens of class {@link TokenClass#END} if the end has been reached. */
+    public Token next() {
         return (offset < tokens.size())
                 ? tokens.get(offset++)
                 : Token.END;
