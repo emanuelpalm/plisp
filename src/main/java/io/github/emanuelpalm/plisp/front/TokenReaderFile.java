@@ -12,7 +12,7 @@ import java.util.function.Predicate;
  * Reads tokens from a file.
  */
 public class TokenReaderFile implements TokenReader {
-    private final ByteBuffer buffer;
+    private final ByteBuffer buffer; // Internal offset pointer is used as consume pointer.
     private final TokenOrigin origin;
     private int readPointer = 0;
 
