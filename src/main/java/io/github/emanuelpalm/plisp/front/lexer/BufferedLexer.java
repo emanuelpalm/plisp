@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 /**
  * Buffers lexer tokens, allowing them to be consumed non-linearly.
+ *
+ * @see Lexer
  */
 public class BufferedLexer {
     private final ArrayList<Token> tokens;
