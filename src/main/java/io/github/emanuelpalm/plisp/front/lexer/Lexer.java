@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 /**
  * Lexical analyzer, producing tokens from some input source.
  * <p>
- * The read source is expected to only contain valid UTF-8 characters. No input validation will be performed.
+ * The read source is expected to only contain valid UTF-8 characters. Performs not input validation.
  */
 public class Lexer {
     private static final Predicate<Byte> IS_DIGIT = (b) -> b >= '0' && b <= '9';
