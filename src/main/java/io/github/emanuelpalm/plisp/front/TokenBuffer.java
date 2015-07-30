@@ -9,7 +9,6 @@ public class TokenBuffer {
     private final ArrayList<Token> tokens;
     private int offset = 0;
 
-
     /** Creates new token buffer containing given array of tokens. */
     public TokenBuffer(final ArrayList<Token> ts) {
         tokens = ts;
