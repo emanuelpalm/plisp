@@ -15,9 +15,14 @@ public class Lexer {
 
     private final TokenReader tokenReader;
 
-    /** Produces new lexer, using given file as input. */
-    public Lexer(final File f) throws IOException {
-        tokenReader = new TokenReaderFile(f);
+    /** Creates new lexer, producing tokens via given token reader. */
+    public Lexer(final TokenReader r) {
+        tokenReader = r;
+    }
+
+    /** Creates new lexer, producing tokens from contents of given file. */
+    public static Lexer fromFile(final File f) throws IOException {
+        return new Lexer(new TokenReaderFile(f));
     }
 
     /** Produces another token. Returns tokens of class {@link TokenClass#END} if the end has been reached. */
