@@ -1,4 +1,4 @@
-package io.github.emanuelpalm.plisp.lexer;
+package io.github.emanuelpalm.plisp.front;
 
 /**
  * Identifies a lexeme, its class and its origin.

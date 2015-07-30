@@ -1,8 +1,4 @@
-package io.github.emanuelpalm.plisp.parser;
-
-import io.github.emanuelpalm.plisp.lexer.Lexer;
-import io.github.emanuelpalm.plisp.lexer.Token;
-import io.github.emanuelpalm.plisp.lexer.TokenClass;
+package io.github.emanuelpalm.plisp.front;
 
 import java.util.ArrayList;
 

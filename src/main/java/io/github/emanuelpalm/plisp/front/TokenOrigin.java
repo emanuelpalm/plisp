@@ -1,4 +1,4 @@
-package io.github.emanuelpalm.plisp.lexer;
+package io.github.emanuelpalm.plisp.front;
 
 /**
  * Represents the origin of some token.

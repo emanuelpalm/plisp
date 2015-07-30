@@ -1,7 +1,5 @@
-package io.github.emanuelpalm.plisp.parser;
+package io.github.emanuelpalm.plisp.front;
 
-import io.github.emanuelpalm.plisp.lexer.Token;
-import io.github.emanuelpalm.plisp.lexer.TokenClass;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;

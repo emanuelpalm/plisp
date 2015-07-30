@@ -1,4 +1,4 @@
-package io.github.emanuelpalm.plisp.lexer;
+package io.github.emanuelpalm.plisp.front;
 
 import java.io.File;
 import java.io.IOException;
