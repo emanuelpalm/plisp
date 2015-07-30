@@ -22,11 +22,11 @@ public interface TokenReader {
     /** Forwards the read pointer while the given predicate is true. */
     void readWhile(final Predicate<Byte> p);
 
-    /** Consumes all characters read up until this call. */
+    /** Consumes and discards all characters read up until this call. */
     void consume();
 
     /**
-     * Consumes all characters read up until this call, producing a token of given type out of the characters.
+     * Consumes all characters read up until this call, producing a token of given type.
      * <p>
      * The consumed token lexeme <b>must not</b> include the character '\n'.
      */
