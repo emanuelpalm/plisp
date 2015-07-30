@@ -1,14 +1,11 @@
-package io.github.emanuelpalm.plisp.front;
+package io.github.emanuelpalm.plisp.front.lexer;
 
-import io.github.emanuelpalm.plisp.front.*;
 import io.github.emanuelpalm.util.testing.FileUtils;
 import org.testng.annotations.*;
 
 import java.nio.charset.StandardCharsets;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
 
 public class TestTokenReader {
     private static final byte[] READER_CONTENTS = "A\nsentence of words.".getBytes(StandardCharsets.UTF_8);
