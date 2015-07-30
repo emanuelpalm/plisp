@@ -7,10 +7,10 @@ import java.util.Arrays;
 
 import static org.testng.Assert.assertEquals;
 
-public class TestTokenBuffer {
+public class TestBufferedLexer {
     @Test
     public void shouldSaveAndRestoreState() {
-        final TokenBuffer tb = new TokenBuffer(new ArrayList<>(Arrays.asList(
+        final BufferedLexer tb = new BufferedLexer(new ArrayList<>(Arrays.asList(
                 new Token(null, TokenClass.PAL, "("),
                 new Token(null, TokenClass.INT, "123"),
                 new Token(null, TokenClass.PAR, ")")
