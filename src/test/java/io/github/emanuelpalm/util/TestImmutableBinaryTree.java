@@ -2,6 +2,8 @@ package io.github.emanuelpalm.util;
 
 import org.testng.annotations.Test;
 
+import java.util.LinkedList;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 
@@ -39,5 +41,24 @@ public class TestImmutableBinaryTree {
 
         assertEquals(200, (int) t0.get("badger"));
         assertEquals(222, (int) t1.get("badger"));
+    }
+
+    @Test
+    public void shouldVisitAllValuesInOrder() {
+        final ImmutableBinaryTree<String, Integer> t = new ImmutableBinaryTree<String, Integer>()
+                .put("badger", 200)
+                .put("centipede", 300)
+                .put("ape", 100);
+
+        final LinkedList<Pair<String, Integer>> q = new LinkedList<>();
+        t.forEach(q::add);
+
+        assertEquals(q.get(0).first(), "ape");
+        assertEquals(q.get(1).first(), "badger");
+        assertEquals(q.get(2).first(), "centipede");
+
+        assertEquals((int) q.get(0).second(), 100);
+        assertEquals((int) q.get(1).second(), 200);
+        assertEquals((int) q.get(2).second(), 300);
     }
 }

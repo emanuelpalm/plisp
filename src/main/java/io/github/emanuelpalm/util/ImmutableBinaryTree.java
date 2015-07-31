@@ -1,5 +1,7 @@
 package io.github.emanuelpalm.util;
 
+import java.util.function.Consumer;
+
 /**
  * An immutable binary tree.
  * <p>
@@ -30,6 +32,11 @@ public class ImmutableBinaryTree<K extends Comparable<K>, V> {
     /** Gets value associated with given key, or {@code null} in case the key couldn't be found. */
     public V get(final K key) {
         return Node.search(root, key);
+    }
+
+    /** Calls given action with each binary tree key/value pair in order. */
+    public void forEach(final Consumer<Pair<K, V>> action) {
+        Node.traverse(root, action);
     }
 
     private static class Node<K extends Comparable<K>, V> {
@@ -68,6 +75,12 @@ public class ImmutableBinaryTree<K extends Comparable<K>, V> {
                 return search(n.right, k);
             }
             return n.value;
+        }
+
+        static <K extends Comparable<K>, V> void traverse(final Node<K, V> n, final Consumer<Pair<K, V>> a) {
+            if (n.left != null) traverse(n.left, a);
+            a.accept(Pair.of(n.key, n.value));
+            if (n.right != null) traverse(n.right, a);
         }
     }
 }
