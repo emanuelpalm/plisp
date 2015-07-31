@@ -74,6 +74,9 @@ public class Lexer {
 
             case ']':
                 return tokenReader.consume(TokenClass.BRR);
+
+            case '|':
+                return tokenReader.consume(TokenClass.PIP);
         }
         if (IS_SYMBOL_CHARACTER.test(b)) {
             tokenReader.readWhile(IS_SYMBOL_CHARACTER);
