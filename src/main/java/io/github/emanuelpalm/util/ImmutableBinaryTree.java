@@ -49,9 +49,9 @@ public class ImmutableBinaryTree<K extends Comparable<K>, V> {
                 return new Node<>(null, null, k, v);
             }
             final int c = n.key.compareTo(k);
-            if (c < 0) {
+            if (c > 0) {
                 return new Node<>(insert(n.left, k, v), n.right, n.key, n.value);
-            } else if (c > 0) {
+            } else if (c < 0) {
                 return new Node<>(n.left, insert(n.right, k, v), n.key, n.value);
             }
             return new Node<>(n.left, n.right, k, v);
@@ -62,9 +62,9 @@ public class ImmutableBinaryTree<K extends Comparable<K>, V> {
                 return null;
             }
             final int c = n.key.compareTo(k);
-            if (c < 0) {
+            if (c > 0) {
                 return search(n.left, k);
-            } else if (c > 0) {
+            } else if (c < 0) {
                 return search(n.right, k);
             }
             return n.value;
