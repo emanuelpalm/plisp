@@ -19,8 +19,8 @@ public class TestLexer {
         final Lexer l = Lexer.fromFile(FileUtils.fromString(input));
         for (final Token expectedOutput : expectedOutputs) {
             final Token actualOutput = l.next();
-            assertEquals(expectedOutput.type(), actualOutput.type(), actualOutput.toString());
-            assertEquals(expectedOutput.lexeme(), actualOutput.lexeme(), actualOutput.toString());
+            assertEquals(actualOutput.type(), expectedOutput.type(), actualOutput.toString());
+            assertEquals(actualOutput.lexeme(), expectedOutput.lexeme(), actualOutput.toString());
         }
     }
 
