@@ -12,7 +12,6 @@ public enum TokenClass {
     COL, // :
     BRL, // [
     BRR, // ]
-    PIP, // |
 
     INT, // Integer.
     NUM, // Number.

@@ -43,15 +43,6 @@ public class TestLexer {
     }
 
     @Test
-    public void shouldTokenizePipes() throws Throwable {
-        test("||",
-                new Token(null, TokenClass.PIP, "|"),
-                new Token(null, TokenClass.PIP, "|"),
-                Token.END
-        );
-    }
-
-    @Test
     public void shouldTokenizeInteger() throws Throwable {
         test("1234",
                 new Token(null, TokenClass.INT, "1234"),
@@ -87,9 +78,10 @@ public class TestLexer {
 
     @Test
     public void shouldTokenizeSymbols() throws Throwable {
-        test("word & \t &! \n + - ++ -- åäö",
+        test("word & || \t &! \n + - ++ -- åäö",
                 new Token(null, TokenClass.SYM, "word"),
                 new Token(null, TokenClass.SYM, "&"),
+                new Token(null, TokenClass.SYM, "||"),
                 new Token(null, TokenClass.SYM, "&!"),
                 new Token(null, TokenClass.SYM, "+"),
                 new Token(null, TokenClass.SYM, "-"),
