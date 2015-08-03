@@ -5,7 +5,7 @@ package io.github.emanuelpalm.plisp.front.lexer;
  */
 public class Token {
     /** Default end token. Signals the end of some stream of tokens. */
-    public static final Token END = new Token(new TokenOrigin("", 0, 0), TokenClass.END, "");
+    public static final Token END = new Token(TokenClass.END, "");
 
     private final TokenOrigin origin;
     private final TokenClass type;
