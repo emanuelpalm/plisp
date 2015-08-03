@@ -224,8 +224,8 @@ public interface TreeNode {
      */
     class Root extends List implements Callable {
         /** Creates new root node containing given nodes. */
-        public Root(final java.util.List<TreeNode> ns) {
-            super(Token.NIL, ns);
+        public Root(final TreeNode.List l) {
+            super(Token.NIL, l.nodes());
         }
 
         @Override
