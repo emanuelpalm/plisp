@@ -1,11 +1,10 @@
 package io.github.emanuelpalm.plisp.front.lexer;
 
 import io.github.emanuelpalm.util.testing.FileUtils;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.nio.charset.StandardCharsets;
-
-import static org.testng.Assert.assertEquals;
 
 public class TestTokenReader {
     private static final byte[] READER_CONTENTS = "A\nsentence of words.".getBytes(StandardCharsets.UTF_8);
@@ -39,6 +38,11 @@ public class TestTokenReader {
 
     private Token token(final int row, final int column, final TokenClass tc, final String lexeme) {
         return new Token(new TokenOrigin(tokenReader.name(), row, column), tc, lexeme);
+    }
+
+    private void assertEquals(final Token actual, final Token expected) {
+        Assert.assertEquals(actual, expected);
+        Assert.assertEquals(actual.origin(), expected.origin());
     }
 
     @Test

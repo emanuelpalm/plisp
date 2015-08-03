@@ -52,7 +52,6 @@ public class Token {
     @Override
     public boolean equals(final Object that) {
         return that != null && that instanceof Token
-                && this.origin().equals(((Token) that).origin)
                 && this.type() == ((Token) that).type()
                 && this.lexeme().equals(((Token) that).lexeme());
     }
