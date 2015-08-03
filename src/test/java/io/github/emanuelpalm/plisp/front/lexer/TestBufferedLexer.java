@@ -11,9 +11,9 @@ public class TestBufferedLexer {
     @Test
     public void shouldSaveAndRestoreState() {
         final BufferedLexer tb = new BufferedLexer(new ArrayList<>(Arrays.asList(
-                new Token(null, TokenClass.PAL, "("),
-                new Token(null, TokenClass.INT, "123"),
-                new Token(null, TokenClass.PAR, ")")
+                new Token(TokenClass.PAL, "("),
+                new Token(TokenClass.INT, "123"),
+                new Token(TokenClass.PAR, ")")
         )));
 
         assertEquals(tb.next().type(), TokenClass.PAL);

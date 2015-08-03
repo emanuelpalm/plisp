@@ -9,8 +9,8 @@ public class TestLexer {
     @Test
     public void shouldTokenizeParentheses() throws Throwable {
         test("()",
-                new Token(null, TokenClass.PAL, "("),
-                new Token(null, TokenClass.PAR, ")"),
+                new Token(TokenClass.PAL, "("),
+                new Token(TokenClass.PAR, ")"),
                 Token.END
         );
     }
@@ -27,8 +27,8 @@ public class TestLexer {
     @Test
     public void shouldTokenizeColons() throws Throwable {
         test("::",
-                new Token(null, TokenClass.COL, ":"),
-                new Token(null, TokenClass.COL, ":"),
+                new Token(TokenClass.COL, ":"),
+                new Token(TokenClass.COL, ":"),
                 Token.END
         );
     }
@@ -36,8 +36,8 @@ public class TestLexer {
     @Test
     public void shouldTokenizeBrackets() throws Throwable {
         test("[]",
-                new Token(null, TokenClass.BRL, "["),
-                new Token(null, TokenClass.BRR, "]"),
+                new Token(TokenClass.BRL, "["),
+                new Token(TokenClass.BRR, "]"),
                 Token.END
         );
     }
@@ -45,7 +45,7 @@ public class TestLexer {
     @Test
     public void shouldTokenizeInteger() throws Throwable {
         test("1234",
-                new Token(null, TokenClass.INT, "1234"),
+                new Token(TokenClass.INT, "1234"),
                 Token.END
         );
     }
@@ -53,8 +53,8 @@ public class TestLexer {
     @Test
     public void shouldTokenizeIntegersWithInfixOperators() throws Throwable {
         test("+123 -456",
-                new Token(null, TokenClass.INT, "+123"),
-                new Token(null, TokenClass.INT, "-456"),
+                new Token(TokenClass.INT, "+123"),
+                new Token(TokenClass.INT, "-456"),
                 Token.END
         );
     }
@@ -62,7 +62,7 @@ public class TestLexer {
     @Test
     public void shouldTokenizeNumber() throws Throwable {
         test("123.456",
-                new Token(null, TokenClass.NUM, "123.456"),
+                new Token(TokenClass.NUM, "123.456"),
                 Token.END
         );
     }
@@ -70,8 +70,8 @@ public class TestLexer {
     @Test
     public void shouldTokenizeNumbersWithInfixOperators() throws Throwable {
         test("+12.3 -4.56",
-                new Token(null, TokenClass.NUM, "+12.3"),
-                new Token(null, TokenClass.NUM, "-4.56"),
+                new Token(TokenClass.NUM, "+12.3"),
+                new Token(TokenClass.NUM, "-4.56"),
                 Token.END
         );
     }
@@ -79,37 +79,37 @@ public class TestLexer {
     @Test
     public void shouldTokenizeSymbols() throws Throwable {
         test("word & || \t &! \n + - ++ -- åäö",
-                new Token(null, TokenClass.SYM, "word"),
-                new Token(null, TokenClass.SYM, "&"),
-                new Token(null, TokenClass.SYM, "||"),
-                new Token(null, TokenClass.SYM, "&!"),
-                new Token(null, TokenClass.SYM, "+"),
-                new Token(null, TokenClass.SYM, "-"),
-                new Token(null, TokenClass.SYM, "++"),
-                new Token(null, TokenClass.SYM, "--"),
-                new Token(null, TokenClass.SYM, "åäö")
+                new Token(TokenClass.SYM, "word"),
+                new Token(TokenClass.SYM, "&"),
+                new Token(TokenClass.SYM, "||"),
+                new Token(TokenClass.SYM, "&!"),
+                new Token(TokenClass.SYM, "+"),
+                new Token(TokenClass.SYM, "-"),
+                new Token(TokenClass.SYM, "++"),
+                new Token(TokenClass.SYM, "--"),
+                new Token(TokenClass.SYM, "åäö")
         );
     }
 
     @Test
     public void shouldTokenizeExpression() throws Throwable {
         test("(+ 10 (int (foldl * 1. [-72.2 -5.1])))",
-                new Token(null, TokenClass.PAL, "("),
-                new Token(null, TokenClass.SYM, "+"),
-                new Token(null, TokenClass.INT, "10"),
-                new Token(null, TokenClass.PAL, "("),
-                new Token(null, TokenClass.SYM, "int"),
-                new Token(null, TokenClass.PAL, "("),
-                new Token(null, TokenClass.SYM, "foldl"),
-                new Token(null, TokenClass.SYM, "*"),
-                new Token(null, TokenClass.NUM, "1."),
-                new Token(null, TokenClass.BRL, "["),
-                new Token(null, TokenClass.NUM, "-72.2"),
-                new Token(null, TokenClass.NUM, "-5.1"),
-                new Token(null, TokenClass.BRR, "]"),
-                new Token(null, TokenClass.PAR, ")"),
-                new Token(null, TokenClass.PAR, ")"),
-                new Token(null, TokenClass.PAR, ")")
+                new Token(TokenClass.PAL, "("),
+                new Token(TokenClass.SYM, "+"),
+                new Token(TokenClass.INT, "10"),
+                new Token(TokenClass.PAL, "("),
+                new Token(TokenClass.SYM, "int"),
+                new Token(TokenClass.PAL, "("),
+                new Token(TokenClass.SYM, "foldl"),
+                new Token(TokenClass.SYM, "*"),
+                new Token(TokenClass.NUM, "1."),
+                new Token(TokenClass.BRL, "["),
+                new Token(TokenClass.NUM, "-72.2"),
+                new Token(TokenClass.NUM, "-5.1"),
+                new Token(TokenClass.BRR, "]"),
+                new Token(TokenClass.PAR, ")"),
+                new Token(TokenClass.PAR, ")"),
+                new Token(TokenClass.PAR, ")")
         );
     }
 }
