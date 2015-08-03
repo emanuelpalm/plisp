@@ -1,114 +1,108 @@
 package io.github.emanuelpalm.plisp.front.parser;
 
 import io.github.emanuelpalm.plisp.front.lexer.Token;
-import io.github.emanuelpalm.plisp.front.lexer.TokenClass;
-import io.github.emanuelpalm.plisp.front.lexer.TokenOrigin;
 
 /**
  * A node part of an abstract syntax {@link Tree}.
- * <p>
- * The inner classes of {@link TreeNode} constitute the base constructs of the language. They do not, however, provide
- * enough functionality for the language to be actually useful. It is the task of a compiler back-end to provide
- * additional node types for standard functions such as {@code "let"} or {@code "+"} to the symbol table used when
- * evaluating a program.
+ *
+ * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Void
+ * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Integer
+ * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Number
+ * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Symbol
+ * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.List
+ * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Call
+ * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Meta
+ * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Root
+ * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Callable
+ * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Declarable
  */
-public abstract class TreeNode {
-    private final Token token;
+public interface TreeNode {
+    /** Token. */
+    Token token();
 
-    /** Creates new AST node holding given token. */
-    protected TreeNode(final Token t) {
-        token = t;
-    }
-
-    /** Node token. */
-    public Token token() {
-        return token;
-    }
-
-    /** Evaluates node. */
-    public abstract TreeNode evaluate(final TreeSymbolTable t);
-
-    @Override
-    public boolean equals(final Object that) {
-        return that != null
-                && that instanceof TreeNode
-                && that.getClass().isAssignableFrom(this.getClass())
-                && this.token().equals(((TreeNode) that).token());
-    }
-
-    @Override
-    public String toString() {
-        return "{token: " + token() + " }";
+    /** Evaluates node using given symbol table. */
+    default TreeNode evaluate(final TreeSymbolTable t) {
+        return this;
     }
 
     /**
-     * Void node.
+     * Optional base class for tree node types.
      */
-    public static class Void extends TreeNode {
+    abstract class Base implements TreeNode {
+        private final Token token;
+
+        protected Base(final Token t) {
+            token = t;
+        }
+
+        @Override
+        public Token token() {
+            return token;
+        }
+
+        @Override
+        public boolean equals(final Object that) {
+            return that != null
+                    && that instanceof TreeNode
+                    && that.getClass().isAssignableFrom(this.getClass())
+                    && this.token().equals(((TreeNode) that).token());
+        }
+
+        @Override
+        public String toString() {
+            return "{token: " + token() + " }";
+        }
+    }
+
+    /**
+     * Nothing.
+     */
+    class Void extends Base {
         /** Creates void node. */
-        protected Void(final Token t) {
-            super(t);
-        }
-
-        @Override
-        public TreeNode evaluate(final TreeSymbolTable t) {
-            return this;
-        }
+        public Void(final Token t) { super(t); }
     }
 
     /**
-     * Integer node.
+     * An integer.
      */
-    public static class Integer extends TreeNode {
+    class Integer extends Base {
         /** Creates integer node. */
-        public Integer(final Token t) {
-            super(t);
-        }
-
-        @Override
-        public TreeNode evaluate(final TreeSymbolTable t) {
-            return this;
-        }
+        public Integer(final Token t) { super(t); }
 
         /** Converts integer node into a Java {@code long}. */
-        public Long asLong() {
+        public long toLong() {
             return Long.parseLong(token().lexeme());
         }
     }
 
     /**
-     * Number node.
+     * A number.
      */
-    public static class Number extends TreeNode {
+    class Number extends Base {
         /** Creates number node. */
-        public Number(final Token t) {
-            super(t);
-        }
-
-        @Override
-        public TreeNode evaluate(final TreeSymbolTable t) {
-            return this;
-        }
+        public Number(final Token t) { super(t); }
 
         /** Converts number node into a Java {@code double}. */
-        public Double asDouble() {
+        public double toDouble() {
             return Double.parseDouble(token().lexeme());
         }
     }
 
     /**
-     * Symbol node.
+     * A symbol.
      */
-    public static class Symbol extends TreeNode {
+    class Symbol extends Base {
         /** Creates symbol node. */
-        public Symbol(final Token t) {
-            super(t);
-        }
+        public Symbol(final Token t) { super(t); }
 
+        /**
+         * Evaluates symbol into the {@link TreeNode} it represents.
+         * <p>
+         * For evaluation to succeed, the symbol name must be present in the given symbol table.
+         */
         @Override
         public TreeNode evaluate(final TreeSymbolTable t) {
-            return t.find(name())
-                    .orElseThrow(() -> new RuntimeException(token() + " isn't defined."));
+            return t.find(name()).get();
         }
 
         /** Acquires symbol name. */
@@ -118,124 +112,150 @@ public abstract class TreeNode {
     }
 
     /**
-     * List node.
+     * A list of arbitrary {@link TreeNode}s.
      */
-    public static class List extends TreeNode {
-        private final TreeNode[] children;
+    class List extends Base {
+        private final java.util.List<TreeNode> nodes;
 
-        /** Creates list node from given list start token and given child nodes. */
-        public List(final Token t, final TreeNode... children) {
+        protected List(final Token t, final java.util.List<TreeNode> ns) {
             super(t);
-            this.children = children;
+            nodes = ns;
         }
 
-        @Override
-        public TreeNode evaluate(final TreeSymbolTable t) {
-            return this;
+        /** Creates node using given token and node list. */
+        public static TreeNode of(final Token t, final java.util.List<TreeNode> ns) {
+            return (ns.size() > 0)
+                    ? new List(t, ns)
+                    : new Void(t);
         }
 
-        /** List node children. */
-        public TreeNode[] children() {
-            return children;
+        /** Creates node using given token and node list. */
+        public static TreeNode of(final Token t, final List l) {
+            return of(t, l.nodes());
+        }
+
+        /** Creates anonymous list node containing given nodes. */
+        public static TreeNode.List of(final java.util.List<TreeNode> ns) {
+            return new List(Token.NIL, ns);
+        }
+
+        /** Acquires list elements. */
+        public java.util.List<TreeNode> nodes() {
+            return nodes;
         }
     }
 
     /**
-     * Call node.
-     * <p>
-     * An instruction to execute some callable with some provided arguments.
+     * An instruction to execute some {@link Callable} with provided arguments.
      */
-    public static class Call extends TreeNode {
-        private final Callable callable;
-        private final TreeNode[] arguments;
+    class Call extends Base {
+        private final TreeNode function;
+        private final List arguments;
 
-        /** Creates call node out of token, callable and provided arguments. */
-        public Call(final Token t, final Callable c, final TreeNode... args) {
+        private Call(final Token t, final TreeNode f, final List args) {
             super(t);
-            callable = c;
+            function = f;
             arguments = args;
         }
 
+        /** Creates call node out of token and provided list of arguments. */
+        public static TreeNode of(final Token t, final List args) {
+            final java.util.List<TreeNode> ts = args.nodes();
+            return (ts.size() > 0)
+                    ? new Call(t, ts.get(0), new List(t, ts.subList(1, ts.size() - 2)))
+                    : new Void(t);
+        }
+
         @Override
         public TreeNode evaluate(final TreeSymbolTable t) {
-            return callable.evaluate(t, arguments);
+            return ((Callable) function).evaluate(t, arguments);
+        }
+
+        /** Call function node. */
+        public TreeNode function() {
+            return function;
+        }
+
+        /** Call arguments. */
+        public List arguments() {
+            return arguments;
         }
     }
 
     /**
-     * A callable node.
+     * Associates a value with some origin.
      */
-    public interface Callable {
-        /** Evaluates callable node with given table and arguments. */
-        TreeNode evaluate(final TreeSymbolTable t, final TreeNode... args);
-    }
-
-    /**
-     * Meta node.
-     * <p>
-     * A meta node can be thought of as an appendage to some origin node. Evaluating the meta node simply causes the
-     * origin node to be evaluated with no modification. The meta node carries, however, a meta value, of arbitrary node
-     * type, which may be used to associate data with the origin node.
-     */
-    public static class Meta extends TreeNode {
+    class Meta extends Base {
         private final TreeNode origin, meta;
 
-        /** Creates meta node. */
-        public Meta(final Token t, final TreeNode origin, final TreeNode meta) {
+        private Meta(final Token t, final TreeNode origin, final TreeNode meta) {
             super(t);
             this.origin = origin;
             this.meta = meta;
         }
 
-        /** Meta value. */
-        public TreeNode meta() {
-            return meta;
+        /** Creates meta node from given nodes. */
+        public static TreeNode of(final Token t, final TreeNode origin, final TreeNode meta) {
+            return (!(meta instanceof Void))
+                    ? new Meta(t, origin, meta)
+                    : origin;
         }
 
         @Override
         public TreeNode evaluate(final TreeSymbolTable t) {
             return origin.evaluate(t);
         }
+
+        /** Origin node. */
+        public TreeNode origin() {
+            return origin;
+        }
+
+        /** Meta value. */
+        public TreeNode meta() {
+            return meta;
+        }
     }
 
     /**
-     * Root node.
-     * <p>
-     * Evaluates all global definitions and then calls the program main function.
+     * Serves as abstract syntax {@link Tree} root.
      */
-    public static class Root extends TreeNode {
-        private final Definition[] children;
-        private final Number[] arguments;
-
-        /** Creates root node containing given children and program arguments. */
-        protected Root(final Definition[] children, final Number[] args) {
-            super(new Token(new TokenOrigin("<root>", 0, 0), TokenClass.ERR, "<root>"));
-            this.children = children;
-            this.arguments = args;
+    class Root extends List implements Callable {
+        /** Creates new root node containing given nodes. */
+        public Root(final java.util.List<TreeNode> ns) {
+            super(Token.NIL, ns);
         }
 
+        /**
+         * Evaluates root node with given table and arguments.
+         * <p>
+         * For evaluation to succeed, all top-level child nodes have to implement {@link Declarable}, and one of them
+         * must declare the symbol {@code"main"}, which must refer to a {@link Callable}.
+         */
         @Override
-        public TreeNode evaluate(final TreeSymbolTable t0) {
+        public TreeNode evaluate(final TreeSymbolTable t0, final List args) {
             TreeSymbolTable t1 = t0;
-            for (final Definition c : children) {
-                t1 = c.addTo(t1);
+            for (final TreeNode t : nodes()) {
+                t1 = ((Declarable) t).addSymbolTo(t1);
             }
-            final TreeNode m = t1.find("main")
-                    .orElseThrow(() -> new RuntimeException("No 'main' function declared."))
-                    .evaluate(t1);
-
-            if (!(m instanceof Callable)) throw new RuntimeException("Declared 'main' not callable.");
-
-            return ((Callable) m).evaluate(t1, arguments);
+            t1 = t1.optimize();
+            return ((Callable) t1.find("main").get()).evaluate(t1, args);
         }
     }
 
     /**
-     * Definition node.
-     * <p>
-     * Adds additional symbols to some given symbol table.
+     * Node callable via a {@link Call} node.
      */
-    public interface Definition {
-        TreeSymbolTable addTo(final TreeSymbolTable t);
+    interface Callable extends TreeNode {
+        /** Evaluates callable node with given table and arguments. */
+        TreeNode evaluate(final TreeSymbolTable t, final TreeNode.List args);
+    }
+
+    /**
+     * Node useful for adding symbol to some symbol table.
+     */
+    interface Declarable extends TreeNode {
+        /** Adds symbol to given symbol table. */
+        TreeSymbolTable addSymbolTo(final TreeSymbolTable t);
     }
 }
