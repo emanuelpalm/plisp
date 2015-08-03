@@ -2,6 +2,8 @@ package io.github.emanuelpalm.plisp.front.parser;
 
 import io.github.emanuelpalm.plisp.front.lexer.Token;
 
+import java.util.Collections;
+
 /**
  * A node part of an abstract syntax {@link Tree}.
  *
@@ -224,6 +226,11 @@ public interface TreeNode {
         /** Creates new root node containing given nodes. */
         public Root(final java.util.List<TreeNode> ns) {
             super(Token.NIL, ns);
+        }
+
+        @Override
+        public TreeNode evaluate(final TreeSymbolTable t) {
+            return evaluate(t, new List(Token.NIL, Collections.emptyList()));
         }
 
         /**
