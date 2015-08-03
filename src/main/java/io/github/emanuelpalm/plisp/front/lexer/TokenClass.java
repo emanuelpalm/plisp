@@ -6,6 +6,7 @@ package io.github.emanuelpalm.plisp.front.lexer;
 public enum TokenClass {
     END, // End of input.
     ERR, // Error.
+    NIL, // Nil.
 
     PAL, // (
     PAR, // )
