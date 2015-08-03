@@ -7,10 +7,6 @@ import java.util.function.Consumer;
  * <p>
  * This particular implementation has an insertion and retrieval speed between O(log(n)) and O(n), depending on how
  * balanced the tree happens to become as new entries are inserted.
- * <p>
- * The tree implementation is written for the sole purpose of serving as local symbol table. Most programs are expected
- * to contain relatively few local symbols at any given scope, which means that the need for tree balancing should be
- * low, if not negligible.
  */
 public class ImmutableBinaryTree<K extends Comparable<K>, V> {
     private final Node<K, V> root;
