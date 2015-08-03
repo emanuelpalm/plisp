@@ -42,6 +42,21 @@ public abstract class TreeNode {
     }
 
     /**
+     * Void node.
+     */
+    public static class Void extends TreeNode {
+        /** Creates void node. */
+        protected Void(final Token t) {
+            super(t);
+        }
+
+        @Override
+        public TreeNode evaluate(final TreeSymbolTable t) {
+            return this;
+        }
+    }
+
+    /**
      * Integer node.
      */
     public static class Integer extends TreeNode {
