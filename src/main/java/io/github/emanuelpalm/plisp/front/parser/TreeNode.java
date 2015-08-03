@@ -168,7 +168,7 @@ public interface TreeNode {
 
         @Override
         public TreeNode evaluate(final TreeSymbolTable t) {
-            return ((Callable) function).evaluate(t, arguments);
+            return ((Callable) function.evaluate(t)).evaluate(t, arguments);
         }
 
         /** Call function node. */
