@@ -7,7 +7,7 @@ import java.util.function.Predicate;
  * <p>
  * The token reader facilitates two significant categories of operations: read and consume. The former advances an
  * internal read pointer through a stream of characters, while the latter advances an internal consume pointer to the
- * current position of an internal read pointer.
+ * current position of the read pointer.
  */
 public interface TokenReader {
     /** Yields name identifying token reader. */
