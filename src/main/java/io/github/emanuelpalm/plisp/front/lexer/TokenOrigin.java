@@ -4,6 +4,9 @@ package io.github.emanuelpalm.plisp.front.lexer;
  * Represents the origin of some token.
  */
 public class TokenOrigin {
+    /** Signifies that some token originates from some source of less relevance. */
+    public static final TokenOrigin OTHER = new TokenOrigin("", 0, 0);
+
     /** Name of token origin. */
     public final String name;
 
