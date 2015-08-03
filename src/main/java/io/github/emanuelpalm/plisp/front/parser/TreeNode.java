@@ -99,7 +99,7 @@ public abstract class TreeNode {
     /**
      * Symbol node.
      */
-    public static class Symbol extends TreeNode implements Comparable<Symbol> {
+    public static class Symbol extends TreeNode {
         /** Creates symbol node. */
         public Symbol(final Token t) {
             super(t);
@@ -114,13 +114,6 @@ public abstract class TreeNode {
         /** Acquires symbol name. */
         public String name() {
             return token().lexeme();
-        }
-
-        @Override
-        @SuppressWarnings("NullableProblems")
-        public int compareTo(final Symbol that) {
-            if (that == null) return -1;
-            return name().compareTo(that.name());
         }
     }
 
