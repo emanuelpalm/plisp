@@ -22,7 +22,7 @@ public class BinaryTreeMap<K extends Comparable<K>, V> {
     }
 
     /** Creates new binary tree that includes given key and value. */
-    public BinaryTreeMap<K, V> put(final K key, final V value) {
+    public BinaryTreeMap<K, V> insert(final K key, final V value) {
         return new BinaryTreeMap<>(Node.insert(root, key, value));
     }
 

@@ -16,8 +16,8 @@ public class TestImmutableBinaryTree {
     @Test
     public void shouldAlwaysPutEntryIntoNewTree() {
         final BinaryTreeMap<String, Integer> t0 = new BinaryTreeMap<>();
-        final BinaryTreeMap<String, Integer> t1 = t0.put("k1", 100);
-        final BinaryTreeMap<String, Integer> t2 = t1.put("k2", 200);
+        final BinaryTreeMap<String, Integer> t1 = t0.insert("k1", 100);
+        final BinaryTreeMap<String, Integer> t2 = t1.insert("k2", 200);
 
         assertFalse(t0.get("k1").isPresent());
         assertFalse(t0.get("k2").isPresent());
@@ -32,11 +32,11 @@ public class TestImmutableBinaryTree {
     @Test
     public void shouldReplaceValueInNewTreeIfPutMatchesExistingKey() {
         final BinaryTreeMap<String, Integer> t0 = new BinaryTreeMap<String, Integer>()
-                .put("ape", 100)
-                .put("badger", 200)
-                .put("centipede", 300);
+                .insert("ape", 100)
+                .insert("badger", 200)
+                .insert("centipede", 300);
 
-        final BinaryTreeMap<String, Integer> t1 = t0.put("badger", 222);
+        final BinaryTreeMap<String, Integer> t1 = t0.insert("badger", 222);
 
         assertEquals(200, (int) t0.get("badger").get());
         assertEquals(222, (int) t1.get("badger").get());
@@ -45,9 +45,9 @@ public class TestImmutableBinaryTree {
     @Test
     public void shouldVisitAllValuesInOrder() {
         final BinaryTreeMap<String, Integer> t = new BinaryTreeMap<String, Integer>()
-                .put("badger", 200)
-                .put("centipede", 300)
-                .put("ape", 100);
+                .insert("badger", 200)
+                .insert("centipede", 300)
+                .insert("ape", 100);
 
         final LinkedList<Pair<String, Integer>> q = new LinkedList<>();
         t.forEach(q::add);

@@ -32,7 +32,7 @@ public class TreeSymbolTable {
 
     /** Creates new symbol table also including given entry. */
     public TreeSymbolTable put(final TreeNode.Symbol name, final TreeNode value) {
-        return new TreeSymbolTable(map, tree.put(name.name(), value));
+        return new TreeSymbolTable(map, tree.insert(name.name(), value));
     }
 
     /** Copies current symbol table and optimizes the copy for faster entry retrieval. */
