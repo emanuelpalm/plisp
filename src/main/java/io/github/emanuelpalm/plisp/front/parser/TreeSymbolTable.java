@@ -1,6 +1,6 @@
 package io.github.emanuelpalm.plisp.front.parser;
 
-import io.github.emanuelpalm.util.ImmutableBinaryTree;
+import io.github.emanuelpalm.util.BinaryTreeMap;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -10,15 +10,15 @@ import java.util.Optional;
  */
 public class TreeSymbolTable {
     private final HashMap<String, TreeNode> map;
-    private final ImmutableBinaryTree<String, TreeNode> tree;
+    private final BinaryTreeMap<String, TreeNode> tree;
 
     /** Creates new empty symbol table. */
     public TreeSymbolTable() {
         map = new HashMap<>();
-        tree = new ImmutableBinaryTree<>();
+        tree = new BinaryTreeMap<>();
     }
 
-    private TreeSymbolTable(final HashMap<String, TreeNode> map, final ImmutableBinaryTree<String, TreeNode> tree) {
+    private TreeSymbolTable(final HashMap<String, TreeNode> map, final BinaryTreeMap<String, TreeNode> tree) {
         this.map = map;
         this.tree = tree;
     }
@@ -39,6 +39,6 @@ public class TreeSymbolTable {
     public TreeSymbolTable optimize() {
         final HashMap<String, TreeNode> m = new HashMap<>(map);
         tree.forEach(pair -> m.put(pair.first(), pair.second()));
-        return new TreeSymbolTable(m, new ImmutableBinaryTree<>());
+        return new TreeSymbolTable(m, new BinaryTreeMap<>());
     }
 }

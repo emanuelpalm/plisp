@@ -4,26 +4,26 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * An immutable binary tree.
+ * An immutable binary search tree map.
  * <p>
  * This particular implementation has an insertion and retrieval speed between O(log(n)) and O(n), depending on how
  * balanced the tree happens to become as new entries are inserted.
  */
-public class ImmutableBinaryTree<K extends Comparable<K>, V> {
+public class BinaryTreeMap<K extends Comparable<K>, V> {
     private final Node<K, V> root;
 
     /** Creates new empty binary tree. */
-    public ImmutableBinaryTree() {
+    public BinaryTreeMap() {
         root = null;
     }
 
-    private ImmutableBinaryTree(final Node<K, V> n) {
+    private BinaryTreeMap(final Node<K, V> n) {
         root = n;
     }
 
     /** Creates new binary tree that includes given key and value. */
-    public ImmutableBinaryTree<K, V> put(final K key, final V value) {
-        return new ImmutableBinaryTree<>(Node.insert(root, key, value));
+    public BinaryTreeMap<K, V> put(final K key, final V value) {
+        return new BinaryTreeMap<>(Node.insert(root, key, value));
     }
 
     /** Gets value associated with given key, or {@code null} in case the key couldn't be found. */
