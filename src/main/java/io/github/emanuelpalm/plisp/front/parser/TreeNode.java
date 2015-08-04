@@ -46,9 +46,7 @@ public interface TreeNode {
 
         @Override
         public boolean equals(final Object that) {
-            return that != null
-                    && that instanceof TreeNode
-                    && that.getClass().isAssignableFrom(this.getClass())
+            return that != null && that instanceof TreeNode
                     && this.token().equals(((TreeNode) that).token());
         }
 
