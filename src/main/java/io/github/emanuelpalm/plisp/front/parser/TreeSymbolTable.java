@@ -38,7 +38,7 @@ public class TreeSymbolTable {
     /** Copies current symbol table and optimizes the copy for faster entry retrieval. */
     public TreeSymbolTable optimize() {
         final HashMap<String, TreeNode> m = new HashMap<>(map);
-        tree.forEach(pair -> m.put(pair.first(), pair.second()));
+        tree.forEach(m::put);
         return new TreeSymbolTable(m, new BinaryTreeMap<>());
     }
 }

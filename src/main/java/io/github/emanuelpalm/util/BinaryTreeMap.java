@@ -1,7 +1,7 @@
 package io.github.emanuelpalm.util;
 
 import java.util.Optional;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 /**
  * An immutable binary search tree map.
@@ -28,8 +28,8 @@ public class BinaryTreeMap<K extends Comparable<K>, V> {
     }
 
     /** Calls given action with each binary tree key/value pair in order. */
-    public void forEach(final Consumer<Pair<K, V>> action) {
-        Node.traverse(root, action);
+    public void forEach(final BiConsumer<K, V> c) {
+        Node.traverse(root, c);
     }
 
     private static class Node<K extends Comparable<K>, V> {
@@ -70,9 +70,9 @@ public class BinaryTreeMap<K extends Comparable<K>, V> {
             return Optional.of(n.value);
         }
 
-        static <K extends Comparable<K>, V> void traverse(final Node<K, V> n, final Consumer<Pair<K, V>> a) {
+        static <K extends Comparable<K>, V> void traverse(final Node<K, V> n, final BiConsumer<K, V> a) {
             if (n.left != null) traverse(n.left, a);
-            a.accept(Pair.of(n.key, n.value));
+            a.accept(n.key, n.value);
             if (n.right != null) traverse(n.right, a);
         }
     }

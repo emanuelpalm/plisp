@@ -50,7 +50,7 @@ public class TestImmutableBinaryTree {
                 .insert("ape", 100);
 
         final LinkedList<Pair<String, Integer>> q = new LinkedList<>();
-        t.forEach(q::add);
+        t.forEach((k, v) -> q.add(Pair.of(k, v)));
 
         assertEquals(q.get(0).first(), "ape");
         assertEquals(q.get(1).first(), "badger");
