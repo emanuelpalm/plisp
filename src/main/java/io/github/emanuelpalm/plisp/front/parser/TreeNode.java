@@ -164,7 +164,7 @@ public interface TreeNode {
         public static TreeNode of(final Token t, final List args) {
             final java.util.List<TreeNode> ts = args.nodes();
             return (ts.size() > 0)
-                    ? new Call(t, ts.get(0), new List(t, ts.subList(1, ts.size() - 2)))
+                    ? new Call(t, ts.get(0), new List(t, ts.subList(1, ts.size())))
                     : new Void(t);
         }
 
