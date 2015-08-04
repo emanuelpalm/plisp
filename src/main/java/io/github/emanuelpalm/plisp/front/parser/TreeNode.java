@@ -34,14 +34,10 @@ public interface TreeNode {
     abstract class Base implements TreeNode {
         private final Token token;
 
-        protected Base(final Token t) {
-            token = t;
-        }
+        protected Base(final Token t) { token = t; }
 
         @Override
-        public Token token() {
-            return token;
-        }
+        public Token token() { return token; }
 
         @Override
         public boolean equals(final Object that) {
@@ -50,9 +46,7 @@ public interface TreeNode {
         }
 
         @Override
-        public String toString() {
-            return token().lexeme();
-        }
+        public String toString() { return token().lexeme(); }
     }
 
     /**
@@ -76,9 +70,7 @@ public interface TreeNode {
         public Integer(final Token t) { super(t); }
 
         /** Converts integer node into a Java {@code long}. */
-        public long toLong() {
-            return Long.parseLong(token().lexeme());
-        }
+        public long toLong() { return Long.parseLong(token().lexeme()); }
     }
 
     /**
@@ -89,9 +81,7 @@ public interface TreeNode {
         public Number(final Token t) { super(t); }
 
         /** Converts number node into a Java {@code double}. */
-        public double toDouble() {
-            return Double.parseDouble(token().lexeme());
-        }
+        public double toDouble() { return Double.parseDouble(token().lexeme()); }
     }
 
     /**
@@ -107,14 +97,10 @@ public interface TreeNode {
          * For evaluation to succeed, the symbol name must be present in the given symbol table.
          */
         @Override
-        public TreeNode evaluate(final TreeSymbolTable t) {
-            return t.find(name()).get().evaluate(t);
-        }
+        public TreeNode evaluate(final TreeSymbolTable t) { return t.find(name()).get().evaluate(t); }
 
         /** Acquires symbol name. */
-        public String name() {
-            return token().lexeme();
-        }
+        public String name() { return token().lexeme(); }
     }
 
     /**
@@ -136,19 +122,13 @@ public interface TreeNode {
         }
 
         /** Creates node using given token and node list. */
-        public static TreeNode of(final Token t, final List l) {
-            return of(t, l.nodes());
-        }
+        public static TreeNode of(final Token t, final List l) { return of(t, l.nodes()); }
 
         /** Creates anonymous list node containing given nodes. */
-        public static TreeNode.List of(final java.util.List<TreeNode> ns) {
-            return new List(Token.NIL, ns);
-        }
+        public static TreeNode.List of(final java.util.List<TreeNode> ns) { return new List(Token.NIL, ns); }
 
         /** Acquires list elements. */
-        public java.util.List<TreeNode> nodes() {
-            return nodes;
-        }
+        public java.util.List<TreeNode> nodes() { return nodes; }
 
         @Override
         public boolean equals(final Object that) {
@@ -189,14 +169,10 @@ public interface TreeNode {
         }
 
         /** Call function node. */
-        public TreeNode function() {
-            return function;
-        }
+        public TreeNode function() { return function; }
 
         /** Call arguments. */
-        public List arguments() {
-            return arguments;
-        }
+        public List arguments() { return arguments; }
 
         @Override
         public boolean equals(final Object that) {
@@ -206,9 +182,7 @@ public interface TreeNode {
         }
 
         @Override
-        public String toString() {
-            return "(" + function() + " " + arguments() + ")";
-        }
+        public String toString() { return "(" + function() + " " + arguments() + ")"; }
     }
 
     /**
@@ -231,19 +205,13 @@ public interface TreeNode {
         }
 
         @Override
-        public TreeNode evaluate(final TreeSymbolTable t) {
-            return origin().evaluate(t);
-        }
+        public TreeNode evaluate(final TreeSymbolTable t) { return origin().evaluate(t); }
 
         /** Origin node. */
-        public TreeNode origin() {
-            return origin;
-        }
+        public TreeNode origin() { return origin; }
 
         /** Meta value. */
-        public TreeNode meta() {
-            return meta;
-        }
+        public TreeNode meta() { return meta; }
 
         @Override
         public boolean equals(final Object that) {
@@ -252,9 +220,7 @@ public interface TreeNode {
         }
 
         @Override
-        public String toString() {
-            return origin() + ":" + meta();
-        }
+        public String toString() { return origin() + ":" + meta(); }
     }
 
     /**
@@ -262,9 +228,7 @@ public interface TreeNode {
      */
     class Root extends List implements Callable {
         /** Creates new root node containing given nodes. */
-        public Root(final TreeNode.List l) {
-            super(Token.NIL, l.nodes());
-        }
+        public Root(final TreeNode.List l) { super(Token.NIL, l.nodes()); }
 
         @Override
         public TreeNode evaluate(final TreeSymbolTable t) {
