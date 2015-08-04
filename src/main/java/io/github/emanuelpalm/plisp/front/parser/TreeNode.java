@@ -4,7 +4,6 @@ import io.github.emanuelpalm.plisp.front.lexer.Token;
 
 import java.util.Collections;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * A node part of an abstract syntax {@link Tree}.
