@@ -185,7 +185,7 @@ public interface TreeNode {
 
         @Override
         public TreeNode evaluate(final TreeSymbolTable t) {
-            return ((Callable) function.evaluate(t)).evaluate(t, arguments);
+            return ((Callable) function().evaluate(t)).evaluate(t, arguments());
         }
 
         /** Call function node. */
@@ -232,7 +232,7 @@ public interface TreeNode {
 
         @Override
         public TreeNode evaluate(final TreeSymbolTable t) {
-            return origin.evaluate(t);
+            return origin().evaluate(t);
         }
 
         /** Origin node. */
