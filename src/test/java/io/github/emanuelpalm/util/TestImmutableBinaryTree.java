@@ -10,7 +10,7 @@ public class TestImmutableBinaryTree {
     @Test
     public void shouldReturnNullWhenGettingFromEmptyTree() {
         final BinaryTreeMap<String, Integer> t = new BinaryTreeMap<>();
-        assertFalse(t.get("key").isPresent());
+        assertFalse(t.search("key").isPresent());
     }
 
     @Test
@@ -19,14 +19,14 @@ public class TestImmutableBinaryTree {
         final BinaryTreeMap<String, Integer> t1 = t0.insert("k1", 100);
         final BinaryTreeMap<String, Integer> t2 = t1.insert("k2", 200);
 
-        assertFalse(t0.get("k1").isPresent());
-        assertFalse(t0.get("k2").isPresent());
+        assertFalse(t0.search("k1").isPresent());
+        assertFalse(t0.search("k2").isPresent());
 
-        assertEquals(100, (int) t1.get("k1").get());
-        assertFalse(t1.get("k2").isPresent());
+        assertEquals(100, (int) t1.search("k1").get());
+        assertFalse(t1.search("k2").isPresent());
 
-        assertEquals(100, (int) t2.get("k1").get());
-        assertEquals(200, (int) t2.get("k2").get());
+        assertEquals(100, (int) t2.search("k1").get());
+        assertEquals(200, (int) t2.search("k2").get());
     }
 
     @Test
@@ -38,8 +38,8 @@ public class TestImmutableBinaryTree {
 
         final BinaryTreeMap<String, Integer> t1 = t0.insert("badger", 222);
 
-        assertEquals(200, (int) t0.get("badger").get());
-        assertEquals(222, (int) t1.get("badger").get());
+        assertEquals(200, (int) t0.search("badger").get());
+        assertEquals(222, (int) t1.search("badger").get());
     }
 
     @Test

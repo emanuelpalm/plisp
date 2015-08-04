@@ -23,7 +23,7 @@ public class BinaryTreeMap<K extends Comparable<K>, V> {
     }
 
     /** Gets value associated with given key, or {@code null} in case the key couldn't be found. */
-    public Optional<V> get(final K key) {
+    public Optional<V> search(final K key) {
         return Node.search(root, key);
     }
 
