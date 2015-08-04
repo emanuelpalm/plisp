@@ -4,14 +4,13 @@ import org.testng.annotations.Test;
 
 import java.util.LinkedList;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.testng.Assert.*;
 
 public class TestImmutableBinaryTree {
     @Test
     public void shouldReturnNullWhenGettingFromEmptyTree() {
         final ImmutableBinaryTree<String, Integer> t = new ImmutableBinaryTree<>();
-        assertNull(t.get("key"));
+        assertFalse(t.get("key").isPresent());
     }
 
     @Test
@@ -20,14 +19,14 @@ public class TestImmutableBinaryTree {
         final ImmutableBinaryTree<String, Integer> t1 = t0.put("k1", 100);
         final ImmutableBinaryTree<String, Integer> t2 = t1.put("k2", 200);
 
-        assertNull(t0.get("k1"));
-        assertNull(t0.get("k2"));
+        assertFalse(t0.get("k1").isPresent());
+        assertFalse(t0.get("k2").isPresent());
 
-        assertEquals(100, (int) t1.get("k1"));
-        assertNull(t1.get("k2"));
+        assertEquals(100, (int) t1.get("k1").get());
+        assertFalse(t1.get("k2").isPresent());
 
-        assertEquals(100, (int) t2.get("k1"));
-        assertEquals(200, (int) t2.get("k2"));
+        assertEquals(100, (int) t2.get("k1").get());
+        assertEquals(200, (int) t2.get("k2").get());
     }
 
     @Test
@@ -39,8 +38,8 @@ public class TestImmutableBinaryTree {
 
         final ImmutableBinaryTree<String, Integer> t1 = t0.put("badger", 222);
 
-        assertEquals(200, (int) t0.get("badger"));
-        assertEquals(222, (int) t1.get("badger"));
+        assertEquals(200, (int) t0.get("badger").get());
+        assertEquals(222, (int) t1.get("badger").get());
     }
 
     @Test

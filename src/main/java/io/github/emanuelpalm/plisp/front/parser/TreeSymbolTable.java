@@ -26,8 +26,7 @@ public class TreeSymbolTable {
     /** Attempts to find symbol by given name. */
     public Optional<TreeNode> find(final String name) {
         return Optional.ofNullable(
-                Optional.ofNullable(tree.get(name))
-                        .orElse(map.get(name))
+                tree.get(name).orElse(map.get(name))
         );
     }
 

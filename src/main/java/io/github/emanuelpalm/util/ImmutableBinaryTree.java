@@ -1,5 +1,6 @@
 package io.github.emanuelpalm.util;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -26,7 +27,7 @@ public class ImmutableBinaryTree<K extends Comparable<K>, V> {
     }
 
     /** Gets value associated with given key, or {@code null} in case the key couldn't be found. */
-    public V get(final K key) {
+    public Optional<V> get(final K key) {
         return Node.search(root, key);
     }
 
@@ -60,9 +61,9 @@ public class ImmutableBinaryTree<K extends Comparable<K>, V> {
             return new Node<>(n.left, n.right, k, v);
         }
 
-        static <K extends Comparable<K>, V> V search(final Node<K, V> n, final K k) {
+        static <K extends Comparable<K>, V> Optional<V> search(final Node<K, V> n, final K k) {
             if (n == null) {
-                return null;
+                return Optional.empty();
             }
             final int c = n.key.compareTo(k);
             if (c > 0) {
@@ -70,7 +71,7 @@ public class ImmutableBinaryTree<K extends Comparable<K>, V> {
             } else if (c < 0) {
                 return search(n.right, k);
             }
-            return n.value;
+            return Optional.of(n.value);
         }
 
         static <K extends Comparable<K>, V> void traverse(final Node<K, V> n, final Consumer<Pair<K, V>> a) {
