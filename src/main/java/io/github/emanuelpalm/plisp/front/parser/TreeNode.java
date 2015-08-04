@@ -104,7 +104,7 @@ public interface TreeNode {
          */
         @Override
         public TreeNode evaluate(final TreeSymbolTable t) {
-            return t.find(name()).get();
+            return t.find(name()).get().evaluate(t);
         }
 
         /** Acquires symbol name. */
