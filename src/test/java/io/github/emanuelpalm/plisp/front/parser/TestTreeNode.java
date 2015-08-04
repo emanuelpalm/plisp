@@ -19,9 +19,9 @@ public class TestTreeNode {
     @DataProvider
     public static Object[][] nodesEvaluatingToSelf() {
         return new Object[][]{
-                new Object[]{new TreeNode.Void(Token.NIL)},
-                new Object[]{new TreeNode.Integer(Token.NIL)},
-                new Object[]{new TreeNode.Number(Token.NIL)},
+                new Object[]{TreeNode.Void.of(Token.NIL)},
+                new Object[]{TreeNode.Integer.of(Token.NIL)},
+                new Object[]{TreeNode.Number.of(Token.NIL)},
                 new Object[]{new TreeNode.List(Token.NIL, Collections.emptyList())},
         };
     }

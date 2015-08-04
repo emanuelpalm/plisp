@@ -23,7 +23,7 @@ public class Tree {
     public TreeNode evaluate(final TreeSymbolTable t, final String... args) {
         final ArrayList<TreeNode> ns = new ArrayList<>(args.length);
         for (final String arg : args) {
-            ns.add(new TreeNode.Number(new Token(TokenClass.NUM, arg)));
+            ns.add(TreeNode.Number.of(new Token(TokenClass.NUM, arg)));
         }
         return root.evaluate(t, (TreeNode.List) TreeNode.List.of(Token.NIL, ns));
     }

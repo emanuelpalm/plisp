@@ -14,17 +14,17 @@ import java.util.Arrays;
 public class TreeUtils {
     /** Creates integer node from given string. */
     public static TreeNode.Integer integerOf(final String s) {
-        return new TreeNode.Integer(new Token(TokenClass.INT, s));
+        return TreeNode.Integer.of(new Token(TokenClass.INT, s));
     }
 
     /** Creates number node from given string. */
     public static TreeNode.Number numberOf(final String s) {
-        return new TreeNode.Number(new Token(TokenClass.NUM, s));
+        return TreeNode.Number.of(new Token(TokenClass.NUM, s));
     }
 
     /** Creates symbol node from given string. */
     public static TreeNode.Symbol symbolOf(final String s) {
-        return new TreeNode.Symbol(new Token(TokenClass.SYM, s));
+        return TreeNode.Symbol.of(new Token(TokenClass.SYM, s));
     }
 
     /** Creates list node containing given nodes. */

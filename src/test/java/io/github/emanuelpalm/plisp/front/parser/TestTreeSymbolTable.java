@@ -26,11 +26,11 @@ public class TestTreeSymbolTable {
     }
 
     private static TreeNode.Symbol symNode(final String lexeme) {
-        return new TreeNode.Symbol(new Token(new TokenOrigin("test", 1, 0), TokenClass.SYM, lexeme));
+        return TreeNode.Symbol.of(new Token(new TokenOrigin("test", 1, 0), TokenClass.SYM, lexeme));
     }
 
     private static TreeNode.Integer intNode(final String lexeme) {
-        return new TreeNode.Integer(new Token(new TokenOrigin("test", 1, 0), TokenClass.INT, lexeme));
+        return TreeNode.Integer.of(new Token(new TokenOrigin("test", 1, 0), TokenClass.INT, lexeme));
     }
 
     @Test(dataProvider = "symbolTables")

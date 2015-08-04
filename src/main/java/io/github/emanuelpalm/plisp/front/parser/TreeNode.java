@@ -53,8 +53,10 @@ public interface TreeNode {
      * Nothing.
      */
     class Void extends Base {
+        private Void(final Token t) { super(t); }
+
         /** Creates void node. */
-        public Void(final Token t) { super(t); }
+        public static TreeNode.Void of(final Token t) { return new Void(t); }
 
         @Override
         public boolean equals(final Object that) {
@@ -66,8 +68,10 @@ public interface TreeNode {
      * An integer.
      */
     class Integer extends Base {
+        private Integer(final Token t) { super(t); }
+
         /** Creates integer node. */
-        public Integer(final Token t) { super(t); }
+        public static TreeNode.Integer of(final Token t) { return new Integer(t); }
 
         /** Converts integer node into a Java {@code long}. */
         public long toLong() { return Long.parseLong(token().lexeme()); }
@@ -77,8 +81,10 @@ public interface TreeNode {
      * A number.
      */
     class Number extends Base {
+        private Number(final Token t) { super(t); }
+
         /** Creates number node. */
-        public Number(final Token t) { super(t); }
+        public static TreeNode.Number of(final Token t) { return new Number(t); }
 
         /** Converts number node into a Java {@code double}. */
         public double toDouble() { return Double.parseDouble(token().lexeme()); }
@@ -88,8 +94,10 @@ public interface TreeNode {
      * A symbol.
      */
     class Symbol extends Base {
+        private Symbol(final Token t) { super(t); }
+
         /** Creates symbol node. */
-        public Symbol(final Token t) { super(t); }
+        public static TreeNode.Symbol of(final Token t) { return new Symbol(t); }
 
         /**
          * Evaluates symbol into the {@link TreeNode} it represents.
