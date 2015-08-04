@@ -61,6 +61,11 @@ public interface TreeNode {
     class Void extends Base {
         /** Creates void node. */
         public Void(final Token t) { super(t); }
+
+        @Override
+        public boolean equals(final Object that) {
+            return that == null || that instanceof Void;
+        }
     }
 
     /**
@@ -146,6 +151,12 @@ public interface TreeNode {
         }
 
         @Override
+        public boolean equals(final Object that) {
+            return that != null && that instanceof List
+                    && nodes().equals(((List) that).nodes());
+        }
+
+        @Override
         public String toString() {
             return "[" + nodes().stream().map(Object::toString).collect(Collectors.joining(" ")) + "]";
         }
@@ -188,6 +199,13 @@ public interface TreeNode {
         }
 
         @Override
+        public boolean equals(final Object that) {
+            return that != null && that instanceof Call
+                    && this.function().equals(((Call) that).function())
+                    && this.arguments().equals(((Call) that).arguments());
+        }
+
+        @Override
         public String toString() {
             return "(" + function() + " " + arguments() + ")";
         }
@@ -225,6 +243,12 @@ public interface TreeNode {
         /** Meta value. */
         public TreeNode meta() {
             return meta;
+        }
+
+        @Override
+        public boolean equals(final Object that) {
+            return that != null && that instanceof TreeNode
+                    && origin().equals(that);
         }
 
         @Override
