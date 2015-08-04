@@ -51,7 +51,7 @@ public interface TreeNode {
 
         @Override
         public String toString() {
-            return token.lexeme();
+            return token().lexeme();
         }
     }
 
@@ -147,7 +147,7 @@ public interface TreeNode {
 
         @Override
         public String toString() {
-            return "[" + nodes.stream().map(Object::toString).collect(Collectors.joining(" ")) + "]";
+            return "[" + nodes().stream().map(Object::toString).collect(Collectors.joining(" ")) + "]";
         }
     }
 
@@ -189,7 +189,7 @@ public interface TreeNode {
 
         @Override
         public String toString() {
-            return "(" + function + " " + arguments + ")";
+            return "(" + function() + " " + arguments() + ")";
         }
     }
 
@@ -229,7 +229,7 @@ public interface TreeNode {
 
         @Override
         public String toString() {
-            return origin + ":" + meta;
+            return origin() + ":" + meta();
         }
     }
 
