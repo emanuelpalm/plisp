@@ -3,6 +3,8 @@ package io.github.emanuelpalm.plisp.front.parser;
 import io.github.emanuelpalm.plisp.front.lexer.Token;
 
 import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A node part of an abstract syntax {@link Tree}.
@@ -52,7 +54,7 @@ public interface TreeNode {
 
         @Override
         public String toString() {
-            return "{token: " + token() + " }";
+            return token.lexeme();
         }
     }
 
@@ -145,6 +147,11 @@ public interface TreeNode {
         public java.util.List<TreeNode> nodes() {
             return nodes;
         }
+
+        @Override
+        public String toString() {
+            return "[" + nodes.stream().map(Object::toString).collect(Collectors.joining(" ")) + "]";
+        }
     }
 
     /**
@@ -182,6 +189,11 @@ public interface TreeNode {
         public List arguments() {
             return arguments;
         }
+
+        @Override
+        public String toString() {
+            return "(" + function + " " + arguments + ")";
+        }
     }
 
     /**
@@ -216,6 +228,11 @@ public interface TreeNode {
         /** Meta value. */
         public TreeNode meta() {
             return meta;
+        }
+
+        @Override
+        public String toString() {
+            return origin + ":" + meta;
         }
     }
 
