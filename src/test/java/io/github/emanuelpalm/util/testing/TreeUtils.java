@@ -57,10 +57,37 @@ public class TreeUtils {
         return (TreeNode.Meta) TreeNode.Meta.of(Token.NIL, origin, meta);
     }
 
+    /** Creates root node containing given nodes. */
+    public static TreeNode.Root rootOf(final TreeNode... ns) {
+        return new TreeNode.Root(listOf(ns));
+    }
+
+    /** Creates declarable node using given interface implementation. */
+    public static TreeNode.Declarable declarableOf(final Declarable d) {
+        return new TreeNode.Declarable() {
+            @Override
+            public Token token() {
+                return Token.NIL;
+            }
+
+            @Override
+            public TreeSymbolTable addSymbolTo(final TreeSymbolTable t) {
+                return d.addSymbolTo(t);
+            }
+        };
+    }
+
     /**
      * Mock version of {@link TreeNode.Callable}.
      */
     public interface Callable {
         TreeNode evaluate(final TreeSymbolTable t, final TreeNode.List args);
+    }
+
+    /**
+     * Mock version of {@link TreeNode.Declarable}.
+     */
+    public interface Declarable {
+        TreeSymbolTable addSymbolTo(final TreeSymbolTable t);
     }
 }
