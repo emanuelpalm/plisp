@@ -13,13 +13,9 @@ public class BinaryTreeMap<K extends Comparable<K>, V> {
     private final Node<K, V> root;
 
     /** Creates new empty binary tree. */
-    public BinaryTreeMap() {
-        root = null;
-    }
+    public BinaryTreeMap() { root = null; }
 
-    private BinaryTreeMap(final Node<K, V> n) {
-        root = n;
-    }
+    private BinaryTreeMap(final Node<K, V> n) { root = n; }
 
     /** Creates new binary tree that includes given key and value. */
     public BinaryTreeMap<K, V> insert(final K key, final V value) {
