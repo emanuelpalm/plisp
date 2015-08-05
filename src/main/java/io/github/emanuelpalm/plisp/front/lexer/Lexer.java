@@ -22,7 +22,7 @@ public class Lexer {
 
     /** Creates new lexer, producing tokens from contents of given file. */
     public static Lexer fromFile(final File f) throws IOException {
-        return new Lexer(new TokenReaderFile(f));
+        return new Lexer(TokenReader.of(f));
     }
 
     /** Produces another token. Returns tokens of class {@link TokenClass#END} if the end has been reached. */

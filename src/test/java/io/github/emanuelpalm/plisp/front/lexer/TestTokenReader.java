@@ -20,7 +20,7 @@ public class TestTokenReader {
     @DataProvider
     public static Object[][] tokenReaders() throws Throwable {
         return new Object[][]{
-                new Object[]{new TokenReaderFile(FileUtils.fromBytes(READER_CONTENTS))}
+                new Object[]{TokenReader.of(FileUtils.fromBytes(READER_CONTENTS))}
         };
     }
 
