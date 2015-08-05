@@ -31,7 +31,7 @@ public class TreeSymbolTable {
     }
 
     /** Creates new symbol table also including given entry. */
-    public TreeSymbolTable put(final TreeNode.Symbol name, final TreeNode value) {
+    public TreeSymbolTable insert(final TreeNode.Symbol name, final TreeNode value) {
         return new TreeSymbolTable(map, tree.insert(name.name(), value));
     }
 

@@ -30,7 +30,7 @@ public class TestTreeNode {
     @Test
     public void shouldEvaluateSymbolToAssociatedNode() {
         final TreeSymbolTable t = new TreeSymbolTable()
-                .put(symbolOf("test"), integerOf("123"));
+                .insert(symbolOf("test"), integerOf("123"));
 
         assertEquals(symbolOf("test").evaluate(t), integerOf("123"));
     }
@@ -38,7 +38,7 @@ public class TestTreeNode {
     @Test
     public void shouldEvaluateCallToCallableResult() {
         final TreeSymbolTable t = new TreeSymbolTable()
-                .put(symbolOf("test"), callableOf((t0, args) -> {
+                .insert(symbolOf("test"), callableOf((t0, args) -> {
                     assertEquals(args, listOf(numberOf("1.23"), numberOf("45.6")));
                     assertTrue(t0.search("test").isPresent());
                     return integerOf("123");
@@ -58,9 +58,9 @@ public class TestTreeNode {
     @Test
     public void shouldEvaluateRootProperly() {
         final TreeNode.Root r = rootOf(
-                declarableOf((t) -> t.put(symbolOf("fun0"), callableOf((t0, args) -> callOf(symbolOf("fun1"), args.nodes().get(0)).evaluate(t0)))),
-                declarableOf((t) -> t.put(symbolOf("main"), callableOf((t0, args) -> callOf(symbolOf("fun0"), args.nodes().get(0)).evaluate(t0)))),
-                declarableOf((t) -> t.put(symbolOf("fun1"), callableOf((t0, args) -> args.nodes().get(0).evaluate(t0))))
+                declarableOf((t) -> t.insert(symbolOf("fun0"), callableOf((t0, args) -> callOf(symbolOf("fun1"), args.nodes().get(0)).evaluate(t0)))),
+                declarableOf((t) -> t.insert(symbolOf("main"), callableOf((t0, args) -> callOf(symbolOf("fun0"), args.nodes().get(0)).evaluate(t0)))),
+                declarableOf((t) -> t.insert(symbolOf("fun1"), callableOf((t0, args) -> args.nodes().get(0).evaluate(t0))))
         );
         assertEquals(r.evaluate(new TreeSymbolTable(), listOf(integerOf("123"))), integerOf("123"));
     }
