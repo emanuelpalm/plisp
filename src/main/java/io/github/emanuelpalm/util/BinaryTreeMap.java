@@ -29,7 +29,7 @@ public class BinaryTreeMap<K extends Comparable<K>, V> {
 
     /** Calls given action with each binary tree key/value pair in order. */
     public void forEach(final BiConsumer<K, V> c) {
-        Node.traverse(root, c);
+        Node.forEach(root, c);
     }
 
     private static class Node<K extends Comparable<K>, V> {
@@ -70,10 +70,10 @@ public class BinaryTreeMap<K extends Comparable<K>, V> {
             return Optional.of(n.value);
         }
 
-        static <K extends Comparable<K>, V> void traverse(final Node<K, V> n, final BiConsumer<K, V> a) {
-            if (n.left != null) traverse(n.left, a);
+        static <K extends Comparable<K>, V> void forEach(final Node<K, V> n, final BiConsumer<K, V> a) {
+            if (n.left != null) forEach(n.left, a);
             a.accept(n.key, n.value);
-            if (n.right != null) traverse(n.right, a);
+            if (n.right != null) forEach(n.right, a);
         }
     }
 }
