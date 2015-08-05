@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import static org.testng.Assert.*;
 
-public class TestImmutableBinaryTree {
+public class TestBinaryTreeMap {
     @Test
     public void shouldReturnNullWhenGettingFromEmptyTree() {
         final BinaryTreeMap<String, Integer> t = new BinaryTreeMap<>();
