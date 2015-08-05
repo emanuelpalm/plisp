@@ -20,7 +20,7 @@ public class TokenReader {
     private final TokenOrigin origin;
     private int readPointer = 0;
 
-    /** Creates new token reader, reading from given file. */
+    /** Creates token reader using given byte buffer and name. */
     public TokenReader(final ByteBuffer b, final String name) {
         buffer = b;
         origin = new TokenOrigin(name);
