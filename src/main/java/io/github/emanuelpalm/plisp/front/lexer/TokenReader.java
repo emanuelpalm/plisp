@@ -35,6 +35,12 @@ public class TokenReader {
         }
     }
 
+    /** Creates token reader that reads the contents of the given string. */
+    public static TokenReader of(final String s) {
+        final ByteBuffer b = ByteBuffer.wrap(s.getBytes(StandardCharsets.UTF_8));
+        return new TokenReader(b, "<string>");
+    }
+
     /** Yields name identifying token reader. */
     public String name() {
         return origin.name;
