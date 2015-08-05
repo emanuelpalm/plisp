@@ -105,7 +105,7 @@ public interface TreeNode {
          * For evaluation to succeed, the symbol name must be present in the given symbol table.
          */
         @Override
-        public TreeNode evaluate(final TreeSymbolTable t) { return t.find(name()).get().evaluate(t); }
+        public TreeNode evaluate(final TreeSymbolTable t) { return t.search(name()).get().evaluate(t); }
 
         /** Acquires symbol name. */
         public String name() { return token().lexeme(); }
@@ -256,7 +256,7 @@ public interface TreeNode {
                 t1 = ((Declarable) t).addSymbolTo(t1);
             }
             t1 = t1.optimize();
-            return ((Callable) t1.find("main").get()).evaluate(t1, args);
+            return ((Callable) t1.search("main").get()).evaluate(t1, args);
         }
     }
 

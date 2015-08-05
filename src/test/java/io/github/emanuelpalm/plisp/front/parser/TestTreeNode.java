@@ -40,7 +40,7 @@ public class TestTreeNode {
         final TreeSymbolTable t = new TreeSymbolTable()
                 .put(symbolOf("test"), callableOf((t0, args) -> {
                     assertEquals(args, listOf(numberOf("1.23"), numberOf("45.6")));
-                    assertTrue(t0.find("test").isPresent());
+                    assertTrue(t0.search("test").isPresent());
                     return integerOf("123");
                 }));
         final TreeNode result = callOf(symbolOf("test"), numberOf("1.23"), numberOf("45.6"))

@@ -35,9 +35,9 @@ public class TestTreeSymbolTable {
 
     @Test(dataProvider = "symbolTables")
     public void shouldFindValuesPreviouslyPut(final TreeSymbolTable t0) {
-        assertEquals(t0.find("one").get(), intNode("10"));
-        assertEquals(t0.find("two").get(), intNode("20"));
-        assertEquals(t0.find("three").get(), intNode("30"));
+        assertEquals(t0.search("one").get(), intNode("10"));
+        assertEquals(t0.search("two").get(), intNode("20"));
+        assertEquals(t0.search("three").get(), intNode("30"));
     }
 
     @Test(dataProvider = "symbolTables")
@@ -45,8 +45,8 @@ public class TestTreeSymbolTable {
         final TreeSymbolTable t1 = t0
                 .put(symNode("one"), intNode("20"));
 
-        assertEquals(t0.find("one").get(), intNode("10"));
-        assertEquals(t1.find("one").get(), intNode("20"));
+        assertEquals(t0.search("one").get(), intNode("10"));
+        assertEquals(t1.search("one").get(), intNode("20"));
     }
 
     @Test(dataProvider = "symbolTables")
@@ -54,13 +54,13 @@ public class TestTreeSymbolTable {
         final TreeSymbolTable t1 = t0.put(symNode("four"), intNode("40"));
         final TreeSymbolTable t2 = t1.put(symNode("five"), intNode("50"));
 
-        assertFalse(t0.find("four").isPresent());
-        assertFalse(t0.find("five").isPresent());
+        assertFalse(t0.search("four").isPresent());
+        assertFalse(t0.search("five").isPresent());
 
-        assertEquals(t1.find("four").get(), intNode("40"));
-        assertFalse(t1.find("five").isPresent());
+        assertEquals(t1.search("four").get(), intNode("40"));
+        assertFalse(t1.search("five").isPresent());
 
-        assertEquals(t2.find("four").get(), intNode("40"));
-        assertEquals(t2.find("five").get(), intNode("50"));
+        assertEquals(t2.search("four").get(), intNode("40"));
+        assertEquals(t2.search("five").get(), intNode("50"));
     }
 }
