@@ -1,28 +1,12 @@
 package io.github.emanuelpalm.plisp.front.lexer;
 
-import io.github.emanuelpalm.util.testing.FileUtils;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import java.nio.charset.StandardCharsets;
-
 public class TestTokenReader {
-    private static final byte[] READER_CONTENTS = "A\nsentence of words.".getBytes(StandardCharsets.UTF_8);
+    private static final String READER_CONTENTS = "A\nsentence of words.";
 
-    private final TokenReader tokenReader;
-
-    /** All readers provided to this method are expected to contain a copy of {@link #READER_CONTENTS}. */
-    @Factory(dataProvider = "tokenReaders")
-    public TestTokenReader(final TokenReader tr) {
-        tokenReader = tr;
-    }
-
-    @DataProvider
-    public static Object[][] tokenReaders() throws Throwable {
-        return new Object[][]{
-                new Object[]{TokenReader.of(FileUtils.fromBytes(READER_CONTENTS))}
-        };
-    }
+    private final TokenReader tokenReader = TokenReader.of(READER_CONTENTS);
 
     @BeforeMethod
     public void setUp() {
@@ -79,7 +63,7 @@ public class TestTokenReader {
     public void shouldReadAndConsumeAllCharacters() {
         tokenReader.readWhile((b) -> true);
         final Token result = tokenReader.consume(TokenClass.ERR);
-        assertEquals(token(1, 0, TokenClass.ERR, new String(READER_CONTENTS, StandardCharsets.UTF_8)), result);
+        assertEquals(token(1, 0, TokenClass.ERR, READER_CONTENTS), result);
     }
 
     @Test
