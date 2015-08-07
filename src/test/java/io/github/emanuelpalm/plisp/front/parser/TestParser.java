@@ -12,8 +12,11 @@ import static org.testng.Assert.assertEquals;
 public class TestParser {
     @Test
     public void shouldParseValues() {
-        final Parser p = new Parser(new BufferedLexer(Lexer.fromString("123 45.6 symbol")));
-        final Tree t = p.run();
+        final Tree t = parserOf("123 45.6 symbol").run();
         assertEquals(t.root.nodes(), Arrays.asList(integerOf("123"), numberOf("45.6"), symbolOf("symbol")));
+    }
+
+    private Parser parserOf(final String s) {
+        return new Parser(new BufferedLexer(Lexer.fromString(s)));
     }
 }
