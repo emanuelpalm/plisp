@@ -59,7 +59,7 @@ public class Parser {
 
     private Rule root() {
         return _allOf(_manyOf(exp0()))
-                .thenCombine((ns) -> new TreeNode.Root((TreeNode.List) ns.get(0)));
+                .thenCombine((ns) -> TreeNode.Root.of(ns.get(0)));
     }
 
     private Rule exp0() {

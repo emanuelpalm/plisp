@@ -59,7 +59,7 @@ public class TreeUtils {
 
     /** Creates root node containing given nodes. */
     public static TreeNode.Root rootOf(final TreeNode... ns) {
-        return new TreeNode.Root(listOf(ns));
+        return (TreeNode.Root) TreeNode.Root.of(listOf(ns));
     }
 
     /** Creates declarable node using given interface implementation. */

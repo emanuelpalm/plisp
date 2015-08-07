@@ -235,8 +235,12 @@ public interface TreeNode {
      * Serves as abstract syntax {@link Tree} root.
      */
     class Root extends List implements Callable {
+        private Root(final TreeNode.List l) { super(Token.NIL, l.nodes()); }
+
         /** Creates new root node containing given nodes. */
-        public Root(final TreeNode.List l) { super(Token.NIL, l.nodes()); }
+        public static TreeNode of(final TreeNode list) {
+            return new Root((TreeNode.List) list);
+        }
 
         @Override
         public TreeNode evaluate(final TreeSymbolTable t) {
