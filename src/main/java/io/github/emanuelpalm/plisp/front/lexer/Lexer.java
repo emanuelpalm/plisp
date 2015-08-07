@@ -25,6 +25,11 @@ public class Lexer {
         return new Lexer(TokenReader.of(f));
     }
 
+    /** Creates new lexer, producing tokens from contents of given string. */
+    public static Lexer fromString(final String s) {
+        return new Lexer(TokenReader.of(s));
+    }
+
     /** Produces another token. Returns tokens of class {@link TokenClass#END} if the end has been reached. */
     public Token next() {
         final byte b = tokenReader.read();
