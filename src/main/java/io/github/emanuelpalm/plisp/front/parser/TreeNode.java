@@ -24,9 +24,7 @@ public interface TreeNode {
     Token token();
 
     /** Evaluates node using given symbol table. */
-    default TreeNode evaluate(final TreeSymbolTable t) {
-        return this;
-    }
+    default TreeNode evaluate(final TreeSymbolTable t) { return this; }
 
     /**
      * Optional base class for tree node types.
