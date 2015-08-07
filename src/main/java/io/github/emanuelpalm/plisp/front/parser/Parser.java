@@ -58,31 +58,37 @@ public class Parser {
     }
 
     private Rule root() {
-        return _allOf(_manyOf(exp0()))
-                .thenCombine((ns) -> TreeNode.Root.of(ns.get(0)));
+        return () -> _manyOf(exp0())
+                .thenTransform(TreeNode.Root::of)
+                .apply();
     }
 
     private Rule exp0() {
-        return _oneOf(meta(), exp1());
+        return () -> _oneOf(meta(), exp1())
+                .apply();
     }
 
     private Rule meta() {
-        return _allOf(exp1(), _COL, exp0())
-                .thenCombine((ns) -> TreeNode.Meta.of(ns.get(1).token(), ns.get(0), ns.get(2)));
+        return () -> _allOf(exp1(), _COL, exp0())
+                .thenCombine((ns) -> TreeNode.Meta.of(ns.get(1).token(), ns.get(0), ns.get(2)))
+                .apply();
     }
 
     private Rule exp1() {
-        return _oneOf(_INT, _NUM, _SYM, list(), call());
+        return () -> _oneOf(_INT, _NUM, _SYM, list(), call())
+                .apply();
     }
 
     private Rule list() {
-        return _allOf(_BRL, _manyOf(exp0()), _BRR)
-                .thenCombine((ns) -> TreeNode.List.of(ns.get(0).token(), (TreeNode.List) ns.get(1)));
+        return () -> _allOf(_BRL, _manyOf(exp0()), _BRR)
+                .thenCombine((ns) -> TreeNode.List.of(ns.get(0).token(), (TreeNode.List) ns.get(1)))
+                .apply();
     }
 
     private Rule call() {
-        return _allOf(_PAL, _manyOf(exp0()), _PAR)
-                .thenCombine((ns) -> TreeNode.Call.of(ns.get(0).token(), (TreeNode.List) ns.get(1)));
+        return () -> _allOf(_PAL, _manyOf(exp0()), _PAR)
+                .thenCombine((ns) -> TreeNode.Call.of(ns.get(0).token(), (TreeNode.List) ns.get(1)))
+                .apply();
     }
 
     private Rule _oneOf(final Rule... rs) {
@@ -140,6 +146,16 @@ public class Parser {
      */
     private interface Rule {
         Optional<TreeNode> apply();
+
+        default Rule thenTransform(final Function<TreeNode, TreeNode> f) {
+            return () -> {
+                final Optional<TreeNode> n = apply();
+                if (n.isPresent()) {
+                    return Optional.of(f.apply(n.get()));
+                }
+                return Optional.empty();
+            };
+        }
     }
 
     /**
