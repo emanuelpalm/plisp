@@ -15,9 +15,7 @@ public class Tree {
     public final TreeNode.Root root;
 
     /** Creates new tree with given list as root node. */
-    public Tree(final TreeNode.Root root) {
-        this.root = root;
-    }
+    public Tree(final TreeNode.Root root) { this.root = root; }
 
     /** Evaluates abstract syntax tree with given symbol table and arguments. */
     public TreeNode evaluate(final TreeSymbolTable t, final String... args) {
