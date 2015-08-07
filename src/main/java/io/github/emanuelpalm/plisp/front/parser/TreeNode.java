@@ -223,8 +223,9 @@ public interface TreeNode {
 
         @Override
         public boolean equals(final Object that) {
-            return that != null && that instanceof TreeNode
-                    && origin().equals(that);
+            return that != null && that instanceof TreeNode.Meta
+                    && origin().equals(((Meta) that).origin())
+                    && meta().equals(((Meta) that).meta());
         }
 
         @Override
