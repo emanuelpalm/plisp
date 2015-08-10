@@ -16,12 +16,7 @@ public class TestTreeSymbolTable {
                 new Object[]{new TreeSymbolTable()
                         .insert(symNode("one"), intNode("10"))
                         .insert(symNode("two"), intNode("20"))
-                        .insert(symNode("three"), intNode("30"))},
-                new Object[]{new TreeSymbolTable()
-                        .insert(symNode("one"), intNode("10"))
-                        .insert(symNode("two"), intNode("20"))
-                        .insert(symNode("three"), intNode("30"))
-                        .optimize()}
+                        .insert(symNode("three"), intNode("30"))}
         };
     }
 

@@ -39,11 +39,4 @@ public class TreeSymbolTable {
     public TreeSymbolTable insert(final TreeNode.Symbol name, final TreeNode value) {
         return insert(name.name(), value);
     }
-
-    /** Copies current symbol table and optimizes the copy for faster entry retrieval. */
-    public TreeSymbolTable optimize() {
-        final HashMap<String, TreeNode> m = new HashMap<>(map);
-        tree.forEach(m::put);
-        return new TreeSymbolTable(m, new BinaryTreeMap<>());
-    }
 }

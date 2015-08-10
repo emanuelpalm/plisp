@@ -258,7 +258,6 @@ public interface TreeNode {
             for (final TreeNode t : nodes()) {
                 t1 = ((Declarable) t).addSymbolTo(t1);
             }
-            t1 = t1.optimize();
             return ((Callable) t1.search("main").get()).evaluate(t1, args);
         }
     }
