@@ -31,8 +31,13 @@ public class TreeSymbolTable {
     }
 
     /** Creates new symbol table also including given entry. */
+    public TreeSymbolTable insert(final String name, final TreeNode value) {
+        return new TreeSymbolTable(map, tree.insert(name, value));
+    }
+
+    /** Creates new symbol table also including given entry. */
     public TreeSymbolTable insert(final TreeNode.Symbol name, final TreeNode value) {
-        return new TreeSymbolTable(map, tree.insert(name.name(), value));
+        return insert(name.name(), value);
     }
 
     /** Copies current symbol table and optimizes the copy for faster entry retrieval. */
