@@ -31,12 +31,12 @@ public class TreeSymbolTable {
     }
 
     /** Creates new symbol table also including given entry. */
-    public TreeSymbolTable insert(final String name, final TreeNode value) {
+    public TreeSymbolTable insertLocal(final String name, final TreeNode value) {
         return new TreeSymbolTable(map, tree.insert(name, value));
     }
 
     /** Creates new symbol table also including given entry. */
-    public TreeSymbolTable insert(final TreeNode.Symbol name, final TreeNode value) {
-        return insert(name.name(), value);
+    public TreeSymbolTable insertLocal(final TreeNode.Symbol name, final TreeNode value) {
+        return insertLocal(name.name(), value);
     }
 }

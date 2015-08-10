@@ -14,9 +14,9 @@ public class TestTreeSymbolTable {
     public static Object[][] symbolTables() throws Throwable {
         return new Object[][]{
                 new Object[]{new TreeSymbolTable()
-                        .insert(symNode("one"), intNode("10"))
-                        .insert(symNode("two"), intNode("20"))
-                        .insert(symNode("three"), intNode("30"))}
+                        .insertLocal(symNode("one"), intNode("10"))
+                        .insertLocal(symNode("two"), intNode("20"))
+                        .insertLocal(symNode("three"), intNode("30"))}
         };
     }
 
@@ -38,7 +38,7 @@ public class TestTreeSymbolTable {
     @Test(dataProvider = "symbolTables")
     public void shouldReplaceExistingValueAssociatedWithSameKeyWhenUsingPut(final TreeSymbolTable t0) {
         final TreeSymbolTable t1 = t0
-                .insert(symNode("one"), intNode("20"));
+                .insertLocal(symNode("one"), intNode("20"));
 
         assertEquals(t0.search("one").get(), intNode("10"));
         assertEquals(t1.search("one").get(), intNode("20"));
@@ -46,8 +46,8 @@ public class TestTreeSymbolTable {
 
     @Test(dataProvider = "symbolTables")
     public void shouldCreateNewTablesWhenPuttingNewValues(final TreeSymbolTable t0) {
-        final TreeSymbolTable t1 = t0.insert(symNode("four"), intNode("40"));
-        final TreeSymbolTable t2 = t1.insert(symNode("five"), intNode("50"));
+        final TreeSymbolTable t1 = t0.insertLocal(symNode("four"), intNode("40"));
+        final TreeSymbolTable t2 = t1.insertLocal(symNode("five"), intNode("50"));
 
         assertFalse(t0.search("four").isPresent());
         assertFalse(t0.search("five").isPresent());
