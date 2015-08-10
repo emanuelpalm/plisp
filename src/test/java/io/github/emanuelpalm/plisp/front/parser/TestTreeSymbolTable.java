@@ -35,6 +35,19 @@ public class TestTreeSymbolTable {
     }
 
     @Test(dataProvider = "symbolTables")
+    public void shouldInsertGlobal(final TreeSymbolTable t) {
+        t.insertGlobal("four", integerOf("40"));
+        assertEquals(integerOf("40"), t.search("four").get());
+    }
+
+
+    @Test(dataProvider = "symbolTables")
+    public void shouldAlwaysUseLocalValueBeforeGlobal(final TreeSymbolTable t) {
+        t.insertGlobal("one", integerOf("1000"));
+        assertEquals(integerOf("10"), t.search("one").get());
+    }
+
+    @Test(dataProvider = "symbolTables")
     public void shouldCreateNewTablesWhenInsertingLocalValues(final TreeSymbolTable t0) {
         final TreeSymbolTable t1 = t0.insertLocal(symbolOf("four"), integerOf("40"));
         final TreeSymbolTable t2 = t1.insertLocal(symbolOf("five"), integerOf("50"));
@@ -47,5 +60,18 @@ public class TestTreeSymbolTable {
 
         assertEquals(t2.search("four").get(), integerOf("40"));
         assertEquals(t2.search("five").get(), integerOf("50"));
+    }
+
+    @Test(dataProvider = "symbolTables")
+    public void shouldMutateAllRelatedTablesWhenInsertingGlobalValue(final TreeSymbolTable t0) {
+        final TreeSymbolTable t1 = t0.insertLocal("four", integerOf("40"));
+
+        assertFalse(t0.search("five").isPresent());
+        assertFalse(t1.search("five").isPresent());
+
+        t1.insertGlobal("five", integerOf("50"));
+
+        assertEquals(t0.search("five").get(), integerOf("50"));
+        assertEquals(t1.search("five").get(), integerOf("50"));
     }
 }

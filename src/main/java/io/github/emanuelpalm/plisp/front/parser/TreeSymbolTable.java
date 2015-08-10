@@ -30,6 +30,11 @@ public class TreeSymbolTable {
         );
     }
 
+    /** Adds given global entry to all symbol tables related to this table. */
+    public void insertGlobal(final String name, final TreeNode value) {
+        global.put(name, value);
+    }
+
     /** Creates new symbol table also including given entry. */
     public TreeSymbolTable insertLocal(final String name, final TreeNode value) {
         return new TreeSymbolTable(global, local.insert(name, value));
