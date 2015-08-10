@@ -12,30 +12,30 @@ public class TestTreeSymbolTable {
     public static Object[][] symbolTables() throws Throwable {
         return new Object[][]{
                 new Object[]{new TreeSymbolTable()
-                        .insertLocal(symbolOf("one"), integerOf("10"))
-                        .insertLocal(symbolOf("two"), integerOf("20"))
-                        .insertLocal(symbolOf("three"), integerOf("30"))}
+                        .insertLocal("one", integerOf("10"))
+                        .insertLocal("two", integerOf("20"))
+                        .insertLocal("three", integerOf("30"))}
         };
     }
 
     @Test(dataProvider = "symbolTables")
-    public void shouldFindValuesPreviouslyPut(final TreeSymbolTable t0) {
+    public void shouldFindValuesPreviouslyInserted(final TreeSymbolTable t0) {
         assertEquals(t0.search("one").get(), integerOf("10"));
         assertEquals(t0.search("two").get(), integerOf("20"));
         assertEquals(t0.search("three").get(), integerOf("30"));
     }
 
     @Test(dataProvider = "symbolTables")
-    public void shouldReplaceExistingValueAssociatedWithSameKeyWhenUsingPut(final TreeSymbolTable t0) {
+    public void shouldMaskExistingLocalValueWhenInsertingNewWithSameKey(final TreeSymbolTable t0) {
         final TreeSymbolTable t1 = t0
-                .insertLocal(symbolOf("one"), integerOf("20"));
+                .insertLocal("one", integerOf("20"));
 
         assertEquals(t0.search("one").get(), integerOf("10"));
         assertEquals(t1.search("one").get(), integerOf("20"));
     }
 
     @Test(dataProvider = "symbolTables")
-    public void shouldCreateNewTablesWhenPuttingNewValues(final TreeSymbolTable t0) {
+    public void shouldCreateNewTablesWhenInsertingLocalValues(final TreeSymbolTable t0) {
         final TreeSymbolTable t1 = t0.insertLocal(symbolOf("four"), integerOf("40"));
         final TreeSymbolTable t2 = t1.insertLocal(symbolOf("five"), integerOf("50"));
 
