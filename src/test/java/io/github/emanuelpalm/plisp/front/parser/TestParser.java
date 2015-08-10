@@ -41,10 +41,10 @@ public class TestParser {
 
     @Test
     public void shouldParseComplexExpression() {
-        final Tree t = parserOf("(let fact [x: Integer]: Integer (foldl * 1 (range 1 x)))").run();
+        final Tree t = parserOf("(declare fact [x: Integer]: Integer (foldl * 1 (range 1 x)))").run();
         assertEquals(t.root.nodes(), Collections.singletonList(
                 callOf(
-                        symbolOf("let"),
+                        symbolOf("declare"),
                         symbolOf("fact"),
                         metaOf(listOf(metaOf(symbolOf("x"), symbolOf("Integer"))), symbolOf("Integer")),
                         callOf(
