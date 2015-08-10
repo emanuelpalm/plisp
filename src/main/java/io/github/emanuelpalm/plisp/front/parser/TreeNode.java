@@ -256,12 +256,11 @@ public interface TreeNode {
          * must declare the symbol {@code"main"}, which must refer to a {@link Callable}.
          */
         @Override
-        public TreeNode evaluate(final TreeSymbolTable t0, final List args) {
-            TreeSymbolTable t1 = t0;
-            for (final TreeNode t : nodes()) {
-                t1 = ((Declarable) t).addSymbolTo(t1);
+        public TreeNode evaluate(final TreeSymbolTable t, final List args) {
+            for (final TreeNode n : nodes()) {
+                ((Declarable) n).addSymbolTo(t);
             }
-            return ((Callable) t1.search("main").get()).evaluate(t1, args);
+            return ((Callable) t.search("main").get()).evaluate(t, args);
         }
     }
 
@@ -278,6 +277,6 @@ public interface TreeNode {
      */
     interface Declarable extends TreeNode {
         /** Adds symbol to given symbol table. */
-        TreeSymbolTable addSymbolTo(final TreeSymbolTable t);
+        void addSymbolTo(final TreeSymbolTable t);
     }
 }

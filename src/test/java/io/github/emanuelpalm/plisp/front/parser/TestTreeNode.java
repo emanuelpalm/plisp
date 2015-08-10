@@ -58,9 +58,9 @@ public class TestTreeNode {
     @Test
     public void shouldEvaluateRootProperly() {
         final TreeNode.Root r = rootOf(
-                declarableOf((t) -> t.insertLocal(symbolOf("fun0"), callableOf((t0, args) -> callOf(symbolOf("fun1"), args.nodes().get(0)).evaluate(t0)))),
-                declarableOf((t) -> t.insertLocal(symbolOf("main"), callableOf((t0, args) -> callOf(symbolOf("fun0"), args.nodes().get(0)).evaluate(t0)))),
-                declarableOf((t) -> t.insertLocal(symbolOf("fun1"), callableOf((t0, args) -> args.nodes().get(0).evaluate(t0))))
+                declarableOf((t) -> t.insertGlobal("fun0", callableOf((t0, args) -> callOf(symbolOf("fun1"), args.nodes().get(0)).evaluate(t0)))),
+                declarableOf((t) -> t.insertGlobal("main", callableOf((t0, args) -> callOf(symbolOf("fun0"), args.nodes().get(0)).evaluate(t0)))),
+                declarableOf((t) -> t.insertGlobal("fun1", callableOf((t0, args) -> args.nodes().get(0).evaluate(t0))))
         );
         assertEquals(r.evaluate(new TreeSymbolTable(), listOf(integerOf("123"))), integerOf("123"));
     }

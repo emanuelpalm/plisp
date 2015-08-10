@@ -71,8 +71,8 @@ public class TreeUtils {
             }
 
             @Override
-            public TreeSymbolTable addSymbolTo(final TreeSymbolTable t) {
-                return d.addSymbolTo(t);
+            public void addSymbolTo(final TreeSymbolTable t) {
+                d.addSymbolTo(t);
             }
         };
     }
@@ -88,6 +88,6 @@ public class TreeUtils {
      * Mock version of {@link TreeNode.Declarable}.
      */
     public interface Declarable {
-        TreeSymbolTable addSymbolTo(final TreeSymbolTable t);
+        void addSymbolTo(final TreeSymbolTable t);
     }
 }
