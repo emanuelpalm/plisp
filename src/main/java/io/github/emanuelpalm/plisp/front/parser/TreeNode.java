@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Declarable
  */
 public interface TreeNode {
-    /** Default void token. */
+    /** Default void node. */
     Void VOID = new Void(Token.NIL);
 
     /** Token. */
