@@ -61,7 +61,7 @@ public class TestTreeNode {
                 declarableOf((t) -> t.insertGlobal("main", functionOf((t0, args) -> callOf(symbolOf("fun0"), args.nodes().get(0)).evaluate(t0)))),
                 declarableOf((t) -> t.insertGlobal("fun1", functionOf((t0, args) -> args.nodes().get(0).evaluate(t0))))
         );
-        assertEquals(r.evaluate(new TreeSymbolTable(), listOf(numberOf("123"))), numberOf("123"));
+        assertEquals(r.evaluate(new TreeSymbolTable(), listOf(numberOf("123"))), listOf(numberOf("123")));
     }
 
     @Test

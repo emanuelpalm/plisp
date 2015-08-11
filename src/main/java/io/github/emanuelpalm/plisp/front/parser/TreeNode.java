@@ -246,7 +246,8 @@ public interface TreeNode {
             for (final TreeNode n : nodes()) {
                 ((Declarable) n).addSymbolTo(t);
             }
-            return ((Function) t.search("main").get()).evaluate(t, args);
+            return ((Function) t.search("main").get())
+                    .evaluate(t, (List) List.of(Token.NIL, Collections.singletonList(args)));
         }
     }
 
