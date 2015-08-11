@@ -222,7 +222,7 @@ public interface TreeNode {
     /**
      * Serves as abstract syntax {@link Tree} root.
      */
-    class Root extends List implements Function {
+    class Root extends List {
         private Root(final TreeNode.List l) { super(Token.NIL, l.nodes()); }
 
         /** Creates new root node containing given nodes. */
@@ -241,7 +241,6 @@ public interface TreeNode {
          * For evaluation to succeed, all top-level child nodes have to implement {@link Declarable}, and one of them
          * must declare the symbol {@code"main"}, which must refer to a {@link Function}.
          */
-        @Override
         public TreeNode evaluate(final TreeSymbolTable t, final List args) {
             for (final TreeNode n : nodes()) {
                 ((Declarable) n).addSymbolTo(t);
