@@ -61,17 +61,16 @@ public class TreeUtils {
     }
 
     /** Creates declarable node using given interface implementation. */
-    public static TreeNode.Definition declarableOf(final Definition d) {
+    public static TreeNode.Definition definitionOf(final TreeNode.Symbol symbol, final TreeNode value) {
         return new TreeNode.Definition() {
             @Override
-            public Token token() {
-                return Token.NIL;
-            }
+            public Symbol symbol() { return symbol; }
 
             @Override
-            public void addSymbolTo(final TreeSymbolTable t) {
-                d.addSymbolTo(t);
-            }
+            public TreeNode value() { return value; }
+
+            @Override
+            public Token token() { return symbol.token(); }
         };
     }
 
@@ -80,12 +79,5 @@ public class TreeUtils {
      */
     public interface Function {
         TreeNode evaluate(final TreeSymbolTable t, final TreeNode.List args);
-    }
-
-    /**
-     * Mock version of {@link TreeNode.Definition}.
-     */
-    public interface Definition {
-        void addSymbolTo(final TreeSymbolTable t);
     }
 }

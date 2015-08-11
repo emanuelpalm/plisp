@@ -243,7 +243,7 @@ public interface TreeNode {
          */
         public TreeNode evaluate(final TreeSymbolTable t, final List args) {
             for (final TreeNode n : nodes()) {
-                ((Definition) n).addSymbolTo(t);
+                t.insertGlobal(((Definition) n).symbol().name(), ((Definition) n).value());
             }
             return ((Function) t.search("main").get())
                     .evaluate(t, (List) List.of(Token.NIL, Collections.singletonList(args)));
@@ -273,10 +273,13 @@ public interface TreeNode {
     }
 
     /**
-     * Node useful for adding symbol to some symbol table.
+     * Associates a symbol node with a value node.
      */
     interface Definition extends TreeNode {
-        /** Adds symbol to given symbol table. */
-        void addSymbolTo(final TreeSymbolTable t);
+        /** Definition symbol. */
+        Symbol symbol();
+
+        /** Definition value. */
+        TreeNode value();
     }
 }
