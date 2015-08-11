@@ -8,15 +8,15 @@ import java.util.stream.Collectors;
 /**
  * A node part of an abstract syntax {@link Tree}.
  *
- * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Void
- * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Number
- * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Symbol
- * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.List
- * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Call
- * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Meta
- * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Root
- * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Callable
- * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Declarable
+ * @see Void
+ * @see Number
+ * @see Symbol
+ * @see List
+ * @see Call
+ * @see Meta
+ * @see Root
+ * @see Callable
+ * @see Declarable
  */
 public interface TreeNode {
     /** Default void node. */
