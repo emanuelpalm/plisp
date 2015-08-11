@@ -37,24 +37,16 @@ public class TreeUtils {
     public static TreeNode.Function functionOf(final Function f) {
         return new TreeNode.Function() {
             @Override
-            public Token token() {
-                return Token.NIL;
-            }
+            public Token token() { return Token.NIL; }
 
             @Override
-            public java.util.List<TreeNode> parameters() {
-                return Collections.emptyList();
-            }
+            public java.util.List<TreeNode> parameters() { return Collections.emptyList(); }
 
             @Override
-            public TreeNode body() {
-                return TreeNode.VOID;
-            }
+            public TreeNode body() { return TreeNode.VOID; }
 
             @Override
-            public TreeNode evaluate(final TreeSymbolTable t, final List args) {
-                return f.evaluate(t, args);
-            }
+            public TreeNode evaluate(final TreeSymbolTable t, final List args) { return f.evaluate(t, args); }
         };
     }
 
