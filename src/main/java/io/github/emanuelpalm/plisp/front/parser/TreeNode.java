@@ -254,8 +254,22 @@ public interface TreeNode {
      * Node callable via a {@link Call} node.
      */
     interface Function extends TreeNode {
+        /** Function parameters */
+        java.util.List<TreeNode> parameters();
+
+        /** Function body. */
+        TreeNode body();
+
         /** Evaluates callable node with given table and arguments. */
-        TreeNode evaluate(final TreeSymbolTable t, final TreeNode.List args);
+        default TreeNode evaluate(final TreeSymbolTable t0, final TreeNode.List args) {
+            final java.util.List<TreeNode> ps = parameters();
+            final java.util.List<TreeNode> as = args.nodes();
+            TreeSymbolTable t1 = t0;
+            for (int i = ps.size(); i-- != 0;) {
+                t1 = t1.insertLocal(((Symbol) ps.get(i).evaluate(t1)).name(), as.get(i));
+            }
+            return body().evaluate(t1);
+        }
     }
 
     /**

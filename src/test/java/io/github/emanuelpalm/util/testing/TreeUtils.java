@@ -7,6 +7,8 @@ import io.github.emanuelpalm.plisp.front.parser.TreeNode;
 import io.github.emanuelpalm.plisp.front.parser.TreeSymbolTable;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Various {@link Tree} related utilities for testing purposes.
@@ -38,6 +40,16 @@ public class TreeUtils {
             @Override
             public Token token() {
                 return Token.NIL;
+            }
+
+            @Override
+            public java.util.List<TreeNode> parameters() {
+                return Collections.emptyList();
+            }
+
+            @Override
+            public TreeNode body() {
+                return TreeNode.VOID;
             }
 
             @Override
