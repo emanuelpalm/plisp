@@ -8,7 +8,6 @@ import io.github.emanuelpalm.plisp.front.parser.TreeSymbolTable;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Various {@link Tree} related utilities for testing purposes.
