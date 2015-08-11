@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
  * A node part of an abstract syntax {@link Tree}.
  *
  * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Void
- * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Integer
  * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Number
  * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.Symbol
  * @see io.github.emanuelpalm.plisp.front.parser.TreeNode.List
@@ -63,19 +62,6 @@ public interface TreeNode {
         public boolean equals(final Object that) {
             return that == null || that instanceof Void;
         }
-    }
-
-    /**
-     * An integer.
-     */
-    class Integer extends Base {
-        private Integer(final Token t) { super(t); }
-
-        /** Creates integer node. */
-        public static TreeNode.Integer of(final Token t) { return new Integer(t); }
-
-        /** Converts integer node into a Java {@code long}. */
-        public long toLong() { return Long.parseLong(token().lexeme()); }
     }
 
     /**

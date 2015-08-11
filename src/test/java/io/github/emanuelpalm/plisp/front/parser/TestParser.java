@@ -14,7 +14,7 @@ public class TestParser {
     @Test
     public void shouldParseValues() {
         final Tree t = parserOf("123 45.6 symbol").run();
-        assertEquals(t.root.nodes(), Arrays.asList(integerOf("123"), numberOf("45.6"), symbolOf("symbol")));
+        assertEquals(t.root.nodes(), Arrays.asList(numberOf("123"), numberOf("45.6"), symbolOf("symbol")));
     }
 
     private Parser parserOf(final String s) {
@@ -24,13 +24,13 @@ public class TestParser {
     @Test
     public void shouldParseList() {
         final Tree t = parserOf("[1 2 3]").run();
-        assertEquals(t.root.nodes(), Collections.singletonList(listOf(integerOf("1"), integerOf("2"), integerOf("3"))));
+        assertEquals(t.root.nodes(), Collections.singletonList(listOf(numberOf("1"), numberOf("2"), numberOf("3"))));
     }
 
     @Test
     public void shouldParseCall() {
         final Tree t = parserOf("(fib 10)").run();
-        assertEquals(t.root.nodes(), Collections.singletonList(callOf(symbolOf("fib"), integerOf("10"))));
+        assertEquals(t.root.nodes(), Collections.singletonList(callOf(symbolOf("fib"), numberOf("10"))));
     }
 
     @Test
@@ -50,8 +50,8 @@ public class TestParser {
                         callOf(
                                 symbolOf("foldl"),
                                 symbolOf("*"),
-                                integerOf("1"),
-                                callOf(symbolOf("range"), integerOf("1"), symbolOf("x"))
+                                numberOf("1"),
+                                callOf(symbolOf("range"), numberOf("1"), symbolOf("x"))
                         )
                 )
         ));

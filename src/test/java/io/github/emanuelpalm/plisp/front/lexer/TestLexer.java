@@ -43,35 +43,19 @@ public class TestLexer {
     }
 
     @Test
-    public void shouldTokenizeInteger() throws Throwable {
-        test("1234",
-                new Token(TokenClass.INT, "1234"),
-                Token.END
-        );
-    }
-
-    @Test
-    public void shouldTokenizeIntegersWithInfixOperators() throws Throwable {
-        test("+123 -456",
-                new Token(TokenClass.INT, "+123"),
-                new Token(TokenClass.INT, "-456"),
-                Token.END
-        );
-    }
-
-    @Test
-    public void shouldTokenizeNumber() throws Throwable {
-        test("123.456",
-                new Token(TokenClass.NUM, "123.456"),
+    public void shouldTokenizeNumbers() throws Throwable {
+        test("123 456.789",
+                new Token(TokenClass.NUM, "123"),
+                new Token(TokenClass.NUM, "456.789"),
                 Token.END
         );
     }
 
     @Test
     public void shouldTokenizeNumbersWithInfixOperators() throws Throwable {
-        test("+12.3 -4.56",
-                new Token(TokenClass.NUM, "+12.3"),
-                new Token(TokenClass.NUM, "-4.56"),
+        test("+12 -3.45",
+                new Token(TokenClass.NUM, "+12"),
+                new Token(TokenClass.NUM, "-3.45"),
                 Token.END
         );
     }
@@ -96,7 +80,7 @@ public class TestLexer {
         test("(+ 10 (int (foldl * 1. [-72.2 -5.1])))",
                 new Token(TokenClass.PAL, "("),
                 new Token(TokenClass.SYM, "+"),
-                new Token(TokenClass.INT, "10"),
+                new Token(TokenClass.NUM, "10"),
                 new Token(TokenClass.PAL, "("),
                 new Token(TokenClass.SYM, "int"),
                 new Token(TokenClass.PAL, "("),

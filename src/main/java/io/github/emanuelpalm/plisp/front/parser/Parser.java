@@ -17,7 +17,7 @@ import java.util.function.Function;
  * ROOT  ->  EXP0*
  * EXP0  ->  META | EXP1
  * META  ->  EXP1 ":" EXP0
- * EXP1  ->  _INT | _NUM | _SYM | LIST | CALL
+ * EXP1  ->  _NUM | _SYM | LIST | CALL
  * LIST  -> "[" EXP0* "]"
  * CALL  -> "(" EXP0* ")"
  * </pre>
@@ -30,7 +30,6 @@ public class Parser {
     private final Rule _COL = _expect(TokenClass.COL);
     private final Rule _BRL = _expect(TokenClass.BRL);
     private final Rule _BRR = _expect(TokenClass.BRR);
-    private final Rule _INT = _expect(TokenClass.INT, TreeNode.Integer::of);
     private final Rule _NUM = _expect(TokenClass.NUM, TreeNode.Number::of);
     private final Rule _SYM = _expect(TokenClass.SYM, TreeNode.Symbol::of);
 
@@ -75,7 +74,7 @@ public class Parser {
     }
 
     private Rule exp1() {
-        return () -> _oneOf(_INT, _NUM, _SYM, list(), call())
+        return () -> _oneOf(_NUM, _SYM, list(), call())
                 .apply();
     }
 

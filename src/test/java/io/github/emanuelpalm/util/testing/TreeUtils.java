@@ -12,11 +12,6 @@ import java.util.Arrays;
  * Various {@link Tree} related utilities for testing purposes.
  */
 public class TreeUtils {
-    /** Creates integer node from given string. */
-    public static TreeNode.Integer integerOf(final String s) {
-        return TreeNode.Integer.of(new Token(TokenClass.INT, s));
-    }
-
     /** Creates number node from given string. */
     public static TreeNode.Number numberOf(final String s) {
         return TreeNode.Number.of(new Token(TokenClass.NUM, s));

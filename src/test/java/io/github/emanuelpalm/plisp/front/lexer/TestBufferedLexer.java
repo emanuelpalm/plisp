@@ -12,18 +12,18 @@ public class TestBufferedLexer {
     public void shouldSaveAndRestoreState() {
         final BufferedLexer tb = new BufferedLexer(new ArrayList<>(Arrays.asList(
                 new Token(TokenClass.PAL, "("),
-                new Token(TokenClass.INT, "123"),
+                new Token(TokenClass.NUM, "123"),
                 new Token(TokenClass.PAR, ")")
         )));
 
         assertEquals(tb.next().type(), TokenClass.PAL);
 
         final int s = tb.state();
-        assertEquals(tb.next().type(), TokenClass.INT);
+        assertEquals(tb.next().type(), TokenClass.NUM);
         assertEquals(tb.next().type(), TokenClass.PAR);
 
         tb.restore(s);
-        assertEquals(tb.next().type(), TokenClass.INT);
+        assertEquals(tb.next().type(), TokenClass.NUM);
         assertEquals(tb.next().type(), TokenClass.PAR);
         assertEquals(tb.next().type(), TokenClass.END);
         assertEquals(tb.next().type(), TokenClass.END);

@@ -21,7 +21,6 @@ public class TestTreeNode {
     public static Object[][] nodesEvaluatingToSelf() {
         return new Object[][]{
                 new Object[]{TreeNode.Void.of(Token.NIL)},
-                new Object[]{TreeNode.Integer.of(Token.NIL)},
                 new Object[]{TreeNode.Number.of(Token.NIL)},
                 new Object[]{new TreeNode.List(Token.NIL, Collections.emptyList())},
         };
@@ -30,9 +29,9 @@ public class TestTreeNode {
     @Test
     public void shouldEvaluateSymbolToAssociatedNode() {
         final TreeSymbolTable t = new TreeSymbolTable()
-                .insertLocal(symbolOf("test"), integerOf("123"));
+                .insertLocal(symbolOf("test"), numberOf("123"));
 
-        assertEquals(symbolOf("test").evaluate(t), integerOf("123"));
+        assertEquals(symbolOf("test").evaluate(t), numberOf("123"));
     }
 
     @Test
@@ -41,18 +40,18 @@ public class TestTreeNode {
                 .insertLocal(symbolOf("test"), callableOf((t0, args) -> {
                     assertEquals(args, listOf(numberOf("1.23"), numberOf("45.6")));
                     assertTrue(t0.search("test").isPresent());
-                    return integerOf("123");
+                    return numberOf("123");
                 }));
         final TreeNode result = callOf(symbolOf("test"), numberOf("1.23"), numberOf("45.6"))
                 .evaluate(t);
 
-        assertEquals(result, integerOf("123"));
+        assertEquals(result, numberOf("123"));
     }
 
     @Test
     public void shouldEvaluateMetaAsItsOriginNode() {
-        final TreeNode n = metaOf(integerOf("123"), numberOf("456"));
-        assertEquals(n.evaluate(new TreeSymbolTable()), integerOf("123"));
+        final TreeNode n = metaOf(numberOf("123"), numberOf("456"));
+        assertEquals(n.evaluate(new TreeSymbolTable()), numberOf("123"));
     }
 
     @Test
@@ -62,12 +61,7 @@ public class TestTreeNode {
                 declarableOf((t) -> t.insertGlobal("main", callableOf((t0, args) -> callOf(symbolOf("fun0"), args.nodes().get(0)).evaluate(t0)))),
                 declarableOf((t) -> t.insertGlobal("fun1", callableOf((t0, args) -> args.nodes().get(0).evaluate(t0))))
         );
-        assertEquals(r.evaluate(new TreeSymbolTable(), listOf(integerOf("123"))), integerOf("123"));
-    }
-
-    @Test
-    public void shouldConvertIntegerToJavaLong() {
-        assertEquals(integerOf("123").toLong(), 123L);
+        assertEquals(r.evaluate(new TreeSymbolTable(), listOf(numberOf("123"))), numberOf("123"));
     }
 
     @Test
@@ -82,14 +76,14 @@ public class TestTreeNode {
 
     @Test
     public void shouldReturnListNodes() {
-        assertEquals(listOf(integerOf("123"), integerOf("456")).nodes(), Arrays.asList(integerOf("123"), integerOf("456")));
+        assertEquals(listOf(numberOf("123"), numberOf("456")).nodes(), Arrays.asList(numberOf("123"), numberOf("456")));
     }
 
     @Test
     public void shouldReturnCallFunctionAndArguments() {
-        final TreeNode.Call c = callOf(symbolOf("+"), integerOf("10"), integerOf("20"));
+        final TreeNode.Call c = callOf(symbolOf("+"), numberOf("10"), numberOf("20"));
         assertEquals(c.function(), symbolOf("+"));
-        assertEquals(c.arguments(), listOf(integerOf("10"), integerOf("20")));
+        assertEquals(c.arguments(), listOf(numberOf("10"), numberOf("20")));
     }
 
     @Test
