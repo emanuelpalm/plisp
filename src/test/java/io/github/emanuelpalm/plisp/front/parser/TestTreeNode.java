@@ -37,7 +37,7 @@ public class TestTreeNode {
     @Test
     public void shouldEvaluateCallToCallableResult() {
         final TreeSymbolTable t = new TreeSymbolTable()
-                .insertLocal(symbolOf("test"), callableOf((t0, args) -> {
+                .insertLocal(symbolOf("test"), functionOf((t0, args) -> {
                     assertEquals(args, listOf(numberOf("1.23"), numberOf("45.6")));
                     assertTrue(t0.search("test").isPresent());
                     return numberOf("123");
@@ -57,9 +57,9 @@ public class TestTreeNode {
     @Test
     public void shouldEvaluateRootProperly() {
         final TreeNode.Root r = rootOf(
-                declarableOf((t) -> t.insertGlobal("fun0", callableOf((t0, args) -> callOf(symbolOf("fun1"), args.nodes().get(0)).evaluate(t0)))),
-                declarableOf((t) -> t.insertGlobal("main", callableOf((t0, args) -> callOf(symbolOf("fun0"), args.nodes().get(0)).evaluate(t0)))),
-                declarableOf((t) -> t.insertGlobal("fun1", callableOf((t0, args) -> args.nodes().get(0).evaluate(t0))))
+                declarableOf((t) -> t.insertGlobal("fun0", functionOf((t0, args) -> callOf(symbolOf("fun1"), args.nodes().get(0)).evaluate(t0)))),
+                declarableOf((t) -> t.insertGlobal("main", functionOf((t0, args) -> callOf(symbolOf("fun0"), args.nodes().get(0)).evaluate(t0)))),
+                declarableOf((t) -> t.insertGlobal("fun1", functionOf((t0, args) -> args.nodes().get(0).evaluate(t0))))
         );
         assertEquals(r.evaluate(new TreeSymbolTable(), listOf(numberOf("123"))), numberOf("123"));
     }

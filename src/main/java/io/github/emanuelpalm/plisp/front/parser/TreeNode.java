@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * @see Call
  * @see Meta
  * @see Root
- * @see Callable
+ * @see Function
  * @see Declarable
  */
 public interface TreeNode {
@@ -138,7 +138,7 @@ public interface TreeNode {
     }
 
     /**
-     * An instruction to execute some {@link Callable} with provided arguments.
+     * An instruction to execute some {@link Function} with provided arguments.
      */
     class Call extends Base {
         private final TreeNode function;
@@ -160,7 +160,7 @@ public interface TreeNode {
 
         @Override
         public TreeNode evaluate(final TreeSymbolTable t) {
-            return ((Callable) function().evaluate(t)).evaluate(t, arguments());
+            return ((Function) function().evaluate(t)).evaluate(t, arguments());
         }
 
         /** Call function node. */
@@ -222,7 +222,7 @@ public interface TreeNode {
     /**
      * Serves as abstract syntax {@link Tree} root.
      */
-    class Root extends List implements Callable {
+    class Root extends List implements Function {
         private Root(final TreeNode.List l) { super(Token.NIL, l.nodes()); }
 
         /** Creates new root node containing given nodes. */
@@ -239,21 +239,21 @@ public interface TreeNode {
          * Evaluates root node with given table and arguments.
          * <p>
          * For evaluation to succeed, all top-level child nodes have to implement {@link Declarable}, and one of them
-         * must declare the symbol {@code"main"}, which must refer to a {@link Callable}.
+         * must declare the symbol {@code"main"}, which must refer to a {@link Function}.
          */
         @Override
         public TreeNode evaluate(final TreeSymbolTable t, final List args) {
             for (final TreeNode n : nodes()) {
                 ((Declarable) n).addSymbolTo(t);
             }
-            return ((Callable) t.search("main").get()).evaluate(t, args);
+            return ((Function) t.search("main").get()).evaluate(t, args);
         }
     }
 
     /**
      * Node callable via a {@link Call} node.
      */
-    interface Callable extends TreeNode {
+    interface Function extends TreeNode {
         /** Evaluates callable node with given table and arguments. */
         TreeNode evaluate(final TreeSymbolTable t, final TreeNode.List args);
     }

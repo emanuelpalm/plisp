@@ -33,8 +33,8 @@ public class TreeUtils {
     }
 
     /** Creates callable node using given interface implementation. */
-    public static TreeNode.Callable callableOf(final Callable c) {
-        return new TreeNode.Callable() {
+    public static TreeNode.Function functionOf(final Function f) {
+        return new TreeNode.Function() {
             @Override
             public Token token() {
                 return Token.NIL;
@@ -42,7 +42,7 @@ public class TreeUtils {
 
             @Override
             public TreeNode evaluate(final TreeSymbolTable t, final List args) {
-                return c.evaluate(t, args);
+                return f.evaluate(t, args);
             }
         };
     }
@@ -73,9 +73,9 @@ public class TreeUtils {
     }
 
     /**
-     * Mock version of {@link TreeNode.Callable}.
+     * Mock version of {@link TreeNode.Function}.
      */
-    public interface Callable {
+    public interface Function {
         TreeNode evaluate(final TreeSymbolTable t, final TreeNode.List args);
     }
 
