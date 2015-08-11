@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * @see Meta
  * @see Root
  * @see Function
- * @see Declarable
+ * @see Definition
  */
 public interface TreeNode {
     /** Default void node. */
@@ -238,12 +238,12 @@ public interface TreeNode {
         /**
          * Evaluates root node with given table and arguments.
          * <p>
-         * For evaluation to succeed, all top-level child nodes have to implement {@link Declarable}, and one of them
+         * For evaluation to succeed, all top-level child nodes have to implement {@link Definition}, and one of them
          * must declare the symbol {@code"main"}, which must refer to a {@link Function}.
          */
         public TreeNode evaluate(final TreeSymbolTable t, final List args) {
             for (final TreeNode n : nodes()) {
-                ((Declarable) n).addSymbolTo(t);
+                ((Definition) n).addSymbolTo(t);
             }
             return ((Function) t.search("main").get())
                     .evaluate(t, (List) List.of(Token.NIL, Collections.singletonList(args)));
@@ -275,7 +275,7 @@ public interface TreeNode {
     /**
      * Node useful for adding symbol to some symbol table.
      */
-    interface Declarable extends TreeNode {
+    interface Definition extends TreeNode {
         /** Adds symbol to given symbol table. */
         void addSymbolTo(final TreeSymbolTable t);
     }

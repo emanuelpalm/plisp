@@ -70,8 +70,8 @@ public class TreeUtils {
     }
 
     /** Creates declarable node using given interface implementation. */
-    public static TreeNode.Declarable declarableOf(final Declarable d) {
-        return new TreeNode.Declarable() {
+    public static TreeNode.Definition declarableOf(final Definition d) {
+        return new TreeNode.Definition() {
             @Override
             public Token token() {
                 return Token.NIL;
@@ -92,9 +92,9 @@ public class TreeUtils {
     }
 
     /**
-     * Mock version of {@link TreeNode.Declarable}.
+     * Mock version of {@link TreeNode.Definition}.
      */
-    public interface Declarable {
+    public interface Definition {
         void addSymbolTo(final TreeSymbolTable t);
     }
 }
