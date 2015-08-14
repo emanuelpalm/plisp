@@ -1,10 +1,27 @@
 package io.github.emanuelpalm.plisp;
 
+import io.github.emanuelpalm.plisp.front.lexer.BufferedLexer;
+import io.github.emanuelpalm.plisp.front.lexer.Lexer;
+import io.github.emanuelpalm.plisp.front.parser.Parser;
+import io.github.emanuelpalm.plisp.front.parser.Tree;
+
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Application main class.
  */
 public class Main {
     public static void main(final String[] args) {
-        System.out.println("Hello, pLisp!");
+        try {
+            final BufferedLexer l = new BufferedLexer(Lexer.fromFile(new File(args[0])));
+            final Parser p = new Parser(l);
+
+            final Tree t = p.run();
+            System.out.println(t);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
