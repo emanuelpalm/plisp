@@ -25,4 +25,9 @@ public class Tree {
         }
         return root.evaluate(t, (TreeNode.List) TreeNode.List.of(Token.NIL, ns));
     }
+
+    @Override
+    public String toString() {
+        return root.toString();
+    }
 }
