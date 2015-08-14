@@ -1,0 +1,7 @@
+(def fact [n]
+    (foldl * 1 (range 1 n))
+)
+
+(def main [args]
+    (show (fact (get args 0)))
+)
