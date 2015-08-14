@@ -177,7 +177,7 @@ public interface TreeNode {
         }
 
         @Override
-        public String toString() { return "(" + function() + " " + arguments() + ")"; }
+        public String toString() { return "(" + function() + " " + arguments().nodes().stream().map(Object::toString).collect(Collectors.joining(" ")) + ")"; }
     }
 
     /**
