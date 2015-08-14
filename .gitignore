@@ -29,3 +29,8 @@ proguard/
 .gradle/
 build/
 bin/
+
+# Temporary files
+*~
+.swp
+
