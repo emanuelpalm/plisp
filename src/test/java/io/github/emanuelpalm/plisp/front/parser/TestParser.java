@@ -12,9 +12,9 @@ import static org.testng.Assert.assertEquals;
 
 public class TestParser {
     @Test
-    public void shouldParseValues() {
-        final Tree t = parserOf("123 45.6 symbol").run();
-        assertEquals(t.root.nodes(), Arrays.asList(numberOf("123"), numberOf("45.6"), symbolOf("symbol")));
+    public void shouldParseNumber() {
+        final TreeNode t = parserOf("123").run();
+        assertEquals(t, numberOf("123"));
     }
 
     private Parser parserOf(final String s) {
@@ -23,37 +23,25 @@ public class TestParser {
 
     @Test
     public void shouldParseList() {
-        final Tree t = parserOf("[1 2 3]").run();
-        assertEquals(t.root.nodes(), Collections.singletonList(listOf(numberOf("1"), numberOf("2"), numberOf("3"))));
-    }
-
-    @Test
-    public void shouldParseCall() {
-        final Tree t = parserOf("(fib 10)").run();
-        assertEquals(t.root.nodes(), Collections.singletonList(callOf(symbolOf("fib"), numberOf("10"))));
-    }
-
-    @Test
-    public void shouldParseMeta() {
-        final Tree t = parserOf("x: Integer").run();
-        assertEquals(t.root.nodes(), Collections.singletonList(metaOf(symbolOf("x"), symbolOf("Integer"))));
+        final TreeNode t = parserOf("(1 2 3)").run();
+        assertEquals(t, listOf(numberOf("1"), numberOf("2"), numberOf("3")));
     }
 
     @Test
     public void shouldParseComplexExpression() {
-        final Tree t = parserOf("(def fact [x: Integer]: Integer (foldl * 1 (range 1 x)))").run();
-        assertEquals(t.root.nodes(), Collections.singletonList(
-                callOf(
-                        symbolOf("def"),
+        final TreeNode t = parserOf("(defn fact (x) (foldl * 1 (range 1 x)))").run();
+        assertEquals(t,
+                listOf(
+                        symbolOf("defn"),
                         symbolOf("fact"),
-                        metaOf(listOf(metaOf(symbolOf("x"), symbolOf("Integer"))), symbolOf("Integer")),
-                        callOf(
+                        listOf(symbolOf("x")),
+                        listOf(
                                 symbolOf("foldl"),
                                 symbolOf("*"),
                                 numberOf("1"),
-                                callOf(symbolOf("range"), numberOf("1"), symbolOf("x"))
+                                listOf(symbolOf("range"), numberOf("1"), symbolOf("x"))
                         )
                 )
-        ));
+        );
     }
 }

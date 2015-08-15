@@ -10,9 +10,6 @@ public enum TokenClass {
 
     PAL, // (
     PAR, // )
-    COL, // :
-    BRL, // [
-    BRR, // ]
 
     NUM, // Number.
     SYM  // Symbol.

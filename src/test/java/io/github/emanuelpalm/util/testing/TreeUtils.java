@@ -2,7 +2,6 @@ package io.github.emanuelpalm.util.testing;
 
 import io.github.emanuelpalm.plisp.front.lexer.Token;
 import io.github.emanuelpalm.plisp.front.lexer.TokenClass;
-import io.github.emanuelpalm.plisp.front.parser.Tree;
 import io.github.emanuelpalm.plisp.front.parser.TreeNode;
 import io.github.emanuelpalm.plisp.front.parser.TreeSymbolTable;
 
@@ -10,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Various {@link Tree} related utilities for testing purposes.
+ * Various {@link TreeNode} related utilities for testing purposes.
  */
 public class TreeUtils {
     /** Creates number node from given string. */
@@ -26,58 +25,5 @@ public class TreeUtils {
     /** Creates list node containing given nodes. */
     public static TreeNode.List listOf(final TreeNode... ns) {
         return TreeNode.List.of(Arrays.asList(ns));
-    }
-
-    /** Creates call node containing given arguments. At least one argument has to be given. */
-    public static TreeNode.Call callOf(final TreeNode... args) {
-        return (TreeNode.Call) TreeNode.Call.of(Token.NIL, listOf(args));
-    }
-
-    /** Creates callable node using given interface implementation. */
-    public static TreeNode.Function functionOf(final Function f) {
-        return new TreeNode.Function() {
-            @Override
-            public Token token() { return Token.NIL; }
-
-            @Override
-            public java.util.List<TreeNode> parameters() { return Collections.emptyList(); }
-
-            @Override
-            public TreeNode body() { return TreeNode.VOID; }
-
-            @Override
-            public TreeNode evaluate(final TreeSymbolTable t, final List args) { return f.evaluate(t, args); }
-        };
-    }
-
-    /** Creates meta node from given origin and meta values. The meta value may not be empty. */
-    public static TreeNode.Meta metaOf(final TreeNode origin, final TreeNode meta) {
-        return (TreeNode.Meta) TreeNode.Meta.of(Token.NIL, origin, meta);
-    }
-
-    /** Creates root node containing given nodes. */
-    public static TreeNode.Root rootOf(final TreeNode... ns) {
-        return (TreeNode.Root) TreeNode.Root.of(listOf(ns));
-    }
-
-    /** Creates declarable node using given interface implementation. */
-    public static TreeNode.Definition definitionOf(final TreeNode.Symbol symbol, final TreeNode value) {
-        return new TreeNode.Definition() {
-            @Override
-            public Symbol symbol() { return symbol; }
-
-            @Override
-            public TreeNode value() { return value; }
-
-            @Override
-            public Token token() { return symbol.token(); }
-        };
-    }
-
-    /**
-     * Mock version of {@link TreeNode.Function}.
-     */
-    public interface Function {
-        TreeNode evaluate(final TreeSymbolTable t, final TreeNode.List args);
     }
 }

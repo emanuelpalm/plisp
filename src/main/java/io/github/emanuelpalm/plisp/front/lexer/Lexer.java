@@ -11,7 +11,7 @@ import java.util.function.Predicate;
  */
 public class Lexer {
     private static final Predicate<Byte> IS_DIGIT = (b) -> b >= '0' && b <= '9';
-    private static final Predicate<Byte> IS_SYMBOL_CHARACTER = (b) -> b >= '!' && b <= '~' && b != '(' && b != ')' && b != ':' && b != '[' && b != ']' || b < '\0';
+    private static final Predicate<Byte> IS_SYMBOL_CHARACTER = (b) -> b >= '!' && b <= '~' && b != '(' && b != ')' || b < '\0';
 
     private final TokenReader tokenReader;
 
@@ -69,15 +69,6 @@ public class Lexer {
                     tokenReader.readWhile(IS_DIGIT);
                 }
                 return tokenReader.consume(TokenClass.NUM);
-
-            case ':':
-                return tokenReader.consume(TokenClass.COL);
-
-            case '[':
-                return tokenReader.consume(TokenClass.BRL);
-
-            case ']':
-                return tokenReader.consume(TokenClass.BRR);
         }
         if (IS_SYMBOL_CHARACTER.test(b)) {
             tokenReader.readWhile(IS_SYMBOL_CHARACTER);

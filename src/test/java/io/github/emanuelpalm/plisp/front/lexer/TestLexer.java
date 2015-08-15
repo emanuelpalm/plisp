@@ -25,24 +25,6 @@ public class TestLexer {
     }
 
     @Test
-    public void shouldTokenizeColons() throws Throwable {
-        test("::",
-                new Token(TokenClass.COL, ":"),
-                new Token(TokenClass.COL, ":"),
-                Token.END
-        );
-    }
-
-    @Test
-    public void shouldTokenizeBrackets() throws Throwable {
-        test("[]",
-                new Token(TokenClass.BRL, "["),
-                new Token(TokenClass.BRR, "]"),
-                Token.END
-        );
-    }
-
-    @Test
     public void shouldTokenizeNumbers() throws Throwable {
         test("123 456.789",
                 new Token(TokenClass.NUM, "123"),
@@ -77,7 +59,7 @@ public class TestLexer {
 
     @Test
     public void shouldTokenizeExpression() throws Throwable {
-        test("(+ 10 (int (foldl * 1. [-72.2 -5.1])))",
+        test("(+ 10 (int (foldl * 1. (-72.2 -5.1))))",
                 new Token(TokenClass.PAL, "("),
                 new Token(TokenClass.SYM, "+"),
                 new Token(TokenClass.NUM, "10"),
@@ -87,10 +69,10 @@ public class TestLexer {
                 new Token(TokenClass.SYM, "foldl"),
                 new Token(TokenClass.SYM, "*"),
                 new Token(TokenClass.NUM, "1."),
-                new Token(TokenClass.BRL, "["),
+                new Token(TokenClass.PAL, "("),
                 new Token(TokenClass.NUM, "-72.2"),
                 new Token(TokenClass.NUM, "-5.1"),
-                new Token(TokenClass.BRR, "]"),
+                new Token(TokenClass.PAR, ")"),
                 new Token(TokenClass.PAR, ")"),
                 new Token(TokenClass.PAR, ")"),
                 new Token(TokenClass.PAR, ")")

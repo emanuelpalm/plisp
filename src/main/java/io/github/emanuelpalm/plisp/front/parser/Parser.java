@@ -14,12 +14,8 @@ import java.util.function.Function;
  * <p>
  * The parser adheres to the following grammar:
  * <pre>
- * ROOT  ->  EXP0*
- * EXP0  ->  META | EXP1
- * META  ->  EXP1 ":" EXP0
- * EXP1  ->  _NUM | _SYM | LIST | CALL
- * LIST  -> "[" EXP0* "]"
- * CALL  -> "(" EXP0* ")"
+ * EXPR  ->  _NUM | _SYM | LIST
+ * LIST  -> "(" EXPR* ")"
  * </pre>
  */
 public class Parser {
@@ -27,9 +23,6 @@ public class Parser {
 
     private final Rule _PAL = _expect(TokenClass.PAL);
     private final Rule _PAR = _expect(TokenClass.PAR);
-    private final Rule _COL = _expect(TokenClass.COL);
-    private final Rule _BRL = _expect(TokenClass.BRL);
-    private final Rule _BRR = _expect(TokenClass.BRR);
     private final Rule _NUM = _expect(TokenClass.NUM, TreeNode.Number::of);
     private final Rule _SYM = _expect(TokenClass.SYM, TreeNode.Symbol::of);
 
@@ -51,42 +44,19 @@ public class Parser {
         };
     }
 
-    /** Runs parser, producing an abstract syntax {@link Tree}. */
-    public Tree run() {
-        return new Tree((TreeNode.Root) root().apply().get());
+    /** Runs parser, producing an abstract syntax tree */
+    public TreeNode run() {
+        return expr().apply().get();
     }
 
-    private Rule root() {
-        return () -> _manyOf(exp0())
-                .thenTransform(TreeNode.Root::of)
-                .apply();
-    }
-
-    private Rule exp0() {
-        return () -> _oneOf(meta(), exp1())
-                .apply();
-    }
-
-    private Rule meta() {
-        return () -> _allOf(exp1(), _COL, exp0())
-                .thenCombine((ns) -> TreeNode.Meta.of(ns.get(1).token(), ns.get(0), ns.get(2)))
-                .apply();
-    }
-
-    private Rule exp1() {
-        return () -> _oneOf(_NUM, _SYM, list(), call())
+    private Rule expr() {
+        return () -> _oneOf(_NUM, _SYM, list())
                 .apply();
     }
 
     private Rule list() {
-        return () -> _allOf(_BRL, _manyOf(exp0()), _BRR)
+        return () -> _allOf(_PAL, _manyOf(expr()), _PAR)
                 .thenCombine((ns) -> TreeNode.List.of(ns.get(0).token(), (TreeNode.List) ns.get(1)))
-                .apply();
-    }
-
-    private Rule call() {
-        return () -> _allOf(_PAL, _manyOf(exp0()), _PAR)
-                .thenCombine((ns) -> TreeNode.Call.of(ns.get(0).token(), (TreeNode.List) ns.get(1)))
                 .apply();
     }
 
@@ -110,7 +80,7 @@ public class Parser {
                 if (!n.isPresent()) break;
                 ns.add(n.get());
             }
-            return Optional.of(TreeNode.List.of(Token.NIL, ns));
+            return Optional.of(TreeNode.List.of(ns));
         };
     }
 
@@ -145,16 +115,6 @@ public class Parser {
      */
     private interface Rule {
         Optional<TreeNode> apply();
-
-        default Rule thenTransform(final Function<TreeNode, TreeNode> f) {
-            return () -> {
-                final Optional<TreeNode> n = apply();
-                if (n.isPresent()) {
-                    return Optional.of(f.apply(n.get()));
-                }
-                return Optional.empty();
-            };
-        }
     }
 
     /**

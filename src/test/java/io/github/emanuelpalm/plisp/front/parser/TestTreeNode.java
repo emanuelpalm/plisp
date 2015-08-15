@@ -35,36 +35,6 @@ public class TestTreeNode {
     }
 
     @Test
-    public void shouldEvaluateCallToCallableResult() {
-        final TreeSymbolTable t = new TreeSymbolTable()
-                .insertLocal(symbolOf("test"), functionOf((t0, args) -> {
-                    assertEquals(args, listOf(numberOf("1.23"), numberOf("45.6")));
-                    assertTrue(t0.search("test").isPresent());
-                    return numberOf("123");
-                }));
-        final TreeNode result = callOf(symbolOf("test"), numberOf("1.23"), numberOf("45.6"))
-                .evaluate(t);
-
-        assertEquals(result, numberOf("123"));
-    }
-
-    @Test
-    public void shouldEvaluateMetaAsItsOriginNode() {
-        final TreeNode n = metaOf(numberOf("123"), numberOf("456"));
-        assertEquals(n.evaluate(new TreeSymbolTable()), numberOf("123"));
-    }
-
-    @Test
-    public void shouldEvaluateRootProperly() {
-        final TreeNode.Root r = rootOf(
-                definitionOf(symbolOf("fun0"), functionOf((t0, args) -> callOf(symbolOf("fun1"), args.nodes().get(0)).evaluate(t0))),
-                definitionOf(symbolOf("main"), functionOf((t0, args) -> callOf(symbolOf("fun0"), args.nodes().get(0)).evaluate(t0))),
-                definitionOf(symbolOf("fun1"), functionOf((t0, args) -> args.nodes().get(0).evaluate(t0)))
-        );
-        assertEquals(r.evaluate(new TreeSymbolTable(), listOf(numberOf("123"))), listOf(numberOf("123")));
-    }
-
-    @Test
     public void shouldConvertNumberToJavaDouble() {
         assertEquals(numberOf("123.45").toDouble(), 123.45);
     }
@@ -77,24 +47,5 @@ public class TestTreeNode {
     @Test
     public void shouldReturnListNodes() {
         assertEquals(listOf(numberOf("123"), numberOf("456")).nodes(), Arrays.asList(numberOf("123"), numberOf("456")));
-    }
-
-    @Test
-    public void shouldReturnCallFunctionAndArguments() {
-        final TreeNode.Call c = callOf(symbolOf("+"), numberOf("10"), numberOf("20"));
-        assertEquals(c.function(), symbolOf("+"));
-        assertEquals(c.arguments(), listOf(numberOf("10"), numberOf("20")));
-    }
-
-    @Test
-    public void shouldReturnMetaOriginAndMetaValue() {
-        final TreeNode.Meta m = metaOf(symbolOf("x"), symbolOf("Integer"));
-        assertEquals(m.origin(), symbolOf("x"));
-        assertEquals(m.meta(), symbolOf("Integer"));
-    }
-
-    @Test
-    public void shouldReturnRootNodes() {
-        assertEquals(rootOf(symbolOf("abc"), symbolOf("def")).nodes(), Arrays.asList(symbolOf("abc"), symbolOf("def")));
     }
 }
