@@ -44,6 +44,9 @@ public class Lexer {
                 tokenReader.consume();
                 return next();
 
+            case '\'':
+                return tokenReader.consume(TokenClass.QUO);
+
             case '(':
                 return tokenReader.consume(TokenClass.PAL);
 

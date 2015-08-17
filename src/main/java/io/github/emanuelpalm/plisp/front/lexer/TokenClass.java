@@ -8,6 +8,7 @@ public enum TokenClass {
     ERR, // Error.
     NIL, // Nil.
 
+    QUO, // '
     PAL, // (
     PAR, // )
 
