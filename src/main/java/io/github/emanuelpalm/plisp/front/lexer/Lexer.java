@@ -72,7 +72,7 @@ public class Lexer {
         }
         if (IS_SYMBOL_CHARACTER.test(b)) {
             tokenReader.readWhile(IS_SYMBOL_CHARACTER);
-            return tokenReader.consume(TokenClass.SYM);
+            return tokenReader.consume(TokenClass.ATM);
         }
         return tokenReader.consume(TokenClass.ERR);
     }

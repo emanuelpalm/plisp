@@ -45,15 +45,15 @@ public class TestLexer {
     @Test
     public void shouldTokenizeSymbols() throws Throwable {
         test("word & || \t &! \n + - ++ -- åäö",
-                new Token(TokenClass.SYM, "word"),
-                new Token(TokenClass.SYM, "&"),
-                new Token(TokenClass.SYM, "||"),
-                new Token(TokenClass.SYM, "&!"),
-                new Token(TokenClass.SYM, "+"),
-                new Token(TokenClass.SYM, "-"),
-                new Token(TokenClass.SYM, "++"),
-                new Token(TokenClass.SYM, "--"),
-                new Token(TokenClass.SYM, "åäö")
+                new Token(TokenClass.ATM, "word"),
+                new Token(TokenClass.ATM, "&"),
+                new Token(TokenClass.ATM, "||"),
+                new Token(TokenClass.ATM, "&!"),
+                new Token(TokenClass.ATM, "+"),
+                new Token(TokenClass.ATM, "-"),
+                new Token(TokenClass.ATM, "++"),
+                new Token(TokenClass.ATM, "--"),
+                new Token(TokenClass.ATM, "åäö")
         );
     }
 
@@ -61,13 +61,13 @@ public class TestLexer {
     public void shouldTokenizeExpression() throws Throwable {
         test("(+ 10 (int (foldl * 1. (-72.2 -5.1))))",
                 new Token(TokenClass.PAL, "("),
-                new Token(TokenClass.SYM, "+"),
+                new Token(TokenClass.ATM, "+"),
                 new Token(TokenClass.NUM, "10"),
                 new Token(TokenClass.PAL, "("),
-                new Token(TokenClass.SYM, "int"),
+                new Token(TokenClass.ATM, "int"),
                 new Token(TokenClass.PAL, "("),
-                new Token(TokenClass.SYM, "foldl"),
-                new Token(TokenClass.SYM, "*"),
+                new Token(TokenClass.ATM, "foldl"),
+                new Token(TokenClass.ATM, "*"),
                 new Token(TokenClass.NUM, "1."),
                 new Token(TokenClass.PAL, "("),
                 new Token(TokenClass.NUM, "-72.2"),

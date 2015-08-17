@@ -12,5 +12,5 @@ public enum TokenClass {
     PAR, // )
 
     NUM, // Number.
-    SYM  // Symbol.
+    ATM  // Atom.
 }
