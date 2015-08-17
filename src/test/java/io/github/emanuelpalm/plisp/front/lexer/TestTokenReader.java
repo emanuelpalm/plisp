@@ -21,7 +21,7 @@ public class TestTokenReader {
     }
 
     private Token token(final int row, final int column, final TokenClass tc, final String lexeme) {
-        return new Token(new TokenOrigin(tokenReader.name(), row, column), tc, lexeme);
+        return new Token(new TokenOrigin(row, column), tc, lexeme);
     }
 
     private void assertEquals(final Token actual, final Token expected) {

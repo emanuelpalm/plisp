@@ -21,9 +21,9 @@ public class TokenReader {
     private int readPointer = 0;
 
     /** Creates token reader using given byte buffer and name. */
-    public TokenReader(final ByteBuffer b, final String name) {
+    public TokenReader(final ByteBuffer b) {
         buffer = b;
-        origin = new TokenOrigin(name);
+        origin = new TokenOrigin();
     }
 
     /** Creates token reader that reads the contents of the given file. */
@@ -31,19 +31,14 @@ public class TokenReader {
         try (final RandomAccessFile raf = new RandomAccessFile(f, "r");
              final FileChannel fc = raf.getChannel()) {
             final ByteBuffer b = fc.map(FileChannel.MapMode.READ_ONLY, 0, f.length()).asReadOnlyBuffer();
-            return new TokenReader(b, f.getAbsolutePath());
+            return new TokenReader(b);
         }
     }
 
     /** Creates token reader that reads the contents of the given string. */
     public static TokenReader of(final String s) {
         final ByteBuffer b = ByteBuffer.wrap(s.getBytes(StandardCharsets.UTF_8));
-        return new TokenReader(b, "<string>");
-    }
-
-    /** Yields name identifying token reader. */
-    public String name() {
-        return origin.name;
+        return new TokenReader(b);
     }
 
     /** Reads one byte. Returns '\0' if the end of the stream has been reached. */
