@@ -10,8 +10,8 @@ import java.util.function.Predicate;
  * The read source is expected to only contain valid UTF-8 characters. Performs not input validation.
  */
 public class Lexer {
-    private static final Predicate<Byte> IS_DIGIT = (b) -> b >= '0' && b <= '9';
-    private static final Predicate<Byte> IS_SYMBOL_CHARACTER = (b) -> b >= '!' && b <= '~' && b != '(' && b != ')' || b < '\0';
+    private static final Predicate<Byte> IS_ATOM_CHARACTER = (b) -> b >= '!' && b <= '~' && b != '(' && b != ')' || b < '\0';
+    private static final Predicate<Byte> IS_INVISIBLE_CHARACTER = (b) -> b > 0 && b <= ' ' || b == 0x7f;
 
     private final TokenReader tokenReader;
 
@@ -37,13 +37,6 @@ public class Lexer {
             case '\0':
                 return Token.END;
 
-            case ' ':
-            case '\n':
-            case '\r':
-            case '\t':
-                tokenReader.consume();
-                return next();
-
             case '\'':
                 return tokenReader.consume(TokenClass.QUO);
 
@@ -52,29 +45,13 @@ public class Lexer {
 
             case ')':
                 return tokenReader.consume(TokenClass.PAR);
-
-            case '+':
-            case '-':
-                if (!tokenReader.readIf(IS_DIGIT)) break;
-
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                tokenReader.readWhile(IS_DIGIT);
-                if (tokenReader.readIf((b0) -> b0 == '.')) {
-                    tokenReader.readWhile(IS_DIGIT);
-                }
-                return tokenReader.consume(TokenClass.NUM);
         }
-        if (IS_SYMBOL_CHARACTER.test(b)) {
-            tokenReader.readWhile(IS_SYMBOL_CHARACTER);
+        if (IS_INVISIBLE_CHARACTER.test(b)) {
+            tokenReader.consume();
+            return next();
+        }
+        if (IS_ATOM_CHARACTER.test(b)) {
+            tokenReader.readWhile(IS_ATOM_CHARACTER);
             return tokenReader.consume(TokenClass.ATM);
         }
         return tokenReader.consume(TokenClass.ERR);
