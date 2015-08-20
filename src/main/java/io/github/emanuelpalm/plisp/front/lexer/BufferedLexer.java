@@ -40,4 +40,15 @@ public class BufferedLexer {
                 ? tokens.get(offset++)
                 : Token.END;
     }
+
+    @Override public String toString() {
+        final StringBuilder b = new StringBuilder(tokens.size() * 8);
+        b.append("[ ");
+        for (final Token t : tokens) {
+            b.append(t.toString());
+            b.append(',');
+        }
+        b.insert(b.length(), ']');
+        return tokens.toString();
+    }
 }
