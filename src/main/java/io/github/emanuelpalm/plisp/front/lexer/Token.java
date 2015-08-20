@@ -46,7 +46,7 @@ public class Token {
 
     @Override
     public String toString() {
-        return origin + ": (" + type.name() + ") \"" + lexeme + "\"";
+        return '"' + lexeme + '"';
     }
 
     @Override
