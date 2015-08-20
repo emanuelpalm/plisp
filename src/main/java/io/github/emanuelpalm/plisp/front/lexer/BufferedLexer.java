@@ -1,6 +1,7 @@
 package io.github.emanuelpalm.plisp.front.lexer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Buffers lexer tokens, allowing them to be consumed non-linearly.
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * @see Lexer
  */
 public class BufferedLexer {
-    private final ArrayList<Token> tokens;
+    private final List<Token> tokens;
     private int offset = 0;
 
     /** Creates new buffered lexer. */
@@ -20,7 +21,8 @@ public class BufferedLexer {
         } while (t.type() != TokenClass.END);
     }
 
-    BufferedLexer(final ArrayList<Token> ts) {
+    /** Creates new buffered lexer out of given list of tokens. */
+    public BufferedLexer(final List<Token> ts) {
         tokens = ts;
     }
 
