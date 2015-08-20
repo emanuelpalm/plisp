@@ -1,0 +1,121 @@
+package io.github.emanuelpalm.plisp.front.parser;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * Symbolic expression.
+ */
+public interface SExpr {
+    /** Global nul value. */
+    Nul NUL = new Nul();
+
+    /**
+     * Nothing.
+     */
+    class Nul implements SExpr {
+        private Nul() {}
+
+        @Override
+        public String toString() {
+            return "NUL";
+        }
+    }
+
+    /**
+     * A unit of least significance.
+     */
+    class Atom implements SExpr {
+        private final String name;
+
+        /** Constructs atom from given token. */
+        public Atom(final String name) {
+            this.name = name;
+        }
+
+        /** Atom name. */
+        public String name() {
+            return name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            return o != null && o instanceof Atom
+                    && ((Atom) o).name().equals(name());
+        }
+    }
+
+    /**
+     * Memory cell with two registers for holding s-expressions.
+     */
+    class Cons implements SExpr {
+        private final SExpr car, cdr;
+
+        /** Constructs cell from given two s-expressions. */
+        public Cons(final SExpr car, final SExpr cdr) {
+            this.car = car;
+            this.cdr = cdr;
+        }
+
+        /** Constructs cons list from given array of s-expressions. */
+        public static SExpr of(final SExpr... ss) {
+            return of(Arrays.asList(ss));
+        }
+
+        /** Constructs cons list from given list of s-expressions. */
+        public static SExpr of(final List<SExpr> ss) {
+            SExpr c = NUL;
+            for (int i = ss.size(); i-- != 0; ) {
+                c = new Cons(ss.get(i), c);
+            }
+            return c;
+        }
+
+        /** Contents of address register. */
+        public SExpr car() {
+            return car;
+        }
+
+        /** Contents of decrement register. */
+        public SExpr cdr() {
+            return cdr;
+        }
+
+        /** Contents of address register's address register. */
+        public SExpr caar() {
+            return ((Cons) car()).car();
+        }
+
+        /** Contents of address register's decrement register. */
+        public SExpr cadr() {
+            return ((Cons) car()).cdr();
+        }
+
+        /** Contents of decrement register's decrement register. */
+        public SExpr cddr() {
+            return ((Cons) cdr()).cdr();
+        }
+
+        /** Contents of decrement register's address register. */
+        public SExpr cdar() {
+            return ((Cons) cdr()).car();
+        }
+
+        @Override
+        public String toString() {
+            return "(" + car + " . " + cdr + ")";
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            return o != null && o instanceof Cons
+                    && ((Cons) o).car().equals(car())
+                    && ((Cons) o).cdr().equals(cdr());
+        }
+    }
+}
