@@ -33,7 +33,7 @@ public class TokenOrigin {
     /** Adds single row and reset column. */
     public void addRow() {
         row += 1;
-        column = 0;
+        column = 1;
     }
 
     /** Adds N to column. */
@@ -44,7 +44,7 @@ public class TokenOrigin {
     /** Resets origin row/column. */
     public void reset() {
         row = 1;
-        column = 0;
+        column = 1;
     }
 
     /** Copies token origin object. */

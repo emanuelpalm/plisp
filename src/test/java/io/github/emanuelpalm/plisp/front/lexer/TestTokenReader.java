@@ -17,7 +17,7 @@ public class TestTokenReader {
     public void shouldReadAndConsumeTheFirstCharacter() {
         tokenReader.read();
         final Token result = tokenReader.consume(TokenClass.ERR);
-        assertEquals(token(1, 0, TokenClass.ERR, "A"), result);
+        assertEquals(token(1, 1, TokenClass.ERR, "A"), result);
     }
 
     private Token token(final int row, final int column, final TokenClass tc, final String lexeme) {
@@ -36,7 +36,7 @@ public class TestTokenReader {
         }
         tokenReader.consume();
         final Token result = tokenReader.consume(TokenClass.ERR);
-        assertEquals(token(2, 8, TokenClass.ERR, ""), result);
+        assertEquals(token(2, 9, TokenClass.ERR, ""), result);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TestTokenReader {
         tokenReader.consume();
         tokenReader.readIf((b) -> b == 'x');
         final Token result = tokenReader.consume(TokenClass.ERR);
-        assertEquals(token(2, 0, TokenClass.ERR, ""), result);
+        assertEquals(token(2, 1, TokenClass.ERR, ""), result);
     }
 
     @Test
@@ -56,14 +56,14 @@ public class TestTokenReader {
         tokenReader.consume();
         tokenReader.readIf((b) -> b == 's');
         final Token result = tokenReader.consume(TokenClass.ERR);
-        assertEquals(token(2, 0, TokenClass.ERR, "s"), result);
+        assertEquals(token(2, 1, TokenClass.ERR, "s"), result);
     }
 
     @Test
     public void shouldReadAndConsumeAllCharacters() {
         tokenReader.readWhile((b) -> true);
         final Token result = tokenReader.consume(TokenClass.ERR);
-        assertEquals(token(1, 0, TokenClass.ERR, READER_CONTENTS), result);
+        assertEquals(token(1, 1, TokenClass.ERR, READER_CONTENTS), result);
     }
 
     @Test
@@ -73,6 +73,6 @@ public class TestTokenReader {
         tokenReader.consume();
         tokenReader.readWhile((b) -> b >= 'a' && b <= 'z');
         final Token result = tokenReader.consume(TokenClass.ERR);
-        assertEquals(token(2, 0, TokenClass.ERR, "sentence"), result);
+        assertEquals(token(2, 1, TokenClass.ERR, "sentence"), result);
     }
 }
