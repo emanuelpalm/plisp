@@ -38,7 +38,7 @@ public interface Rule {
             final int state = l.state();
             final Token next = l.next();
             if (next.type().equals(c)) {
-                return Optional.of(new SExpr.Atom(next.lexeme()));
+                return Optional.of(new SExpr.Atom(next));
             }
             l.restore(state);
             return Optional.empty();
