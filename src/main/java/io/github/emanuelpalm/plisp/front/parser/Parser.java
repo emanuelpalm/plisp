@@ -11,7 +11,8 @@ import static io.github.emanuelpalm.plisp.front.parser.Rule.*;
  * Adheres to the following grammar:
  *
  * PROG -> EXPR _END | EXPR ERROR | ERROR
- * EXPR -> _ATM | LIST | QUOT
+ * EXPR -> _ATM | CONS | LIST | QUOT
+ * CONS -> "(" EXPR "." EXPR ")"
  * LIST -> "(" EXPR* ")"
  * QUOT -> "'" EXPR
  *
@@ -36,7 +37,12 @@ public class Parser {
     }
 
     private static Rule expr() {
-        return (l) -> anyOf(oneOf(TokenClass.ATM), list(), quot())
+        return (l) -> anyOf(oneOf(TokenClass.ATM), cons(), list(), quot())
+                .apply(l);
+    }
+
+    private static Rule cons() {
+        return (l) -> allOf(oneOf(TokenClass.PAL), expr(), oneOf(TokenClass.DOT), expr(), oneOf(TokenClass.DOT))
                 .apply(l);
     }
 

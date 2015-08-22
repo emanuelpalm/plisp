@@ -10,6 +10,7 @@ public enum TokenClass {
     QUO, // '
     PAL, // (
     PAR, // )
+    DOT, // .
 
     ATM  // Atom.
 }

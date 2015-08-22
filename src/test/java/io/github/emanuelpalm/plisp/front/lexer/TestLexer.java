@@ -41,7 +41,7 @@ public class TestLexer {
 
     @Test
     public void shouldTokenizeExpression() throws Throwable {
-        test("(+ 10 (int (foldl '* 1. '(-72.2 -5.1))))",
+        test("(+ 10 (int (foldl '* 1 '(-72 . 5))))",
                 new Token(TokenClass.PAL, "("),
                 new Token(TokenClass.ATM, "+"),
                 new Token(TokenClass.ATM, "10"),
@@ -51,11 +51,12 @@ public class TestLexer {
                 new Token(TokenClass.ATM, "foldl"),
                 new Token(TokenClass.QUO, "'"),
                 new Token(TokenClass.ATM, "*"),
-                new Token(TokenClass.ATM, "1."),
+                new Token(TokenClass.ATM, "1"),
                 new Token(TokenClass.QUO, "'"),
                 new Token(TokenClass.PAL, "("),
-                new Token(TokenClass.ATM, "-72.2"),
-                new Token(TokenClass.ATM, "-5.1"),
+                new Token(TokenClass.ATM, "-72"),
+                new Token(TokenClass.DOT, "."),
+                new Token(TokenClass.ATM, "5"),
                 new Token(TokenClass.PAR, ")"),
                 new Token(TokenClass.PAR, ")"),
                 new Token(TokenClass.PAR, ")"),

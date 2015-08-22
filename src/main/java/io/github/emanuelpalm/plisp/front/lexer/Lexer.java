@@ -10,7 +10,7 @@ import java.util.function.Predicate;
  * The read source is expected to only contain valid UTF-8 characters. Performs not input validation.
  */
 public class Lexer {
-    private static final Predicate<Byte> IS_ATOM_CHARACTER = (b) -> b >= '!' && b <= '~' && b != '\'' && b != '(' && b != ')' || b < '\0';
+    private static final Predicate<Byte> IS_ATOM_CHARACTER = (b) -> b >= '!' && b <= '~' && b != '\'' && b != '(' && b != ')' && b != '.' || b < '\0';
     private static final Predicate<Byte> IS_INVISIBLE_CHARACTER = (b) -> b > 0 && b <= ' ' || b == 0x7f;
 
     private final TokenReader tokenReader;
@@ -45,6 +45,9 @@ public class Lexer {
 
             case ')':
                 return tokenReader.consume(TokenClass.PAR);
+
+            case '.':
+                return tokenReader.consume(TokenClass.DOT);
         }
         if (IS_INVISIBLE_CHARACTER.test(b)) {
             tokenReader.consume();
