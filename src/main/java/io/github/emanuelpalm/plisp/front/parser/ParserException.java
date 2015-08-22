@@ -1,14 +1,18 @@
 package io.github.emanuelpalm.plisp.front.parser;
 
+import io.github.emanuelpalm.plisp.front.lexer.Token;
+
+import java.util.Optional;
+
 /**
  * Provides information about some relevant parsing error.
  */
 public class ParserException extends RuntimeException {
     private final ParserError error;
 
-    /** Creates new parser exception wrapping given error. */
-    public ParserException(final ParserError e) {
-        super(e.description());
+    /** Creates new parser exception wrapping given offending token and error. */
+    public ParserException(final Optional<Token> t, final ParserError e) {
+        super((t.isPresent() ? t.get().origin().toString() + " " : "") + e.description());
         error = e;
     }
 

@@ -62,7 +62,7 @@ public class Parser {
     private static Rule errPal() {
         return (l) -> oneOf(TokenClass.PAL)
                 .transform((s) -> {
-                    throw new ParserException(ParserError.UNBALANCED_PAL);
+                    throw new ParserException(s.token(), ParserError.UNBALANCED_PAL);
                 })
                 .apply(l);
     }
@@ -70,7 +70,7 @@ public class Parser {
     private static Rule errPar() {
         return (l) -> oneOf(TokenClass.PAR)
                 .transform((s) -> {
-                    throw new ParserException(ParserError.UNBALANCED_PAR);
+                    throw new ParserException(s.token(), ParserError.UNBALANCED_PAR);
                 })
                 .apply(l);
     }
@@ -78,7 +78,7 @@ public class Parser {
     private static Rule errQuo() {
         return (l) -> oneOf(TokenClass.QUO)
                 .transform((s) -> {
-                    throw new ParserException(ParserError.DANGLING_QUOTE);
+                    throw new ParserException(s.token(), ParserError.DANGLING_QUOTE);
                 })
                 .apply(l);
     }
@@ -86,7 +86,7 @@ public class Parser {
     private static Rule errAtm() {
         return (l) -> oneOf(TokenClass.ATM)
                 .transform((s) -> {
-                    throw new ParserException(ParserError.DANGLING_ATOM);
+                    throw new ParserException(s.token(), ParserError.DANGLING_ATOM);
                 })
                 .apply(l);
     }
