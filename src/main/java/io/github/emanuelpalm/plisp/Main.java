@@ -14,8 +14,12 @@ import java.io.IOException;
 public class Main {
     public static void main(final String[] args) throws IOException {
         final BufferedLexer l = new BufferedLexer(Lexer.fromFile(new File(args[0])));
-        System.out.println(l);
-        final SExpr s = Parser.parse(l);
-        System.out.println(s);
+        try {
+            final SExpr s = Parser.parse(l);
+            System.out.println(s);
+
+        } catch (final Throwable e) {
+            System.err.println("Parser error: " + e.getMessage());
+        }
     }
 }
