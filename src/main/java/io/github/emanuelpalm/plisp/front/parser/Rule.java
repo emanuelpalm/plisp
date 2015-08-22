@@ -25,10 +25,14 @@ public interface Rule {
         };
     }
 
+    /**
+     * Applies transformation to s-expression.
+     */
     interface Transformer {
         SExpr onTransform(final SExpr s);
     }
 
+    /** Requires one {@link Token} of given class. */
     static Rule oneOf(final TokenClass c) {
         return (l) -> {
             final int state = l.state();
@@ -41,6 +45,7 @@ public interface Rule {
         };
     }
 
+    /** Requires any one of the given rules to succeed. */
     static Rule anyOf(final Rule... rs) {
         return (l) -> {
             final int state = l.state();
@@ -55,6 +60,7 @@ public interface Rule {
         };
     }
 
+    /** Requires all the the given rules to succeed. */
     static Rule allOf(final Rule... rs) {
         return (l) -> {
             final int state = l.state();
@@ -73,6 +79,7 @@ public interface Rule {
         };
     }
 
+    /** Wraps all possible successful applications of the provided rule. Always succeeds. */
     static Rule manyOf(final Rule r) {
         return (l) -> {
             final ArrayList<SExpr> ss = new ArrayList<>();
