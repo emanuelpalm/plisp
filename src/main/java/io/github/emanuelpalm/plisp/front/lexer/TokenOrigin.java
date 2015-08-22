@@ -7,11 +7,7 @@ public class TokenOrigin {
     /** Signifies that some token originates from some source of less relevance. */
     public static final TokenOrigin OTHER = new TokenOrigin(0, 0);
 
-    /** Origin row. */
-    public int row;
-
-    /** Origin column. */
-    public int column;
+    private int row, column;
 
     /** Creates new token origin. */
     public TokenOrigin() {
@@ -22,6 +18,27 @@ public class TokenOrigin {
     public TokenOrigin(final int row, final int column) {
         this.row = row;
         this.column = column;
+    }
+
+    /** Origin row. */
+    public int row() {
+        return row;
+    }
+
+    /** Origin column. */
+    public int column() {
+        return column;
+    }
+
+    /** Adds single row and reset column. */
+    public void addRow() {
+        row += 1;
+        column = 0;
+    }
+
+    /** Adds N to column. */
+    public void addColumn(final int n) {
+        column += n;
     }
 
     /** Resets origin row/column. */

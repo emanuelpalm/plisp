@@ -70,11 +70,10 @@ public class TokenReader {
         int d = readPointer - buffer.position();
         while (d-- != 0) {
             if (buffer.get() == '\n') {
-                origin.row++;
-                origin.column = 0;
+                origin.addRow();
 
             } else {
-                origin.column++;
+                origin.addColumn(1);
             }
         }
     }
@@ -89,7 +88,7 @@ public class TokenReader {
         buffer.get(bs);
 
         final Token t = new Token(origin.copy(), tc, new String(bs, StandardCharsets.UTF_8));
-        origin.column += bs.length;
+        origin.addColumn(bs.length);
         return t;
     }
 
