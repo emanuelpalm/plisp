@@ -48,4 +48,21 @@ public class TestSExpr {
                 SExpr.Atom.of("d")
         ));
     }
+
+    @Test
+    public void shouldZipConsLists() {
+        final SExpr c1 = SExpr.Cons.of(SExpr.Atom.of("b0"), SExpr.Atom.of("b1"));
+
+        final SExpr c0a = SExpr.Cons.of(SExpr.Atom.of("a0"), SExpr.Atom.of("a1"));
+        assertEquals(c0a.zip(c1), SExpr.Cons.of(
+                SExpr.Cons.of(SExpr.Atom.of("a0"), SExpr.Atom.of("b0")),
+                SExpr.Cons.of(SExpr.Atom.of("a1"), SExpr.Atom.of("b1"))
+        ));
+
+        final SExpr c0b = new SExpr.Cons(SExpr.Atom.of("a0"), SExpr.Atom.of("a1")); // Not NUL-terminated.
+        assertEquals(c0b.zip(c1), SExpr.Cons.of(
+                SExpr.Cons.of(SExpr.Atom.of("a0"), SExpr.Atom.of("b0")),
+                SExpr.Cons.of(SExpr.Atom.of("a1"), SExpr.Atom.of("b1"))
+        ));
+    }
 }

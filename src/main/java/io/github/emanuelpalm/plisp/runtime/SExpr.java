@@ -34,6 +34,14 @@ public interface SExpr {
     SExpr concat(final SExpr s);
 
     /**
+     * Pairs up this expression's elements with that of the givens, if both are cons lists.
+     * <p>
+     * Will continue zipping as long as there are element in this cons list. If the given cons list would be shorter
+     * {@code Nul} values are used.
+     */
+    SExpr zip(final SExpr s);
+
+    /**
      * Nothing.
      */
     class Nul implements SExpr {
@@ -42,6 +50,11 @@ public interface SExpr {
         @Override
         public SExpr concat(final SExpr s) {
             return s;
+        }
+
+        @Override
+        public SExpr zip(final SExpr s) {
+            return NUL;
         }
 
         @Override
@@ -81,6 +94,14 @@ public interface SExpr {
         @Override
         public SExpr concat(final SExpr s) {
             return new Cons(this, s);
+        }
+
+        @Override
+        public SExpr zip(final SExpr s) {
+            return new Cons(
+                    new Cons(this, new Cons(s.car(), NUL)),
+                    NUL
+            );
         }
 
         @Override
@@ -141,6 +162,14 @@ public interface SExpr {
         @Override
         public SExpr concat(final SExpr s) {
             return new Cons(car(), cdr().concat(s));
+        }
+
+        @Override
+        public SExpr zip(final SExpr s) {
+            return new Cons(
+                    new Cons(car(), new Cons(s.car(), NUL)),
+                    cdr().zip(s.cdr())
+            );
         }
 
         @Override
