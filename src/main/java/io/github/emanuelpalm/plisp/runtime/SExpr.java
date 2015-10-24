@@ -115,7 +115,7 @@ public interface SExpr {
         @Override
         public SExpr zip(final SExpr s) {
             return new Cons(
-                    new Cons(this, new Cons(s.car(), NUL)),
+                    new Cons(this, s.car()),
                     NUL
             );
         }
@@ -183,7 +183,7 @@ public interface SExpr {
         @Override
         public SExpr zip(final SExpr s) {
             return new Cons(
-                    new Cons(car(), new Cons(s.car(), NUL)),
+                    new Cons(car(), s.car()),
                     cdr().zip(s.cdr())
             );
         }
