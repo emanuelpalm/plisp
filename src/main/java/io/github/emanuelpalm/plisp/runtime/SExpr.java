@@ -71,6 +71,8 @@ public interface SExpr {
 
     /**
      * A unit of least significance.
+     * <p>
+     * Behaves as a single element list if used with some list operation, such as zip or concat.
      */
     class Atom implements SExpr {
         private final Token token;
