@@ -35,7 +35,7 @@ public class Parser {
 
     private static Rule prog() {
         return (l) -> anyOf(allOf(expr(), oneOf(TokenClass.END)), allOf(expr(), error()), error())
-                .transform((s) -> ((SExpr.Cons) s).car())
+                .transform(SExpr::car)
                 .apply(l);
     }
 
@@ -51,13 +51,13 @@ public class Parser {
 
     private static Rule list() {
         return (l) -> allOf(oneOf(TokenClass.PAL), manyOf(expr()), oneOf(TokenClass.PAR))
-                .transform((s) -> ((SExpr.Cons) ((SExpr.Cons) s).cdr()).car())
+                .transform((s) -> s.cdr().car())
                 .apply(l);
     }
 
     private static Rule quot() {
         return (l) -> allOf(oneOf(TokenClass.QUO), expr())
-                .transform((s) -> new SExpr.Cons(new SExpr.Atom("quote"), ((SExpr.Cons) s).cdr()))
+                .transform((s) -> new SExpr.Cons(new SExpr.Atom("quote"), s.cdr()))
                 .apply(l);
     }
 
