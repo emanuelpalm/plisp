@@ -34,7 +34,7 @@ public interface SExpr {
     SExpr concat(final SExpr s);
 
     /**
-     * Pairs up this expression's elements with that of the givens, if both are cons lists.
+     * Pairs up this expression's elements with that of given, if both are cons lists.
      * <p>
      * Will continue zipping as long as there are element in this cons list. If the given cons list would be shorter
      * {@code Nul} values are used.
