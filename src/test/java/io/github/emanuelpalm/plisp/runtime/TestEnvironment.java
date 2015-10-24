@@ -31,6 +31,13 @@ public class TestEnvironment {
                 new Object[]{"(cdr ('a 'b))", SExpr.Cons.of(SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("b")))},
 
                 new Object[]{"(cons 'a 'b)", SExpr.Cons.of(SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("a")), SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("b")))},
+
+                new Object[]{"(cond 'a ('a 'b 'c 'd 'e))", Environment.T},
+                new Object[]{"(cond 'd ('a 'b 'c 'd 'e))", Environment.T},
+                new Object[]{"(cond 'e ('a 'b 'c 'd 'e))", Environment.T},
+                new Object[]{"(cond 'x ('a 'b 'c 'd 'e))", Environment.F},
+                new Object[]{"(cond ('a 'c) (('a 'b) ('a 'c) 'x))", Environment.T},
+                new Object[]{"(cond ('a 'x) (('a 'b) ('a 'c) 'x))", Environment.F},
         };
     }
 }
