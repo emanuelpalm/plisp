@@ -57,7 +57,7 @@ public class Parser {
 
     private static Rule quot() {
         return (l) -> allOf(oneOf(TokenClass.QUO), expr())
-                .transform((s) -> new SExpr.Cons(new SExpr.Atom("quote"), s.cdr()))
+                .transform((s) -> new SExpr.Cons(SExpr.Atom.of("quote"), s.cdr()))
                 .apply(l);
     }
 

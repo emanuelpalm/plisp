@@ -22,15 +22,15 @@ public class TestParser {
         return new Object[][]{
                 new Object[]{
                         lexerOf(new Token(TokenClass.ATM, "x")),
-                        new SExpr.Atom("x")
+                        SExpr.Atom.of("x")
                 },
                 new Object[]{
                         lexerOf(new Token(TokenClass.PAL, "("), new Token(TokenClass.ATM, "x"), new Token(TokenClass.PAR, ")")),
-                        SExpr.Cons.of(new SExpr.Atom("x"))
+                        SExpr.Cons.of(SExpr.Atom.of("x"))
                 },
                 new Object[]{
                         lexerOf(new Token(TokenClass.QUO, "'"), new Token(TokenClass.ATM, "x")),
-                        SExpr.Cons.of(new SExpr.Atom("quote"), new SExpr.Atom("x"))
+                        SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("x"))
                 }
         };
     }

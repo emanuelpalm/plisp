@@ -29,7 +29,7 @@ public class TestRule {
                 new Object[]{
                         lexerOf(new Token(TokenClass.ATM, "x")),
                         Rule.oneOf(TokenClass.ATM),
-                        Optional.of(new SExpr.Atom("x"))
+                        Optional.of(SExpr.Atom.of("x"))
                 },
                 new Object[]{
                         lexerOf(),
@@ -49,7 +49,7 @@ public class TestRule {
                 new Object[]{
                         lexerOf(new Token(TokenClass.QUO, "'"), new Token(TokenClass.ATM, "x")),
                         Rule.allOf(Rule.oneOf(TokenClass.QUO), Rule.oneOf(TokenClass.ATM)),
-                        Optional.of(SExpr.Cons.of(new SExpr.Atom("'"), new SExpr.Atom("x")))
+                        Optional.of(SExpr.Cons.of(SExpr.Atom.of("'"), SExpr.Atom.of("x")))
                 },
                 new Object[]{
                         lexerOf(new Token(TokenClass.PAR, ")")),
@@ -59,12 +59,12 @@ public class TestRule {
                 new Object[]{
                         lexerOf(new Token(TokenClass.ATM, "x")),
                         Rule.manyOf(Rule.oneOf(TokenClass.ATM)),
-                        Optional.of(SExpr.Cons.of(new SExpr.Atom("x")))
+                        Optional.of(SExpr.Cons.of(SExpr.Atom.of("x")))
                 },
                 new Object[]{
                         lexerOf(new Token(TokenClass.ATM, "x"), new Token(TokenClass.ATM, "y"), new Token(TokenClass.PAL, "(")),
                         Rule.manyOf(Rule.oneOf(TokenClass.ATM)),
-                        Optional.of(SExpr.Cons.of(new SExpr.Atom("x"), new SExpr.Atom("y")))
+                        Optional.of(SExpr.Cons.of(SExpr.Atom.of("x"), SExpr.Atom.of("y")))
                 },
                 new Object[]{
                         lexerOf(new Token(TokenClass.PAR, ")")),
@@ -74,12 +74,12 @@ public class TestRule {
                 new Object[]{
                         lexerOf(new Token(TokenClass.PAL, "(")),
                         Rule.anyOf(Rule.oneOf(TokenClass.ATM), Rule.oneOf(TokenClass.PAL)),
-                        Optional.of(new SExpr.Atom("("))
+                        Optional.of(SExpr.Atom.of("("))
                 },
                 new Object[]{
                         lexerOf(new Token(TokenClass.ATM, "x"), new Token(TokenClass.PAL, "(")),
                         Rule.anyOf(Rule.oneOf(TokenClass.ATM), Rule.oneOf(TokenClass.PAL)),
-                        Optional.of(new SExpr.Atom("x"))
+                        Optional.of(SExpr.Atom.of("x"))
                 },
         };
     }

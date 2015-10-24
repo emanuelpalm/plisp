@@ -54,8 +54,8 @@ public interface SExpr {
         }
 
         /** Constructs atom from given string name. */
-        public Atom(final String name) {
-            token = new Token(TokenClass.ATM, name);
+        public static SExpr.Atom of(final String name) {
+            return new Atom(new Token(TokenClass.ATM, name));
         }
 
         /** Atom name. */
