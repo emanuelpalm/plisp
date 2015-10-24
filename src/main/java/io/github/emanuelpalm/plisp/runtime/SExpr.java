@@ -127,7 +127,7 @@ public interface SExpr {
 
         @Override
         public String toString() {
-            return "(" + car + " . " + cdr + ")";
+            return "(" + car() + " . " + cdr() + ")";
         }
 
         @Override
