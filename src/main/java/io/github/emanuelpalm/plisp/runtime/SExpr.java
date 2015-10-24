@@ -21,13 +21,19 @@ public interface SExpr {
     }
 
     /** Contents of address register, if the current expression is a cons. */
-    SExpr car();
+    default SExpr car() {
+        return this;
+    }
 
     /** Contents of decrement register, if the current expression is a cons. */
-    SExpr cdr();
+    default SExpr cdr() {
+        return NUL;
+    }
 
     /** Creates new cons list with given expression at the end. */
-    SExpr concat(final SExpr s);
+    default SExpr concat(final SExpr s) {
+        return s;
+    }
 
     /**
      * Pairs up this expression's elements with that of given, if both are cons lists.
@@ -35,33 +41,15 @@ public interface SExpr {
      * Will continue zipping as long as there are element in this cons list. If the given cons list would be shorter
      * {@code Nul} values are used.
      */
-    SExpr zip(final SExpr s);
+    default SExpr zip(final SExpr s) {
+        return NUL;
+    }
 
     /**
      * Nothing.
      */
     class Nul implements SExpr {
         private Nul() {}
-
-        @Override
-        public SExpr car() {
-            return this;
-        }
-
-        @Override
-        public SExpr cdr() {
-            return this;
-        }
-
-        @Override
-        public SExpr concat(final SExpr s) {
-            return s;
-        }
-
-        @Override
-        public SExpr zip(final SExpr s) {
-            return NUL;
-        }
 
         @Override
         public String toString() {
@@ -97,16 +85,6 @@ public interface SExpr {
             return Optional.ofNullable(token.origin() != TokenOrigin.OTHER
                     ? token
                     : null);
-        }
-
-        @Override
-        public SExpr car() {
-            return this;
-        }
-
-        @Override
-        public SExpr cdr() {
-            return NUL;
         }
 
         @Override
