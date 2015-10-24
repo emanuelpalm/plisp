@@ -1,4 +1,4 @@
-package io.github.emanuelpalm.plisp.front.lexer;
+package io.github.emanuelpalm.plisp.lexer;
 
 import io.github.emanuelpalm.util.testing.FileUtils;
 import org.testng.annotations.Test;

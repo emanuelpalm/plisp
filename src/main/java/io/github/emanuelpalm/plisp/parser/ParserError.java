@@ -1,4 +1,4 @@
-package io.github.emanuelpalm.plisp.front.parser;
+package io.github.emanuelpalm.plisp.parser;
 
 /**
  * A kind of parser error.

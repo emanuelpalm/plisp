@@ -1,4 +1,4 @@
-package io.github.emanuelpalm.plisp.front.lexer;
+package io.github.emanuelpalm.plisp.lexer;
 
 import java.util.ArrayList;
 import java.util.List;

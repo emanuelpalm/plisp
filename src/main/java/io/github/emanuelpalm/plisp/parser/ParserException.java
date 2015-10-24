@@ -1,6 +1,6 @@
-package io.github.emanuelpalm.plisp.front.parser;
+package io.github.emanuelpalm.plisp.parser;
 
-import io.github.emanuelpalm.plisp.front.lexer.Token;
+import io.github.emanuelpalm.plisp.lexer.Token;
 
 import java.util.Optional;
 

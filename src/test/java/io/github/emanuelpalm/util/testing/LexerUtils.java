@@ -1,7 +1,7 @@
 package io.github.emanuelpalm.util.testing;
 
-import io.github.emanuelpalm.plisp.front.lexer.BufferedLexer;
-import io.github.emanuelpalm.plisp.front.lexer.Token;
+import io.github.emanuelpalm.plisp.lexer.BufferedLexer;
+import io.github.emanuelpalm.plisp.lexer.Token;
 
 import java.util.Arrays;
 

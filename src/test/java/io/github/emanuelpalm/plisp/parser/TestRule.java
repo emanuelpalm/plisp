@@ -1,9 +1,9 @@
-package io.github.emanuelpalm.plisp.front.parser;
+package io.github.emanuelpalm.plisp.parser;
 
-import io.github.emanuelpalm.plisp.front.lexer.BufferedLexer;
-import io.github.emanuelpalm.plisp.front.lexer.Token;
-import io.github.emanuelpalm.plisp.front.lexer.TokenClass;
-import io.github.emanuelpalm.plisp.front.runtime.SExpr;
+import io.github.emanuelpalm.plisp.lexer.BufferedLexer;
+import io.github.emanuelpalm.plisp.lexer.Token;
+import io.github.emanuelpalm.plisp.lexer.TokenClass;
+import io.github.emanuelpalm.plisp.runtime.SExpr;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

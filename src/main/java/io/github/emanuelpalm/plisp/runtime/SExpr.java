@@ -1,8 +1,8 @@
-package io.github.emanuelpalm.plisp.front.runtime;
+package io.github.emanuelpalm.plisp.runtime;
 
-import io.github.emanuelpalm.plisp.front.lexer.Token;
-import io.github.emanuelpalm.plisp.front.lexer.TokenClass;
-import io.github.emanuelpalm.plisp.front.lexer.TokenOrigin;
+import io.github.emanuelpalm.plisp.lexer.Token;
+import io.github.emanuelpalm.plisp.lexer.TokenClass;
+import io.github.emanuelpalm.plisp.lexer.TokenOrigin;
 
 import java.util.Arrays;
 import java.util.List;
