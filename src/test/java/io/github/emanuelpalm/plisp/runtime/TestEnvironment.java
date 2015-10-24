@@ -1,14 +1,21 @@
 package io.github.emanuelpalm.plisp.runtime;
 
 import io.github.emanuelpalm.plisp.parser.Parser;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
 public class TestEnvironment {
-    @Test
-    public void shouldEvaluateQuotedAtomToAtom() {
-        final SExpr a = Parser.parse("'a").eval(Environment.create());
-        assertEquals(a, SExpr.Atom.of("a"));
+    @Test(dataProvider = "functions")
+    public void shouldEvaluateQuote(final String input, final SExpr expected) {
+        assertEquals(Parser.parse(input).eval(Environment.create()), expected);
+    }
+
+    @DataProvider(name = "functions")
+    public Object[][] providerFunction() {
+        return new Object[][]{
+                new Object[]{"'a", SExpr.Atom.of("a")}
+        };
     }
 }
