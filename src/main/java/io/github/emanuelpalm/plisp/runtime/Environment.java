@@ -8,6 +8,8 @@ public class Environment {
     public static final SExpr.Atom T = SExpr.Atom.of("t");
 
     public static final SExpr.Atom ATOM = SExpr.Atom.of("atom");
+    public static final SExpr.Atom CAR = SExpr.Atom.of("car");
+    public static final SExpr.Atom CDR = SExpr.Atom.of("cdr");
     public static final SExpr.Atom EQ = SExpr.Atom.of("eq");
     public static final SExpr.Atom QUOTE = SExpr.Atom.of("quote");
 
@@ -16,7 +18,9 @@ public class Environment {
         return SExpr.Cons.of(
                 entry(QUOTE, (args, env) -> args.car()),
                 entry(ATOM, (args, env) -> (args.car() instanceof SExpr.Atom) ? T : F),
-                entry(EQ, (args, env) -> args.car().equals(args.cdr().car()) ? T : F)
+                entry(EQ, (args, env) -> args.car().equals(args.cdr().car()) ? T : F),
+                entry(CAR, (args, env) -> args.car().car()),
+                entry(CDR, (args, env) -> args.car().cdr())
         );
     }
 

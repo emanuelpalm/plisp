@@ -25,7 +25,10 @@ public class TestEnvironment {
                 new Object[]{"(eq 'a 'a)", Environment.T},
                 new Object[]{"(eq 'a 'b)", Environment.F},
                 new Object[]{"(eq ('a 'b) ('a 'b))", Environment.T},
-                new Object[]{"(eq ('a 'b) ('a 'c))", Environment.F}
+                new Object[]{"(eq ('a 'b) ('a 'c))", Environment.F},
+
+                new Object[]{"(car ('a 'b))", SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("a"))},
+                new Object[]{"(cdr ('a 'b))", SExpr.Cons.of(SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("b")))},
         };
     }
 }
