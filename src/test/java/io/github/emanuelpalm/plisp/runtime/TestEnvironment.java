@@ -8,7 +8,7 @@ import static org.testng.Assert.assertEquals;
 
 public class TestEnvironment {
     @Test(dataProvider = "functions")
-    public void shouldEvaluateQuote(final String input, final SExpr expected) {
+    public void shouldEvaluateInput(final String input, final SExpr expected) {
         assertEquals(Parser.parse(input).eval(Environment.create()), expected);
     }
 
