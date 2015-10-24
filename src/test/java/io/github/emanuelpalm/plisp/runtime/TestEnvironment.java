@@ -29,6 +29,8 @@ public class TestEnvironment {
 
                 new Object[]{"(car ('a 'b))", SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("a"))},
                 new Object[]{"(cdr ('a 'b))", SExpr.Cons.of(SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("b")))},
+
+                new Object[]{"(cons 'a 'b)", SExpr.Cons.of(SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("a")), SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("b")))},
         };
     }
 }
