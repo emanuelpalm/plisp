@@ -185,7 +185,7 @@ public interface SExpr {
      * Some callable expression.
      */
     interface Callable extends SExpr {
-        /** Evaluates given expression using provided environment. */
-        SExpr call(final SExpr expr, final SExpr env);
+        /** Evaluates some expression using provided arguments and environment. */
+        SExpr call(final SExpr args, final SExpr env);
     }
 }
