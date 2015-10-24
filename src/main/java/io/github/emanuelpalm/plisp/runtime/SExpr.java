@@ -46,6 +46,25 @@ public interface SExpr {
     }
 
     /**
+     * Evaluates this expression using provided environment.
+     * <p>
+     * The environment must be a list of pairs, where the CAR of each pair is an atom, and the CDR of each pair is some
+     * expression that the atom evaluates into.
+     * <p>
+     * An example of a valid environment could be the following:
+     * <pre>
+     * (
+     *   (a . '10)
+     *   (b . '20)
+     *   (c . '30)
+     * )
+     * </pre>
+     */
+    default SExpr eval(final SExpr env) {
+        throw new UnsupportedOperationException("Cannot evaluate '" + this + "'.");
+    }
+
+    /**
      * Nothing.
      */
     class Nul implements SExpr {
@@ -166,6 +185,30 @@ public interface SExpr {
                     new Cons(car(), s.car()),
                     cdr().zip(s.cdr())
             );
+        }
+
+        @Override
+        public SExpr eval(SExpr env) {
+            final Callable callable;
+            if (car() instanceof Atom) {
+                while (true) {
+                    final SExpr s = env.car();
+                    if (s instanceof Nul) {
+                        throw new UnsupportedOperationException("Cannot evaluate '" + this + "'.");
+                    }
+                    if (s.car().equals(car())) {
+                        callable = (Callable) s.cdr();
+                        break;
+                    }
+                    env = env.cdr();
+                }
+            } else if (car() instanceof Callable) {
+                callable = (Callable) car();
+
+            } else {
+                throw new UnsupportedOperationException("Cannot evaluate '" + this + "'.");
+            }
+            return callable.call(cdr(), env);
         }
 
         @Override
