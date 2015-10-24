@@ -25,7 +25,7 @@ public class TestLexer {
     }
 
     @Test
-    public void shouldTokenizeSymbols() throws Throwable {
+    public void shouldTokenizeAtoms() throws Throwable {
         test("word & || \t &! \n + - ++ -- åäö",
                 new Token(TokenClass.ATM, "word"),
                 new Token(TokenClass.ATM, "&"),
