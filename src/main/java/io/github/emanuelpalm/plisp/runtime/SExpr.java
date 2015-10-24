@@ -124,6 +124,11 @@ public interface SExpr {
         }
 
         @Override
+        public Optional<Token> token() {
+            return token;
+        }
+
+        @Override
         public SExpr car() {
             return car;
         }
@@ -131,11 +136,6 @@ public interface SExpr {
         @Override
         public SExpr cdr() {
             return cdr;
-        }
-
-        @Override
-        public Optional<Token> token() {
-            return token;
         }
 
         @Override
