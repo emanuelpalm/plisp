@@ -184,4 +184,12 @@ public interface SExpr {
                     && ((Cons) o).cdr().equals(cdr());
         }
     }
+
+    /**
+     * Some callable expression.
+     */
+    interface Callable {
+        /** Evaluates given expression using provided environment. */
+        SExpr call(final SExpr expr, final SExpr env);
+    }
 }
