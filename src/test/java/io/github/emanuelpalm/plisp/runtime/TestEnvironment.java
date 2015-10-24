@@ -15,7 +15,12 @@ public class TestEnvironment {
     @DataProvider(name = "functions")
     public Object[][] providerFunction() {
         return new Object[][]{
-                new Object[]{"'a", SExpr.Atom.of("a")}
+                new Object[]{"'a", SExpr.Atom.of("a")},
+
+                new Object[]{"(atom a)", Environment.T},
+                new Object[]{"(atom 'a)", Environment.F},
+                new Object[]{"(atom ())", Environment.F},
+                new Object[]{"(atom ('a 'b))", Environment.F}
         };
     }
 }

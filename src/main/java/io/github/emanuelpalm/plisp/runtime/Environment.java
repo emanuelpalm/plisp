@@ -4,12 +4,17 @@ package io.github.emanuelpalm.plisp.runtime;
  * Default execution environment.
  */
 public class Environment {
+    public static final SExpr.Atom F = SExpr.Atom.of("f");
+    public static final SExpr.Atom T = SExpr.Atom.of("t");
+
+    public static final SExpr.Atom ATOM = SExpr.Atom.of("atom");
     public static final SExpr.Atom QUOTE = SExpr.Atom.of("quote");
 
     /** Creates new default execution environment. */
     public static SExpr create() {
         return SExpr.Cons.of(
-                entry(QUOTE, (args, env) -> args.car())
+                entry(QUOTE, (args, env) -> args.car()),
+                entry(ATOM, (args, env) -> (args.car() instanceof SExpr.Atom) ? T : F)
         );
     }
 
