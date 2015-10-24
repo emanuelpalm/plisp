@@ -189,26 +189,23 @@ public interface SExpr {
 
         @Override
         public SExpr eval(SExpr env) {
-            final Callable callable;
-            if (car() instanceof Atom) {
+            final SExpr car = car();
+            if (car instanceof Callable) {
+                return ((Callable) car).call(cdr(), env);
+            }
+            if (car instanceof Atom) {
                 while (true) {
                     final SExpr s = env.car();
                     if (s instanceof Nul) {
-                        throw new UnsupportedOperationException("Cannot evaluate '" + this + "'.");
+                        throw new UnsupportedOperationException("'" + car + "' not defined.");
                     }
-                    if (s.car().equals(car())) {
-                        callable = (Callable) s.cdr();
-                        break;
+                    if (s.car().equals(car)) {
+                        return ((Callable) s.cdr()).call(cdr(), env);
                     }
                     env = env.cdr();
                 }
-            } else if (car() instanceof Callable) {
-                callable = (Callable) car();
-
-            } else {
-                throw new UnsupportedOperationException("Cannot evaluate '" + this + "'.");
             }
-            return callable.call(cdr(), env);
+            throw new UnsupportedOperationException("Cannot evaluate '" + this + "'.");
         }
 
         @Override
