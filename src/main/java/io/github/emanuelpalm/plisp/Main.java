@@ -3,7 +3,7 @@ package io.github.emanuelpalm.plisp;
 import io.github.emanuelpalm.plisp.front.lexer.BufferedLexer;
 import io.github.emanuelpalm.plisp.front.lexer.Lexer;
 import io.github.emanuelpalm.plisp.front.parser.Parser;
-import io.github.emanuelpalm.plisp.front.parser.SExpr;
+import io.github.emanuelpalm.plisp.front.runtime.SExpr;
 
 import java.io.File;
 import java.io.IOException;

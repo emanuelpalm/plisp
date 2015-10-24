@@ -2,6 +2,7 @@ package io.github.emanuelpalm.plisp.front.parser;
 
 import io.github.emanuelpalm.plisp.front.lexer.BufferedLexer;
 import io.github.emanuelpalm.plisp.front.lexer.TokenClass;
+import io.github.emanuelpalm.plisp.front.runtime.SExpr;
 
 import static io.github.emanuelpalm.plisp.front.parser.Rule.*;
 
