@@ -51,7 +51,7 @@ public class Parser {
 
     private static Rule list() {
         return (l) -> allOf(oneOf(TokenClass.PAL), manyOf(expr()), oneOf(TokenClass.PAR))
-                .transform((s) -> ((SExpr.Cons) s).cdar())
+                .transform((s) -> ((SExpr.Cons) ((SExpr.Cons) s).cdr()).car())
                 .apply(l);
     }
 
