@@ -27,4 +27,25 @@ public class TestSExpr {
                 SExpr.Atom.of("b"), new SExpr.Cons(
                 SExpr.Atom.of("c"), SExpr.NUL))));
     }
+
+    @Test
+    public void shouldConcatenateConsLists() {
+        final SExpr c1 = SExpr.Cons.of(SExpr.Atom.of("c"), SExpr.Atom.of("d"));
+
+        final SExpr c0a = SExpr.Cons.of(SExpr.Atom.of("a"), SExpr.Atom.of("b"));
+        assertEquals(c0a.concat(c1), SExpr.Cons.of(
+                SExpr.Atom.of("a"),
+                SExpr.Atom.of("b"),
+                SExpr.Atom.of("c"),
+                SExpr.Atom.of("d")
+        ));
+
+        final SExpr c0b = new SExpr.Cons(SExpr.Atom.of("x"), SExpr.Atom.of("y")); // Not NUL-terminated.
+        assertEquals(c0b.concat(c1), SExpr.Cons.of(
+                SExpr.Atom.of("x"),
+                SExpr.Atom.of("y"),
+                SExpr.Atom.of("c"),
+                SExpr.Atom.of("d")
+        ));
+    }
 }

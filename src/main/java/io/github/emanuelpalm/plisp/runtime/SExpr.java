@@ -30,11 +30,19 @@ public interface SExpr {
         return NUL;
     }
 
+    /** Creates new cons list with given expression at the end. */
+    SExpr concat(final SExpr s);
+
     /**
      * Nothing.
      */
     class Nul implements SExpr {
         private Nul() {}
+
+        @Override
+        public SExpr concat(final SExpr s) {
+            return s;
+        }
 
         @Override
         public String toString() {
@@ -68,6 +76,11 @@ public interface SExpr {
             return Optional.ofNullable(token.origin() != TokenOrigin.OTHER
                     ? token
                     : null);
+        }
+
+        @Override
+        public SExpr concat(final SExpr s) {
+            return new Cons(this, s);
         }
 
         @Override
@@ -123,6 +136,11 @@ public interface SExpr {
         @Override
         public Optional<Token> token() {
             return token;
+        }
+
+        @Override
+        public SExpr concat(final SExpr s) {
+            return new Cons(car(), cdr().concat(s));
         }
 
         @Override
