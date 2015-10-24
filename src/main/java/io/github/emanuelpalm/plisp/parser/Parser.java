@@ -8,20 +8,22 @@ import static io.github.emanuelpalm.plisp.parser.Rule.*;
 
 /**
  * Parser.
- *
+ * <p>
  * Adheres to the following grammar:
- *
+ * <pre>
  * PROG -> EXPR _END | EXPR ERROR | ERROR
  * EXPR -> _ATM | CONS | LIST | QUOT
  * CONS -> "(" EXPR "." EXPR ")"
  * LIST -> "(" EXPR* ")"
  * QUOT -> "'" EXPR
- *
+ * </pre>
+ * <pre>
  * ERROR -> ERR_PAL | ERR_PAR | ERR_QUO | ERR_ATM
  * ERR_PAL -> "("
  * ERR_PAR -> ")"
  * ERR_QUO -> "'"
  * ERR_ATM -> _ATM
+ * </pre>
  */
 public class Parser {
     /** Parses contents of given buffered lexer. */
