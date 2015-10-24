@@ -20,7 +20,12 @@ public class TestEnvironment {
                 new Object[]{"(atom a)", Environment.T},
                 new Object[]{"(atom 'a)", Environment.F},
                 new Object[]{"(atom ())", Environment.F},
-                new Object[]{"(atom ('a 'b))", Environment.F}
+                new Object[]{"(atom ('a 'b))", Environment.F},
+
+                new Object[]{"(eq 'a 'a)", Environment.T},
+                new Object[]{"(eq 'a 'b)", Environment.F},
+                new Object[]{"(eq ('a 'b) ('a 'b))", Environment.T},
+                new Object[]{"(eq ('a 'b) ('a 'c))", Environment.F}
         };
     }
 }
