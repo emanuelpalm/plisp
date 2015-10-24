@@ -110,26 +110,6 @@ public interface SExpr {
             return cdr;
         }
 
-        /** Contents of address register's address register. */
-        public SExpr caar() {
-            return ((Cons) car()).car();
-        }
-
-        /** Contents of address register's decrement register. */
-        public SExpr cadr() {
-            return ((Cons) car()).cdr();
-        }
-
-        /** Contents of decrement register's decrement register. */
-        public SExpr cddr() {
-            return ((Cons) cdr()).cdr();
-        }
-
-        /** Contents of decrement register's address register. */
-        public SExpr cdar() {
-            return ((Cons) cdr()).car();
-        }
-
         @Override
         public Optional<Token> token() {
             return token;
