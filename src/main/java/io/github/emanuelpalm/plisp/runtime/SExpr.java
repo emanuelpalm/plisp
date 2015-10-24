@@ -66,8 +66,8 @@ public interface SExpr {
         @Override
         public Optional<Token> token() {
             return Optional.ofNullable(token.origin() != TokenOrigin.OTHER
-                ? token
-                : null);
+                    ? token
+                    : null);
         }
 
         @Override
