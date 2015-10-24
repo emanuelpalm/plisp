@@ -1,6 +1,7 @@
 package io.github.emanuelpalm.plisp.parser;
 
 import io.github.emanuelpalm.plisp.lexer.BufferedLexer;
+import io.github.emanuelpalm.plisp.lexer.Lexer;
 import io.github.emanuelpalm.plisp.lexer.TokenClass;
 import io.github.emanuelpalm.plisp.runtime.SExpr;
 
@@ -29,6 +30,11 @@ public class Parser {
     /** Parses contents of given buffered lexer. */
     public static SExpr parse(final BufferedLexer l) {
         return prog().apply(l).get();
+    }
+
+    /** Parses contents of given string. */
+    public static SExpr parse(final String s) {
+        return parse(new BufferedLexer(Lexer.fromString(s)));
     }
 
     // Primary productions.
