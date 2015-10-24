@@ -72,7 +72,7 @@ public interface SExpr {
 
         @Override
         public String toString() {
-            return token.lexeme();
+            return name();
         }
 
         @Override
