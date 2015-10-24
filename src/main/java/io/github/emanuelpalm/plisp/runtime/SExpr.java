@@ -15,7 +15,7 @@ public interface SExpr {
     /** Global nul value. */
     Nul NUL = new Nul();
 
-    /** Token representing s-expression origin. Only present if generated from code. */
+    /** Token representing s-expression origin, if expression originated from explicit code. */
     default Optional<Token> token() {
         return Optional.empty();
     }
