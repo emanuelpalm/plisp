@@ -20,6 +20,16 @@ public interface SExpr {
         return Optional.empty();
     }
 
+    /** Contents of address register, if the current expression is a cons. */
+    default SExpr car() {
+        return NUL;
+    }
+
+    /** Contents of decrement register, if the current expression is a cons. */
+    default SExpr cdr() {
+        return NUL;
+    }
+
     /**
      * Nothing.
      */
@@ -100,12 +110,12 @@ public interface SExpr {
             return c;
         }
 
-        /** Contents of address register. */
+        @Override
         public SExpr car() {
             return car;
         }
 
-        /** Contents of decrement register. */
+        @Override
         public SExpr cdr() {
             return cdr;
         }
