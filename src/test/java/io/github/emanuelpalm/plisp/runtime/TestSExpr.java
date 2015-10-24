@@ -6,9 +6,9 @@ import static org.testng.Assert.assertEquals;
 
 public class TestSExpr {
     @Test
-    public void shouldReturnNulIfCallingCarOrCdrOnAtom() {
+    public void shouldReturnSelfAndNulIfCallingCarAndCdrOnAtom() {
         final SExpr.Atom a = SExpr.Atom.of("test");
-        assertEquals(a.car(), SExpr.NUL);
+        assertEquals(a.car(), a);
         assertEquals(a.cdr(), SExpr.NUL);
     }
 

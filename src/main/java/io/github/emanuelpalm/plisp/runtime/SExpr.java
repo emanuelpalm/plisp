@@ -21,14 +21,10 @@ public interface SExpr {
     }
 
     /** Contents of address register, if the current expression is a cons. */
-    default SExpr car() {
-        return NUL;
-    }
+    SExpr car();
 
     /** Contents of decrement register, if the current expression is a cons. */
-    default SExpr cdr() {
-        return NUL;
-    }
+    SExpr cdr();
 
     /** Creates new cons list with given expression at the end. */
     SExpr concat(final SExpr s);
@@ -46,6 +42,16 @@ public interface SExpr {
      */
     class Nul implements SExpr {
         private Nul() {}
+
+        @Override
+        public SExpr car() {
+            return this;
+        }
+
+        @Override
+        public SExpr cdr() {
+            return this;
+        }
 
         @Override
         public SExpr concat(final SExpr s) {
@@ -89,6 +95,16 @@ public interface SExpr {
             return Optional.ofNullable(token.origin() != TokenOrigin.OTHER
                     ? token
                     : null);
+        }
+
+        @Override
+        public SExpr car() {
+            return this;
+        }
+
+        @Override
+        public SExpr cdr() {
+            return NUL;
         }
 
         @Override
