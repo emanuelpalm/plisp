@@ -10,11 +10,7 @@ import static org.testng.Assert.assertEquals;
 public class TestBufferedLexer {
     @Test
     public void shouldSaveAndRestoreState() {
-        final BufferedLexer tb = new BufferedLexer(new ArrayList<>(Arrays.asList(
-                new Token(TokenClass.QUO, "'"),
-                new Token(TokenClass.PAL, "("),
-                new Token(TokenClass.PAR, ")")
-        )));
+        final BufferedLexer tb = BufferedLexer.fromString("'()");
 
         assertEquals(tb.next().type(), TokenClass.QUO);
 
