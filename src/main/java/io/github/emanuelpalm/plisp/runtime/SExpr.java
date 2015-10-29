@@ -46,25 +46,6 @@ public interface SExpr {
     }
 
     /**
-     * Evaluates this expression using provided environment.
-     * <p>
-     * The environment must be a list of pairs, where the CAR of each pair is an atom, and the CDR of each pair is some
-     * expression that the atom evaluates into.
-     * <p>
-     * An example of a valid environment could be the following:
-     * <pre>
-     * (
-     *   (a . '10)
-     *   (b . '20)
-     *   (c . '30)
-     * )
-     * </pre>
-     */
-    default SExpr eval(final SExpr env) {
-        throw new UnsupportedOperationException("Cannot evaluate '" + this + "'.");
-    }
-
-    /**
      * Nothing.
      */
     class Nul implements SExpr {
@@ -188,27 +169,6 @@ public interface SExpr {
         }
 
         @Override
-        public SExpr eval(SExpr env) {
-            final SExpr car = car();
-            if (car instanceof Callable) {
-                return ((Callable) car).call(cdr(), env);
-            }
-            if (car instanceof Atom) {
-                while (true) {
-                    final SExpr s = env.car();
-                    if (s instanceof Nul) {
-                        throw new UnsupportedOperationException("'" + car + "' not defined.");
-                    }
-                    if (s.car().equals(car)) {
-                        return ((Callable) s.cdr()).call(cdr(), env);
-                    }
-                    env = env.cdr();
-                }
-            }
-            throw new UnsupportedOperationException("Cannot evaluate '" + this + "'.");
-        }
-
-        @Override
         public String toString() {
             return "(" + car() + " . " + cdr() + ")";
         }
@@ -219,13 +179,5 @@ public interface SExpr {
                     && ((Cons) o).car().equals(car())
                     && ((Cons) o).cdr().equals(cdr());
         }
-    }
-
-    /**
-     * Some callable expression.
-     */
-    interface Callable extends SExpr {
-        /** Evaluates some expression using provided arguments and environment. */
-        SExpr call(final SExpr args, final SExpr env);
     }
 }

@@ -65,21 +65,4 @@ public class TestSExpr {
                 new SExpr.Cons(SExpr.Atom.of("a1"), SExpr.Atom.of("b1"))
         ));
     }
-
-    @Test
-    public void shouldEvalExpressions() {
-        final SExpr env = SExpr.Cons.of(
-                new SExpr.Cons(SExpr.Atom.of("head"), (SExpr.Callable) (args, en) -> args.car()),
-                new SExpr.Cons(SExpr.Atom.of("tail"), (SExpr.Callable) (args, en) -> args.cdr())
-        );
-
-        final SExpr list = SExpr.Cons.of(SExpr.Atom.of("a"), SExpr.Atom.of("b"), SExpr.Atom.of("c"));
-        assertEquals(SExpr.Atom.of("head").concat(list).eval(env), SExpr.Atom.of("a"));
-        assertEquals(SExpr.Atom.of("tail").concat(list).eval(env), SExpr.Cons.of(SExpr.Atom.of("b"), SExpr.Atom.of("c")));
-
-        assertEquals(
-                SExpr.Cons.of((SExpr.Callable) (args, en) -> args.car()).concat(list).eval(SExpr.NUL),
-                SExpr.Atom.of("a")
-        );
-    }
 }
