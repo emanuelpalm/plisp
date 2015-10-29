@@ -34,7 +34,7 @@ public class Parser {
 
     /** Parses contents of given string. */
     public static SExpr parse(final String s) {
-        return parse(new BufferedLexer(Lexer.fromString(s)));
+        return parse(BufferedLexer.fromString(s));
     }
 
     // Primary productions.
