@@ -22,8 +22,8 @@ public class BufferedLexer {
     }
 
     /** Creates new buffered lexer containing tokens extracted from given file. */
-    public static BufferedLexer fromString(final String string) {
-        return new BufferedLexer(Lexer.fromString(string));
+    public static BufferedLexer fromString(final String s) {
+        return new BufferedLexer(Lexer.fromString(s));
     }
 
     /** Creates new buffered lexer out of given list of tokens. */
