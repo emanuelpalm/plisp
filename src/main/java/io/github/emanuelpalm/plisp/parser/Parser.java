@@ -1,7 +1,6 @@
 package io.github.emanuelpalm.plisp.parser;
 
 import io.github.emanuelpalm.plisp.lexer.BufferedLexer;
-import io.github.emanuelpalm.plisp.lexer.Lexer;
 import io.github.emanuelpalm.plisp.lexer.TokenClass;
 import io.github.emanuelpalm.plisp.runtime.SExpr;
 
