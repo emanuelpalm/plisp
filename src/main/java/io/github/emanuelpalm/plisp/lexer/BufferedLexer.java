@@ -21,6 +21,11 @@ public class BufferedLexer {
         } while (t.type() != TokenClass.END);
     }
 
+    /** Creates new buffered lexer containing tokens extracted from given file. */
+    public static BufferedLexer fromString(final String string) {
+        return new BufferedLexer(Lexer.fromString(string));
+    }
+
     /** Creates new buffered lexer out of given list of tokens. */
     public BufferedLexer(final List<Token> ts) {
         tokens = ts;
