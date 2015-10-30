@@ -20,16 +20,6 @@ public class TokenOrigin {
         this.column = column;
     }
 
-    /** Origin row. */
-    public int row() {
-        return row;
-    }
-
-    /** Origin column. */
-    public int column() {
-        return column;
-    }
-
     /** Adds single row and reset column. */
     public void addRow() {
         row += 1;
