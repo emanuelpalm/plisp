@@ -3,10 +3,13 @@ package io.github.emanuelpalm.plisp;
 import io.github.emanuelpalm.plisp.lexer.BufferedLexer;
 import io.github.emanuelpalm.plisp.lexer.Lexer;
 import io.github.emanuelpalm.plisp.parser.Parser;
+import io.github.emanuelpalm.plisp.parser.ParserException;
 import io.github.emanuelpalm.plisp.runtime.Evaluator;
 import io.github.emanuelpalm.plisp.runtime.SExpr;
+import io.github.emanuelpalm.plisp.runtime.SExprException;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Application main class.
@@ -22,7 +25,7 @@ public class Main {
         try {
             lexer = new BufferedLexer(Lexer.fromFile(new File(args[0])));
 
-        } catch (final Throwable e) {
+        } catch (final IOException e) {
             System.err.println("File error: " + e.getMessage());
             return;
         }
@@ -31,7 +34,7 @@ public class Main {
         try {
             expr = Parser.parse(lexer);
 
-        } catch (final Throwable e) {
+        } catch (final ParserException e) {
             System.err.println("Parser error: " + e.getMessage());
             return;
         }
@@ -39,7 +42,7 @@ public class Main {
         try {
             System.out.println(Evaluator.eval(expr));
 
-        } catch (final Throwable e) {
+        } catch (final SExprException e) {
             System.err.println("Runtime error: " + e.getMessage());
         }
     }
