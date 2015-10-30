@@ -27,7 +27,7 @@ public class Evaluator {
      * CDR[x]       - Assuming x is a cons, gets the contents of its decrement register.
      * CONS[x;y]    - Constructs new cons list containing the elements x and y.
      * COND[s]      - Returns CDR of first cons element in s whose CAR evaluates to t.
-     * LAMBDA[x;e]* - Defines function which takes a list of arguments x and a expression body e.
+     * LAMBDA[x;e]* - Defines function which takes a list of arguments x and an expression body e.
      * LABEL[n;l]*  - Adds entry to environment containing name n and lambda (or constant) l.
      * </pre>
      * * LAMBDA and LABEL are meant to be used to effect the environment. Because of this, they are treated rather
@@ -114,7 +114,7 @@ public class Evaluator {
         throw new SExprException("Illegal expression '" + e + "'.", e);
     }
 
-    /** Gets lambda associated with atom e in environment a. */
+    /** Gets expression associated with atom e in environment a. */
     private static SExpr assoc(final SExpr e, final SExpr a) {
         if (a instanceof SExpr.Nul) {
             throw new SExprException.AtomNotFound(e);
