@@ -17,7 +17,7 @@ import java.io.IOException;
 public class Main {
     public static void main(final String[] args) {
         if (args.length != 1) {
-            System.err.println("Usage: java -jar plisp.jar <file>");
+            System.err.println("Usage: ./plisp <file>");
             return;
         }
 
