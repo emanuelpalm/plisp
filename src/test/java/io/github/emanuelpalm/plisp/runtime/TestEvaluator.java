@@ -1,6 +1,5 @@
 package io.github.emanuelpalm.plisp.runtime;
 
-import io.github.emanuelpalm.plisp.parser.Parser;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -9,7 +8,7 @@ import static org.testng.Assert.assertEquals;
 public class TestEvaluator {
      @Test(dataProvider = "functions")
     public void shouldEvaluateInput(final String input, final SExpr expected) {
-        assertEquals(Evaluator.eval(Parser.parse(input)), expected);
+        assertEquals(Evaluator.eval(input), expected);
     }
 
     @DataProvider(name = "functions")
