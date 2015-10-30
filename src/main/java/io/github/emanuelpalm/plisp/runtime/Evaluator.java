@@ -161,11 +161,11 @@ public class Evaluator {
 
     /** Evaluates some label expression e using environment a. */
     private static SExpr label(final SExpr e, final SExpr a) {
-        final SExpr label = e.car().cdr().car();
-        final SExpr lambda = e.car().cdr().cdr().car();
+        final SExpr name = e.car().cdr().car();
+        final SExpr value = e.car().cdr().cdr().car();
         return eval(
                 e.cdr().car(),
-                new SExpr.Cons(new SExpr.Cons(label, lambda), a)
+                new SExpr.Cons(new SExpr.Cons(name, value), a)
         );
     }
 
