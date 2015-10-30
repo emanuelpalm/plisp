@@ -142,7 +142,14 @@ public interface SExpr {
 
         @Override
         public Optional<Token> token() {
-            return token;
+            if (token.isPresent()) {
+                return token;
+            }
+            final Optional<Token> carToken = car().token();
+            if (carToken.isPresent()) {
+                return carToken;
+            }
+            return cdr().token();
         }
 
         @Override

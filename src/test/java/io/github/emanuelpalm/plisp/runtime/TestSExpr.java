@@ -1,5 +1,8 @@
 package io.github.emanuelpalm.plisp.runtime;
 
+import io.github.emanuelpalm.plisp.lexer.Token;
+import io.github.emanuelpalm.plisp.lexer.TokenClass;
+import io.github.emanuelpalm.plisp.lexer.TokenOrigin;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -64,5 +67,19 @@ public class TestSExpr {
                 new SExpr.Cons(SExpr.Atom.of("a0"), SExpr.Atom.of("b0")),
                 new SExpr.Cons(SExpr.Atom.of("a1"), SExpr.Atom.of("b1"))
         ));
+    }
+
+    @Test
+    public void shouldProvideChildTokenIfNoConsTokenIsAvailable() {
+        final SExpr c0 = SExpr.Cons.of(
+                new SExpr.Atom(new Token(new TokenOrigin(1, 2),TokenClass.ATM, "a"))
+        );
+        assertEquals(c0.token().get(), new Token(new TokenOrigin(1, 2),TokenClass.ATM, "a"));
+
+        final SExpr c1 = SExpr.Cons.of(
+                SExpr.Atom.of("a"),
+                SExpr.Cons.of(new SExpr.Atom(new Token(new TokenOrigin(1, 4),TokenClass.ATM, "b")))
+        );
+        assertEquals(c1.token().get(), new Token(new TokenOrigin(1, 4),TokenClass.ATM, "b"));
     }
 }
