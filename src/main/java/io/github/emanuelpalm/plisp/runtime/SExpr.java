@@ -41,7 +41,7 @@ public interface SExpr {
      * Will continue zipping as long as there are element in this cons list. If the given cons list would be shorter
      * {@code Nul} values are used.
      */
-    default SExpr zip(final SExpr s) {
+    default SExpr zip(final SExpr e) {
         return NUL;
     }
 
@@ -88,14 +88,14 @@ public interface SExpr {
         }
 
         @Override
-        public SExpr concat(final SExpr s) {
-            return new Cons(this, s);
+        public SExpr concat(final SExpr e) {
+            return new Cons(this, e);
         }
 
         @Override
-        public SExpr zip(final SExpr s) {
+        public SExpr zip(final SExpr e) {
             return new Cons(
-                    new Cons(this, s.car()),
+                    new Cons(this, e.car()),
                     NUL
             );
         }
@@ -127,17 +127,17 @@ public interface SExpr {
         }
 
         /** Constructs cons list from given array of s-expressions. */
-        public static SExpr of(final SExpr... ss) {
-            return of(Arrays.asList(ss));
+        public static SExpr of(final SExpr... es) {
+            return of(Arrays.asList(es));
         }
 
         /** Constructs cons list from given list of s-expressions. */
-        public static SExpr of(final List<SExpr> ss) {
-            SExpr c = NUL;
-            for (int i = ss.size(); i-- != 0; ) {
-                c = new Cons(ss.get(i), c);
+        public static SExpr of(final List<SExpr> es) {
+            SExpr e = NUL;
+            for (int i = es.size(); i-- != 0; ) {
+                e = new Cons(es.get(i), e);
             }
-            return c;
+            return e;
         }
 
         @Override
@@ -163,15 +163,15 @@ public interface SExpr {
         }
 
         @Override
-        public SExpr concat(final SExpr s) {
-            return new Cons(car(), cdr().concat(s));
+        public SExpr concat(final SExpr e) {
+            return new Cons(car(), cdr().concat(e));
         }
 
         @Override
-        public SExpr zip(final SExpr s) {
+        public SExpr zip(final SExpr e) {
             return new Cons(
-                    new Cons(car(), s.car()),
-                    cdr().zip(s.cdr())
+                    new Cons(car(), e.car()),
+                    cdr().zip(e.cdr())
             );
         }
 
