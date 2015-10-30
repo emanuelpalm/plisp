@@ -161,7 +161,7 @@ public class Evaluator {
 
     /** Evaluates some condition expression e using environment a. */
     private static SExpr cond(final SExpr e, final SExpr a) {
-        if (e instanceof SExpr.Nul) {
+        if (e.cdr() instanceof SExpr.Nul) {
             throw new SExprException.CondExhausted(e);
         }
         if (eval(e.cdr().car().car(), a).equals(T)) {

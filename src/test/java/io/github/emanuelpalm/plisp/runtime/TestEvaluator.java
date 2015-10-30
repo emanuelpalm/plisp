@@ -40,4 +40,9 @@ public class TestEvaluator {
                 new Object[]{"((label cadr (lambda (x) (car (cdr x)))) (cadr '(a b)))", SExpr.Atom.of("b")}
         };
     }
+
+    @Test(expectedExceptions = SExprException.CondExhausted.class)
+    public void shouldThrowSExprExceptionCondExhausted() {
+        Evaluator.eval("(cond ((eq 'a 'b) '10))");
+    }
 }
