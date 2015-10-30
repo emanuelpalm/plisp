@@ -26,7 +26,7 @@ public class Evaluator {
      * CONS[x;y]    - Constructs new cons list containing the elements x and y.
      * COND[s]      - Returns CDR of first cons element in s whose CAR evaluates to t.
      * LAMBDA[x;e]* - Defines function which takes a list of arguments x and a expression body e.
-     * LABEL[n;l]*  - Adds entry to environment containing name n and lambda l.
+     * LABEL[n;l]*  - Adds entry to environment containing name n and lambda (or constant) l.
      * </pre>
      * * LAMBDA and LABEL are meant to be used to effect the environment. Because of this, they are treated rather
      * differently than other functions. If the first argument of an evaluated list is a LAMBDA or LABEL call, that
