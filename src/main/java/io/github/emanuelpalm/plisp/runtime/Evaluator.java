@@ -106,7 +106,7 @@ public class Evaluator {
     /** Gets lambda associated with atom e in environment a. */
     private static SExpr assoc(final SExpr e, final SExpr a) {
         if (a instanceof SExpr.Nul) {
-            throw new SExprException("Atom '" + e + "' not in environment.", e);
+            throw new SExprException.AtomNotFound(e);
         }
         if (a.car().car().equals(e)) {
             return a.car().cdr();
@@ -151,7 +151,7 @@ public class Evaluator {
     /** Evaluates some condition expression e using environment a. */
     private static SExpr cond(final SExpr e, final SExpr a) {
         if (e instanceof SExpr.Nul) {
-            throw new SExprException("No successful condition.", e);
+            throw new SExprException.CondExhausted(e);
         }
         if (eval(e.cdr().car().car(), a).equals(T)) {
             return eval(e.cdr().car().cdr().car(), a);
