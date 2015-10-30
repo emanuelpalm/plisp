@@ -18,9 +18,9 @@ public interface Rule {
     /** Transforms rule into new rule using given transformer function. */
     default Rule transform(final Transformer t) {
         return (buffer) -> {
-            final Optional<SExpr> s = apply(buffer);
-            if (s.isPresent()) {
-                return Optional.of(t.onTransform(s.get()));
+            final Optional<SExpr> e = apply(buffer);
+            if (e.isPresent()) {
+                return Optional.of(t.onTransform(e.get()));
             }
             return Optional.empty();
         };
@@ -51,9 +51,9 @@ public interface Rule {
         return (buffer) -> {
             final int state = buffer.state();
             for (final Rule r : rs) {
-                final Optional<SExpr> s = r.apply(buffer);
-                if (s.isPresent()) {
-                    return Optional.of(s.get());
+                final Optional<SExpr> e = r.apply(buffer);
+                if (e.isPresent()) {
+                    return Optional.of(e.get());
                 }
             }
             buffer.restore(state);
@@ -65,35 +65,35 @@ public interface Rule {
     static Rule allOf(final Rule... rs) {
         return (buffer) -> {
             final int state = buffer.state();
-            final ArrayList<SExpr> ss = new ArrayList<>(rs.length);
+            final ArrayList<SExpr> es = new ArrayList<>(rs.length);
             for (final Rule r : rs) {
-                final Optional<SExpr> s = r.apply(buffer);
-                if (s.isPresent()) {
-                    ss.add(s.get());
+                final Optional<SExpr> e = r.apply(buffer);
+                if (e.isPresent()) {
+                    es.add(e.get());
 
                 } else {
                     buffer.restore(state);
                     return Optional.empty();
                 }
             }
-            return Optional.of(SExpr.Cons.of(ss));
+            return Optional.of(SExpr.Cons.of(es));
         };
     }
 
     /** Wraps all possible successful applications of the provided rule. Always succeeds. */
     static Rule manyOf(final Rule r) {
         return (buffer) -> {
-            final ArrayList<SExpr> ss = new ArrayList<>();
+            final ArrayList<SExpr> es = new ArrayList<>();
             while (true) {
-                final Optional<SExpr> s = r.apply(buffer);
-                if (s.isPresent()) {
-                    ss.add(s.get());
+                final Optional<SExpr> e = r.apply(buffer);
+                if (e.isPresent()) {
+                    es.add(e.get());
 
                 } else {
                     break;
                 }
             }
-            return Optional.of(SExpr.Cons.of(ss));
+            return Optional.of(SExpr.Cons.of(es));
         };
     }
 }
