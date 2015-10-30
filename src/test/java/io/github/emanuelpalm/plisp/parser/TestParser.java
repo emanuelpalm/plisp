@@ -5,6 +5,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 public class TestParser {
@@ -13,8 +14,8 @@ public class TestParser {
         assertEquals(Parser.parse(input), expected);
     }
 
-    @DataProvider
-    public Object[][] lexers() {
+    @DataProvider(name = "lexers")
+    public Object[][] providerLexers() {
         return new Object[][]{
                 new Object[]{"x", SExpr.Atom.of("x")},
                 new Object[]{"(x)", SExpr.Cons.of(SExpr.Atom.of("x"))},
@@ -22,28 +23,29 @@ public class TestParser {
         };
     }
 
-    @Test(dataProvider = "parserErrorLexers")
-    public void shouldFailWithParserError(final String input, final ParserError expected) {
+    @Test(dataProvider = "parserExpressionsAndExceptions")
+    public void shouldFailWithParserError(final String input, final Class<ParserException> expected) {
         try {
             Parser.parse(input);
-            fail("No parser error generated.");
+            fail("Expected exception never thrown.");
 
         } catch (final ParserException e) {
-            assertEquals(e.error(), expected);
+            assertEquals(e.getClass(), expected);
         }
     }
 
-    @DataProvider
-    public Object[][] parserErrorLexers() {
+    @DataProvider(name = "parserExpressionsAndExceptions")
+    public Object[][] providerParserExpressionsAndExceptions() {
         return new Object[][]{
-                new Object[]{"(", ParserError.UNBALANCED_PAL},
-                new Object[]{")", ParserError.UNBALANCED_PAR},
-                new Object[]{"'", ParserError.DANGLING_QUOTE},
-                new Object[]{"(x y", ParserError.UNBALANCED_PAL},
-                new Object[]{"(()", ParserError.UNBALANCED_PAL},
-                new Object[]{"())", ParserError.UNBALANCED_PAR},
-                new Object[]{"x'", ParserError.DANGLING_QUOTE},
-                new Object[]{"()'", ParserError.DANGLING_QUOTE},
+                new Object[]{"(", ParserException.UnbalancedOpeningParenthesis.class},
+                new Object[]{")", ParserException.UnbalancedClosingParenthesis.class},
+                new Object[]{"'", ParserException.DanglingQuote.class},
+                new Object[]{"(x y", ParserException.UnbalancedOpeningParenthesis.class},
+                new Object[]{"(()", ParserException.UnbalancedOpeningParenthesis.class},
+                new Object[]{"())", ParserException.UnbalancedClosingParenthesis.class},
+                new Object[]{"x'", ParserException.DanglingQuote.class},
+                new Object[]{"()'", ParserException.DanglingQuote.class},
+                new Object[]{"() x", ParserException.DanglingAtom.class},
         };
     }
 }
