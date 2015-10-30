@@ -16,4 +16,24 @@ public class SExprException extends RuntimeException {
     public SExpr expr() {
         return expr;
     }
+
+    /**
+     * An attempt to evaluate some atom into an entry in the environment was made, but didn't succeed.
+     */
+    public static class AtomNotFound extends SExprException {
+        /** Creates new s-expression exception, containing given message and offending expression. */
+        public AtomNotFound(final SExpr expr) {
+            super("Atom '" + expr + "' not in environment.", expr);
+        }
+    }
+
+    /**
+     * No successful condition was found when evaluating a cond expression.
+     */
+    public static class CondExhausted extends SExprException {
+        /** Creates new s-expression exception, containing given message and offending expression. */
+        public CondExhausted(final SExpr expr) {
+            super("No successful condition.", expr);
+        }
+    }
 }
