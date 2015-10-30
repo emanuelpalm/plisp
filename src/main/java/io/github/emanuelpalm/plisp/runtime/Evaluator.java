@@ -1,5 +1,7 @@
 package io.github.emanuelpalm.plisp.runtime;
 
+import io.github.emanuelpalm.plisp.parser.Parser;
+
 /**
  * Evaluates s-expressions.
  */
@@ -45,6 +47,15 @@ public class Evaluator {
      */
     public static SExpr eval(final SExpr e) {
         return eval(e, SExpr.NUL);
+    }
+
+    /**
+     * Convenience function for evaluating a string.
+     *
+     * @see #eval(SExpr)
+     */
+    public static SExpr eval(final String s) {
+        return eval(Parser.parse(s));
     }
 
     /**
