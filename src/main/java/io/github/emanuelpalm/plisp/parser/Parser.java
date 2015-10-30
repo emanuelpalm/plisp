@@ -1,6 +1,6 @@
 package io.github.emanuelpalm.plisp.parser;
 
-import io.github.emanuelpalm.plisp.lexer.BufferedLexer;
+import io.github.emanuelpalm.plisp.lexer.TokenBuffer;
 import io.github.emanuelpalm.plisp.lexer.TokenClass;
 import io.github.emanuelpalm.plisp.runtime.SExpr;
 
@@ -27,81 +27,81 @@ import static io.github.emanuelpalm.plisp.parser.Rule.*;
  */
 public class Parser {
     /** Parses contents of given buffered lexer. */
-    public static SExpr parse(final BufferedLexer l) {
-        return prog().apply(l).get();
+    public static SExpr parse(final TokenBuffer b) {
+        return prog().apply(b).get();
     }
 
     /** Parses contents of given string. */
     public static SExpr parse(final String s) {
-        return parse(BufferedLexer.fromString(s));
+        return parse(TokenBuffer.fromString(s));
     }
 
     // Primary productions.
 
     private static Rule prog() {
-        return (l) -> anyOf(allOf(expr(), oneOf(TokenClass.END)), allOf(expr(), error()), error())
+        return (buffer) -> anyOf(allOf(expr(), oneOf(TokenClass.END)), allOf(expr(), error()), error())
                 .transform(SExpr::car)
-                .apply(l);
+                .apply(buffer);
     }
 
     private static Rule expr() {
-        return (l) -> anyOf(oneOf(TokenClass.ATM), cons(), list(), quot())
-                .apply(l);
+        return (buffer) -> anyOf(oneOf(TokenClass.ATM), cons(), list(), quot())
+                .apply(buffer);
     }
 
     private static Rule cons() {
-        return (l) -> allOf(oneOf(TokenClass.PAL), expr(), oneOf(TokenClass.DOT), expr(), oneOf(TokenClass.DOT))
-                .apply(l);
+        return (buffer) -> allOf(oneOf(TokenClass.PAL), expr(), oneOf(TokenClass.DOT), expr(), oneOf(TokenClass.DOT))
+                .apply(buffer);
     }
 
     private static Rule list() {
-        return (l) -> allOf(oneOf(TokenClass.PAL), manyOf(expr()), oneOf(TokenClass.PAR))
+        return (buffer) -> allOf(oneOf(TokenClass.PAL), manyOf(expr()), oneOf(TokenClass.PAR))
                 .transform((s) -> s.cdr().car())
-                .apply(l);
+                .apply(buffer);
     }
 
     private static Rule quot() {
-        return (l) -> allOf(oneOf(TokenClass.QUO), expr())
+        return (buffer) -> allOf(oneOf(TokenClass.QUO), expr())
                 .transform((s) -> new SExpr.Cons(SExpr.Atom.of("quote"), s.cdr()))
-                .apply(l);
+                .apply(buffer);
     }
 
     // Error productions.
 
     private static Rule error() {
-        return (l) -> anyOf(errPal(), errPar(), errQuo(), errAtm())
-                .apply(l);
+        return (buffer) -> anyOf(errPal(), errPar(), errQuo(), errAtm())
+                .apply(buffer);
     }
 
     private static Rule errPal() {
-        return (l) -> oneOf(TokenClass.PAL)
+        return (buffer) -> oneOf(TokenClass.PAL)
                 .transform((s) -> {
-                    throw new ParserException(s.token(), ParserError.UNBALANCED_PAL);
+                    throw new ParserException.UnbalancedOpeningParenthesis(s.token());
                 })
-                .apply(l);
+                .apply(buffer);
     }
 
     private static Rule errPar() {
-        return (l) -> oneOf(TokenClass.PAR)
+        return (buffer) -> oneOf(TokenClass.PAR)
                 .transform((s) -> {
-                    throw new ParserException(s.token(), ParserError.UNBALANCED_PAR);
+                    throw new ParserException.UnbalancedClosingParenthesis(s.token());
                 })
-                .apply(l);
+                .apply(buffer);
     }
 
     private static Rule errQuo() {
-        return (l) -> oneOf(TokenClass.QUO)
+        return (buffer) -> oneOf(TokenClass.QUO)
                 .transform((s) -> {
-                    throw new ParserException(s.token(), ParserError.DANGLING_QUOTE);
+                    throw new ParserException.DanglingQuote(s.token());
                 })
-                .apply(l);
+                .apply(buffer);
     }
 
     private static Rule errAtm() {
-        return (l) -> oneOf(TokenClass.ATM)
+        return (buffer) -> oneOf(TokenClass.ATM)
                 .transform((s) -> {
-                    throw new ParserException(s.token(), ParserError.DANGLING_ATOM);
+                    throw new ParserException.DanglingAtom(s.token());
                 })
-                .apply(l);
+                .apply(buffer);
     }
 }

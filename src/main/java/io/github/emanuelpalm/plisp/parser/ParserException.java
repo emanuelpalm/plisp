@@ -8,16 +8,48 @@ import java.util.Optional;
  * Provides information about some relevant parsing error.
  */
 public class ParserException extends RuntimeException {
-    private final ParserError error;
-
     /** Creates new parser exception wrapping given offending token and error. */
-    public ParserException(final Optional<Token> t, final ParserError e) {
-        super((t.isPresent() ? t.get().origin().toString() + " " : "") + e.description());
-        error = e;
+    public ParserException(final String message, final Optional<Token> t) {
+        super((t.isPresent() ? t.get().origin().toString() + " " : "") + message);
     }
 
-    /** Error causing exception to be generated. */
-    public ParserError error() {
-        return error;
+    /**
+     * An opening parenthesis without a matching closing parenthesis was encountered.
+     */
+    public static class UnbalancedOpeningParenthesis extends ParserException {
+        /** Creates new parser exception wrapping given offending token and error. */
+        public UnbalancedOpeningParenthesis(final Optional<Token> t) {
+            super("Unbalanced opening parenthesis.", t);
+        }
+    }
+
+    /**
+     * A closing parenthesis without a matching opening parenthesis was encountered.
+     */
+    public static class UnbalancedClosingParenthesis extends ParserException {
+        /** Creates new parser exception wrapping given offending token and error. */
+        public UnbalancedClosingParenthesis(final Optional<Token> t) {
+            super("Unbalanced closing parenthesis.", t);
+        }
+    }
+
+    /**
+     * A quote without an associated expression was encountered.
+     */
+    public static class DanglingQuote extends ParserException {
+        /** Creates new parser exception wrapping given offending token and error. */
+        public DanglingQuote(final Optional<Token> t) {
+            super("Dangling quote.", t);
+        }
+    }
+
+    /**
+     * An atom outside any relevant expression was encountered.
+     */
+    public static class DanglingAtom extends ParserException {
+        /** Creates new parser exception wrapping given offending token and error. */
+        public DanglingAtom(final Optional<Token> t) {
+            super("Dangling atom.", t);
+        }
     }
 }

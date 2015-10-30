@@ -1,6 +1,6 @@
 package io.github.emanuelpalm.plisp.parser;
 
-import io.github.emanuelpalm.plisp.lexer.BufferedLexer;
+import io.github.emanuelpalm.plisp.lexer.TokenBuffer;
 import io.github.emanuelpalm.plisp.lexer.Token;
 import io.github.emanuelpalm.plisp.lexer.TokenClass;
 import io.github.emanuelpalm.plisp.runtime.SExpr;
@@ -14,8 +14,8 @@ import static org.testng.Assert.assertEquals;
 
 public class TestRule {
     @Test(dataProvider = "rules")
-    public void shouldEvaluateRuleInto(final BufferedLexer l, final Rule r, final Optional<SExpr> expected) {
-        assertEquals(r.apply(l), expected);
+    public void shouldEvaluateRuleInto(final TokenBuffer buffer, final Rule r, final Optional<SExpr> expected) {
+        assertEquals(r.apply(buffer), expected);
     }
 
     @DataProvider
