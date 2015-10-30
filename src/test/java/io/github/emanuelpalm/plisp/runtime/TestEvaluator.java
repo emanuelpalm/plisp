@@ -41,8 +41,18 @@ public class TestEvaluator {
         };
     }
 
+    @Test(expectedExceptions = SExprException.AtomNotFound.class)
+    public void shouldThrowSExprExceptionAtomNotFound() {
+        Evaluator.eval("(unknown-atom 'a 'b)");
+    }
+
     @Test(expectedExceptions = SExprException.CondExhausted.class)
     public void shouldThrowSExprExceptionCondExhausted() {
         Evaluator.eval("(cond ((eq 'a 'b) '10))");
+    }
+
+    @Test(expectedExceptions = SExprException.class)
+    public void shouldThrowSExprException() {
+        Evaluator.eval("(('() 'a 'b))");
     }
 }
