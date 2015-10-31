@@ -50,7 +50,8 @@ public class Parser {
     }
 
     private static Rule cons() {
-        return (buffer) -> allOf(oneOf(TokenClass.PAL), expr(), oneOf(TokenClass.DOT), expr(), oneOf(TokenClass.DOT))
+        return (buffer) -> allOf(oneOf(TokenClass.PAL), expr(), oneOf(TokenClass.DOT), expr(), oneOf(TokenClass.PAR))
+                .transform(t -> new SExpr.Cons(t.cdr().car(), t.cdr().cdr().cdr().car()))
                 .apply(buffer);
     }
 
