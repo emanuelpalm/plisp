@@ -19,7 +19,8 @@ public class TestParser {
         return new Object[][]{
                 new Object[]{"x", SExpr.Atom.of("x")},
                 new Object[]{"(x)", SExpr.Cons.of(SExpr.Atom.of("x"))},
-                new Object[]{"'x", SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("x"))}
+                new Object[]{"'x", SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("x"))},
+                new Object[]{"(a . b)", new SExpr.Cons(SExpr.Atom.of("a"), SExpr.Atom.of("b"))},
         };
     }
 
