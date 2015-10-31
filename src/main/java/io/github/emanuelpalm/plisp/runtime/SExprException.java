@@ -5,8 +5,8 @@ package io.github.emanuelpalm.plisp.runtime;
  */
 public class SExprException extends RuntimeException {
     /** Creates new s-expression exception, containing given message and offending expression. */
-    public SExprException(final String message, final SExpr expr) {
-        super((expr.token().isPresent() ? expr.token().get().origin().toString() + " " : "") + message);
+    public SExprException(final String message, final SExpr e) {
+        super((e.token().isPresent() ? e.token().get().origin().toString() + " " : "") + message);
     }
 
     /**
@@ -14,8 +14,8 @@ public class SExprException extends RuntimeException {
      */
     public static class AtomNotFound extends SExprException {
         /** Creates new s-expression exception, containing given message and offending expression. */
-        public AtomNotFound(final SExpr expr) {
-            super("Atom '" + expr + "' not in environment.", expr);
+        public AtomNotFound(final SExpr e) {
+            super("Atom '" + e + "' not in environment.", e);
         }
     }
 
@@ -24,8 +24,8 @@ public class SExprException extends RuntimeException {
      */
     public static class CondExhausted extends SExprException {
         /** Creates new s-expression exception, containing given message and offending expression. */
-        public CondExhausted(final SExpr expr) {
-            super("No successful condition.", expr);
+        public CondExhausted(final SExpr e) {
+            super("No successful condition.", e);
         }
     }
 }

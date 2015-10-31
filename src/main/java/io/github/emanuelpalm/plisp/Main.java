@@ -1,6 +1,6 @@
 package io.github.emanuelpalm.plisp;
 
-import io.github.emanuelpalm.plisp.lexer.BufferedLexer;
+import io.github.emanuelpalm.plisp.lexer.TokenBuffer;
 import io.github.emanuelpalm.plisp.lexer.Lexer;
 import io.github.emanuelpalm.plisp.parser.Parser;
 import io.github.emanuelpalm.plisp.parser.ParserException;
@@ -21,9 +21,9 @@ public class Main {
             return;
         }
 
-        final BufferedLexer lexer;
+        final TokenBuffer buffer;
         try {
-            lexer = new BufferedLexer(Lexer.fromFile(new File(args[0])));
+            buffer = new TokenBuffer(Lexer.fromFile(new File(args[0])));
 
         } catch (final IOException e) {
             System.err.println("File error: " + e.getMessage());
@@ -32,7 +32,7 @@ public class Main {
 
         final SExpr expr;
         try {
-            expr = Parser.parse(lexer);
+            expr = Parser.parse(buffer);
 
         } catch (final ParserException e) {
             System.err.println("Parser error: " + e.getMessage());

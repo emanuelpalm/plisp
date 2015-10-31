@@ -1,6 +1,6 @@
 package io.github.emanuelpalm.util.testing;
 
-import io.github.emanuelpalm.plisp.lexer.BufferedLexer;
+import io.github.emanuelpalm.plisp.lexer.TokenBuffer;
 import io.github.emanuelpalm.plisp.lexer.Token;
 
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class LexerUtils {
     /** Creates lexer containing given tokens. */
-    public static BufferedLexer lexerOf(final Token... ts) {
-        return new BufferedLexer(Arrays.asList(ts));
+    public static TokenBuffer lexerOf(final Token... ts) {
+        return new TokenBuffer(Arrays.asList(ts));
     }
 }

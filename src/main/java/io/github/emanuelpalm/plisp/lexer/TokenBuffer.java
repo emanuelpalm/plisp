@@ -8,12 +8,12 @@ import java.util.List;
  *
  * @see Lexer
  */
-public class BufferedLexer {
+public class TokenBuffer {
     private final List<Token> tokens;
     private int offset = 0;
 
     /** Creates new buffered lexer. */
-    public BufferedLexer(final Lexer l) {
+    public TokenBuffer(final Lexer l) {
         tokens = new ArrayList<>(512);
         Token t;
         do {
@@ -22,12 +22,12 @@ public class BufferedLexer {
     }
 
     /** Creates new buffered lexer containing tokens extracted from given file. */
-    public static BufferedLexer fromString(final String s) {
-        return new BufferedLexer(Lexer.fromString(s));
+    public static TokenBuffer fromString(final String s) {
+        return new TokenBuffer(Lexer.fromString(s));
     }
 
     /** Creates new buffered lexer out of given list of tokens. */
-    public BufferedLexer(final List<Token> ts) {
+    public TokenBuffer(final List<Token> ts) {
         tokens = ts;
     }
 
