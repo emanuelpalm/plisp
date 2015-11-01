@@ -46,6 +46,19 @@ public interface Rule {
         };
     }
 
+    /** Requires one {@link Token} with lexeme matching given string. */
+    static Rule oneOf(final String s) {
+        return (buffer) -> {
+            final int state = buffer.state();
+            final Token next = buffer.next();
+            if (next.lexeme().equals(s)) {
+                return Optional.of(new SExpr.Atom(next));
+            }
+            buffer.restore(state);
+            return Optional.empty();
+        };
+    }
+
     /** Requires any one of the given rules to succeed. */
     static Rule anyOf(final Rule... rs) {
         return (buffer) -> {
