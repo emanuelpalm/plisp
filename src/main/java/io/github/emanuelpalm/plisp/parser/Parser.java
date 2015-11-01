@@ -5,6 +5,7 @@ import io.github.emanuelpalm.plisp.lexer.TokenClass;
 import io.github.emanuelpalm.plisp.runtime.SExpr;
 
 import static io.github.emanuelpalm.plisp.parser.Rule.*;
+import static io.github.emanuelpalm.plisp.parser.Rule.oneOf;
 
 /**
  * Parser.
@@ -12,7 +13,8 @@ import static io.github.emanuelpalm.plisp.parser.Rule.*;
  * Adheres to the following grammar:
  * <pre>
  * PROG -> EXPR _END | EXPR ERROR | ERROR
- * EXPR -> _ATM | CONS | LIST | QUOT
+ * EXPR -> NIL | _ATM | CONS | LIST | QUOT
+ * NIL  -> "NIL"
  * CONS -> "(" EXPR "." EXPR ")"
  * LIST -> "(" EXPR* ")"
  * QUOT -> "'" EXPR
@@ -45,7 +47,13 @@ public class Parser {
     }
 
     private static Rule expr() {
-        return (buffer) -> anyOf(oneOf(TokenClass.ATM), cons(), list(), quot())
+        return (buffer) -> anyOf(nil(), oneOf(TokenClass.ATM), cons(), list(), quot())
+                .apply(buffer);
+    }
+
+    private static Rule nil() {
+        return (buffer) -> oneOf("NIL")
+                .transform(t -> SExpr.NIL)
                 .apply(buffer);
     }
 

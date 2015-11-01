@@ -12,8 +12,8 @@ import java.util.Optional;
  * Symbolic expression.
  */
 public interface SExpr {
-    /** Global nul value. */
-    Nul NUL = new Nul();
+    /** Global nil value. */
+    Nil NIL = new Nil();
 
     /** Token representing s-expression origin, if expression originated from explicit code. */
     default Optional<Token> token() {
@@ -27,7 +27,7 @@ public interface SExpr {
 
     /** Contents of decrement register, if the current expression is a cons. */
     default SExpr cdr() {
-        return NUL;
+        return NIL;
     }
 
     /** Creates new cons list with given expression at the end. */
@@ -39,21 +39,21 @@ public interface SExpr {
      * Pairs up this expression's elements with that of given, if both are cons lists.
      * <p>
      * Will continue zipping as long as there are element in this cons list. If the given cons list would be shorter
-     * {@code Nul} values are used.
+     * {@code Nil} values are used.
      */
     default SExpr zip(final SExpr e) {
-        return NUL;
+        return NIL;
     }
 
     /**
-     * Nothing.
+     * An empty list.
      */
-    class Nul implements SExpr {
-        private Nul() {}
+    class Nil implements SExpr {
+        private Nil() {}
 
         @Override
         public String toString() {
-            return "NUL";
+            return "NIL";
         }
     }
 
@@ -96,7 +96,7 @@ public interface SExpr {
         public SExpr zip(final SExpr e) {
             return new Cons(
                     new Cons(this, e.car()),
-                    NUL
+                    NIL
             );
         }
 
@@ -133,7 +133,7 @@ public interface SExpr {
 
         /** Constructs cons list from given list of s-expressions. */
         public static SExpr of(final List<SExpr> es) {
-            SExpr e = NUL;
+            SExpr e = NIL;
             for (int i = es.size(); i-- != 0; ) {
                 e = new Cons(es.get(i), e);
             }
