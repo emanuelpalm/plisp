@@ -12,7 +12,7 @@ public class TestSExpr {
     public void shouldReturnSelfAndNulIfCallingCarAndCdrOnAtom() {
         final SExpr.Atom a = SExpr.Atom.of("test");
         assertEquals(a.car(), a);
-        assertEquals(a.cdr(), SExpr.NUL);
+        assertEquals(a.cdr(), SExpr.NIL);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class TestSExpr {
         assertEquals(s, new SExpr.Cons(
                 SExpr.Atom.of("a"), new SExpr.Cons(
                 SExpr.Atom.of("b"), new SExpr.Cons(
-                SExpr.Atom.of("c"), SExpr.NUL))));
+                SExpr.Atom.of("c"), SExpr.NIL))));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class TestSExpr {
                 SExpr.Atom.of("d")
         ));
 
-        final SExpr c0b = new SExpr.Cons(SExpr.Atom.of("x"), SExpr.Atom.of("y")); // Not NUL-terminated.
+        final SExpr c0b = new SExpr.Cons(SExpr.Atom.of("x"), SExpr.Atom.of("y")); // Not NIL-terminated.
         assertEquals(c0b.concat(c1), SExpr.Cons.of(
                 SExpr.Atom.of("x"),
                 SExpr.Atom.of("y"),
@@ -62,7 +62,7 @@ public class TestSExpr {
                 new SExpr.Cons(SExpr.Atom.of("a1"), SExpr.Atom.of("b1"))
         ));
 
-        final SExpr c0b = new SExpr.Cons(SExpr.Atom.of("a0"), SExpr.Atom.of("a1")); // Not NUL-terminated.
+        final SExpr c0b = new SExpr.Cons(SExpr.Atom.of("a0"), SExpr.Atom.of("a1")); // Not NIL-terminated.
         assertEquals(c0b.zip(c1), SExpr.Cons.of(
                 new SExpr.Cons(SExpr.Atom.of("a0"), SExpr.Atom.of("b0")),
                 new SExpr.Cons(SExpr.Atom.of("a1"), SExpr.Atom.of("b1"))

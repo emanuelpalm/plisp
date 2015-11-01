@@ -10,7 +10,7 @@ public class Evaluator {
     public static final SExpr T = SExpr.Atom.of("t");
 
     /** Falsity, which also happens to be the empty list. */
-    public static final SExpr F = SExpr.NUL;
+    public static final SExpr F = SExpr.NIL;
 
     /**
      * Evaluates given expression e.
@@ -46,7 +46,7 @@ public class Evaluator {
      * @see <a href="http://www.paulgraham.com/rootsoflisp.html">The Roots of Lisp - Paul Graham, January 2002</a>
      */
     public static SExpr eval(final SExpr e) {
-        return eval(e, SExpr.NUL);
+        return eval(e, SExpr.NIL);
     }
 
     /**
@@ -116,7 +116,7 @@ public class Evaluator {
 
     /** Gets expression associated with atom e in environment a. */
     private static SExpr assoc(final SExpr e, final SExpr a) {
-        if (a instanceof SExpr.Nul) {
+        if (a instanceof SExpr.Nil) {
             throw new SExprException.AtomNotFound(e);
         }
         if (a.car().car().equals(e)) {
@@ -161,7 +161,7 @@ public class Evaluator {
 
     /** Evaluates some condition expression e using environment a. */
     private static SExpr cond(final SExpr e, final SExpr a) {
-        if (e.cdr() instanceof SExpr.Nul) {
+        if (e.cdr() instanceof SExpr.Nil) {
             throw new SExprException.CondExhausted(e);
         }
         if (eval(e.cdr().car().car(), a).equals(T)) {
@@ -190,7 +190,7 @@ public class Evaluator {
 
     /** Evaluates some list of expressions e using environment a. */
     private static SExpr evlis(final SExpr e, final SExpr a) {
-        if (e instanceof SExpr.Nul) {
+        if (e instanceof SExpr.Nil) {
             return e;
         }
         return new SExpr.Cons(eval(e.car(), a), evlis(e.cdr(), a));
