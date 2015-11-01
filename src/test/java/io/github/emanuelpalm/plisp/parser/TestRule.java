@@ -81,6 +81,11 @@ public class TestRule {
                         Rule.anyOf(Rule.oneOf(TokenClass.ATM), Rule.oneOf(TokenClass.PAL)),
                         Optional.of(SExpr.Atom.of("x"))
                 },
+                new Object[]{
+                        lexerOf(new Token(TokenClass.ATM, "keyword")),
+                        Rule.anyOf(Rule.oneOf("keyword")),
+                        Optional.of(SExpr.Atom.of("keyword"))
+                },
         };
     }
 }
