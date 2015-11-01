@@ -53,7 +53,7 @@ public class Parser {
 
     private static Rule nil() {
         return (buffer) -> oneOf("NIL")
-                .transform(t -> SExpr.NUL)
+                .transform(t -> SExpr.NIL)
                 .apply(buffer);
     }
 

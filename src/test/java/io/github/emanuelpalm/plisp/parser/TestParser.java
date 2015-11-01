@@ -21,7 +21,7 @@ public class TestParser {
                 new Object[]{"(x)", SExpr.Cons.of(SExpr.Atom.of("x"))},
                 new Object[]{"'x", SExpr.Cons.of(SExpr.Atom.of("quote"), SExpr.Atom.of("x"))},
                 new Object[]{"(a . b)", new SExpr.Cons(SExpr.Atom.of("a"), SExpr.Atom.of("b"))},
-                new Object[]{"(a . NIL)", new SExpr.Cons(SExpr.Atom.of("a"), SExpr.NUL)},
+                new Object[]{"(a . NIL)", new SExpr.Cons(SExpr.Atom.of("a"), SExpr.NIL)},
         };
     }
 

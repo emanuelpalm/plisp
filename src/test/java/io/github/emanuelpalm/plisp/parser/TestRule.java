@@ -54,7 +54,7 @@ public class TestRule {
                 new Object[]{
                         lexerOf(new Token(TokenClass.PAR, ")")),
                         Rule.manyOf(Rule.oneOf(TokenClass.ATM)),
-                        Optional.of(SExpr.NUL)
+                        Optional.of(SExpr.NIL)
                 },
                 new Object[]{
                         lexerOf(new Token(TokenClass.ATM, "x")),
