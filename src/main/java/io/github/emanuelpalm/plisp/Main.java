@@ -1,5 +1,7 @@
 package io.github.emanuelpalm.plisp;
 
+import io.github.emanuelpalm.plisp.anaylzer.Analyzer;
+import io.github.emanuelpalm.plisp.anaylzer.AnalyzerException;
 import io.github.emanuelpalm.plisp.lexer.TokenBuffer;
 import io.github.emanuelpalm.plisp.lexer.Lexer;
 import io.github.emanuelpalm.plisp.parser.Parser;
@@ -16,8 +18,8 @@ import java.io.IOException;
  */
 public class Main {
     public static void main(final String[] args) {
-        if (args.length != 1) {
-            System.err.println("Usage: ./plisp <file>");
+        if (!(args.length == 1 || (args.length == 2 && args[1].equals("--analyze")))) {
+            System.err.println("Usage: ./plisp <file> [--analyze]");
             return;
         }
 
@@ -39,11 +41,21 @@ public class Main {
             return;
         }
 
-        try {
-            System.out.println(Evaluator.eval(expr));
+        if (args.length == 2) {
+            try {
+                Analyzer.checkEnvironmentOf(expr);
+                System.out.println("No errors detected.");
 
-        } catch (final SExprException e) {
-            System.err.println("Runtime error: " + e.getMessage());
+            } catch (final AnalyzerException e) {
+                System.err.println("Analyzer error: " + e.getMessage());
+            }
+        } else {
+            try {
+                System.out.println(Evaluator.eval(expr));
+
+            } catch (final SExprException e) {
+                System.err.println("Runtime error: " + e.getMessage());
+            }
         }
     }
 }
