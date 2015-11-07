@@ -66,9 +66,9 @@ unix-like system, the following command may be used to run the bundled example a
 $ ./build/install/plisp/bin/plisp example.plp
 ```
 
-Also, the interpreter contains a rudimentary interpreter that may be invoked by adding the flag `--analyze` when
-executing the program. When used, the program is not interpreted at all. An example of running the analyzer on the
-example application would be as follows:
+Also, the interpreter contains a rudimentary static analyzer that may be invoked by adding the flag `--analyze` when
+running. If used, the loaded program is only analyzed. An example of running the analyzer on the example application
+would be as follows:
 
 ```sh
 $ ./build/install/plisp/bin/plisp example.plp --analyze
