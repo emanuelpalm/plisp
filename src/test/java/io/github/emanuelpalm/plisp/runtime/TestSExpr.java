@@ -3,6 +3,8 @@ package io.github.emanuelpalm.plisp.runtime;
 import io.github.emanuelpalm.plisp.lexer.Token;
 import io.github.emanuelpalm.plisp.lexer.TokenClass;
 import io.github.emanuelpalm.plisp.lexer.TokenOrigin;
+import io.github.emanuelpalm.plisp.parser.Parser;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -81,5 +83,21 @@ public class TestSExpr {
                 SExpr.Cons.of(new SExpr.Atom(new Token(new TokenOrigin(1, 4),TokenClass.ATM, "b")))
         );
         assertEquals(c1.token().get(), new Token(new TokenOrigin(1, 4),TokenClass.ATM, "b"));
+    }
+
+    @Test(dataProvider = "providerConsesAndSizes")
+    public void shouldDetermineSizeOfConsLists(final String input, final int expectedSize) {
+        assertEquals(Parser.parse(input).size(), expectedSize);
+    }
+
+    @DataProvider
+    public Object[][] providerConsesAndSizes() {
+        return new Object[][]{
+                new Object[]{"()", 0},
+                new Object[]{"(a)", 1},
+                new Object[]{"(a b)", 2},
+                new Object[]{"((a b) (c d))", 2},
+                new Object[]{"(((a) (b)) (c) (d))", 3}
+        };
     }
 }
