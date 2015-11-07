@@ -45,6 +45,11 @@ public interface SExpr {
         return NIL;
     }
 
+    /** Amount of cons elements, if the current expression is a cons. */
+    default int size() {
+        return 1;
+    }
+
     /**
      * An empty list.
      */
@@ -54,6 +59,11 @@ public interface SExpr {
         @Override
         public String toString() {
             return "NIL";
+        }
+
+        @Override
+        public int size() {
+            return 0;
         }
     }
 
@@ -176,8 +186,25 @@ public interface SExpr {
         }
 
         @Override
+        public int size() {
+            return 1 + cdr().size();
+        }
+
+        @Override
         public String toString() {
-            return "(" + car() + " . " + cdr() + ")";
+            final StringBuilder builder = new StringBuilder("(").append(car());
+
+            final SExpr cdr = cdr();
+            if (cdr instanceof Nil) {
+                builder.append(")");
+
+            } else if (cdr instanceof Atom) {
+                builder.append(" . ").append(cdr);
+
+            } else {
+                builder.append(" ").append(cdr.toString().substring(1));
+            }
+            return builder.toString();
         }
 
         @Override
