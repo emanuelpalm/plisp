@@ -45,6 +45,11 @@ public interface SExpr {
         return NIL;
     }
 
+    /** Amount of cons elements, if the current expression is a cons. */
+    default int size() {
+        return 1;
+    }
+
     /**
      * An empty list.
      */
@@ -54,6 +59,11 @@ public interface SExpr {
         @Override
         public String toString() {
             return "NIL";
+        }
+
+        @Override
+        public int size() {
+            return 0;
         }
     }
 
@@ -173,6 +183,11 @@ public interface SExpr {
                     new Cons(car(), e.car()),
                     cdr().zip(e.cdr())
             );
+        }
+
+        @Override
+        public int size() {
+            return 1 + cdr().size();
         }
 
         @Override
